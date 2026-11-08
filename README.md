@@ -20,8 +20,8 @@ Canlı örnek: https://binance-futures-backtest-dashboard.hikmet-onur21.chatgpt.
 Python 3.12 ve Node.js 20+ kurulu olmalıdır.
 
 ```bash
-git clone <REPO_URL>
-cd binance-futures-backtest-dashboard
+git clone https://github.com/LeChiffree/Codex-Bulut-Backtests.git
+cd Codex-Bulut-Backtests
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
