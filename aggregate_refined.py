@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import re,json,duckdb,pandas as pd
-R=Path(__file__).resolve().parent;O=R/'results';G=str(O/'refined_5m/by_symbol/*_trades.parquet');con=duckdb.connect(str(O/'refined_5m/aggregate.duckdb'));con.execute("PRAGMA threads=4; PRAGMA memory_limit='1GB'; PRAGMA temp_directory='{}'".format(str(O/'tmp')))
+R=Path(__file__).resolve().parent;O=R/'results';(O/'refined_5m').mkdir(parents=True,exist_ok=True);(O/'tmp').mkdir(parents=True,exist_ok=True);G=str(O/'refined_5m/by_symbol/*_trades.parquet');con=duckdb.connect(str(O/'refined_5m/aggregate.duckdb'));con.execute("PRAGMA threads=4; PRAGMA memory_limit='1GB'; PRAGMA temp_directory='{}'".format(str(O/'tmp')))
 con.execute("COPY (SELECT scenario_id,any_value(scenario) scenario,timeframe,symbol,count(*) trades,avg(CASE WHEN r_multiple>0 THEN 1.0 ELSE 0.0 END) win_rate,avg(r_multiple) avg_r,product(1+\"return\")-1 total_return,min(r_multiple) max_loss_r FROM read_parquet(?) GROUP BY scenario_id,timeframe,symbol) TO ? (FORMAT PARQUET,COMPRESSION ZSTD)",[G,str(O/'summary_symbol.parquet')])
 con.execute("COPY (SELECT scenario_id,any_value(scenario) scenario,timeframe,symbol,year(entry_time)::INTEGER AS \"year\",product(1+\"return\")-1 annual_return,count(*) trade_count FROM read_parquet(?) GROUP BY scenario_id,timeframe,symbol,year(entry_time)) TO ? (FORMAT PARQUET,COMPRESSION ZSTD)",[G,str(O/'annual_symbol.parquet')])
 con.execute("COPY (SELECT scenario_id,any_value(scenario) scenario,timeframe,year,avg(annual_return) annual_return,count(DISTINCT symbol) symbols,sum(trade_count) trades FROM read_parquet(?) GROUP BY scenario_id,timeframe,year ORDER BY scenario_id,timeframe,year) TO ? (HEADER,DELIMITER ',')",[str(O/'annual_symbol.parquet'),str(O/'annual_results.csv')])

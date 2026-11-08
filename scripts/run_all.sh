@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON="${PYTHON:-$ROOT/.venv/bin/python}"
+SIZE="${SIZE:-500}"
+WORKERS="${WORKERS:-6}"
+START="${START:-2019-09-01}"
+mkdir -p "$ROOT/results/refined_5m/by_symbol" "$ROOT/results/tmp" "$ROOT/dashboard/data"
+"$PYTHON" "$ROOT/download_data.py" --root "$ROOT" --size "$SIZE" --start "$START" --workers "$WORKERS"
+"$PYTHON" "$ROOT/backtest.py" --root "$ROOT" --workers "$WORKERS"
+"$PYTHON" "$ROOT/refine_5m.py" --root "$ROOT" --workers "$WORKERS"
+"$PYTHON" "$ROOT/aggregate_refined.py"
+FILTER_TRADES_GLOB="$ROOT/results/refined_5m/by_symbol/*_trades.parquet" "$PYTHON" "$ROOT/build_filters.py"
+"$PYTHON" "$ROOT/build_dashboard_v2.py" --root "$ROOT"
+cp -a "$ROOT/dashboard_v2/data/." "$ROOT/dashboard/data/"
+echo "Hazır. Dashboard: cd $ROOT/dashboard && npm start"
