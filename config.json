@@ -1,0 +1,14 @@
+{
+  "universe_size": 500,
+  "start_month": "2019-09",
+  "timeframes": ["1h", "4h", "1d", "1w"],
+  "initial_equity": 10000.0,
+  "risk_fraction": 0.005,
+  "max_leverage": 1.0,
+  "fee_rate_per_side": 0.0005,
+  "slippage_rate_per_side": 0.0002,
+  "max_bars_in_trade": 500,
+  "portfolio_mode": "independent_symbol_scenario",
+  "intrabar_priority": "stop_first"
+}
+
