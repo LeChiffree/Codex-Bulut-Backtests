@@ -263,7 +263,7 @@ def resample(df, tf):
 
 def parse_scenarios(path):
     pat=re.compile(r"^## (\d{3}) — (.+)$",re.M)
-    return [(int(a),b) for a,b in pat.findall(path.read_text())]
+    return [(int(a),b) for a,b in pat.findall(path.read_text(encoding="utf-8"))]
 
 
 def process_symbol(job):

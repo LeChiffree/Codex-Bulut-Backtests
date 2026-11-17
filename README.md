@@ -64,6 +64,22 @@ Tarayıcıda `http://localhost:8080` adresine git.
 6. `build_dashboard_v2.py`: Dashboard veri dosyalarını üretir.
 7. `dashboard/server.js`: Arayüzü yerel olarak sunar.
 
+## Singular-Backtest (tek açık işlem)
+
+[`Singular-Backtest/`](Singular-Backtest/README.md) klasörü, normal backtestten
+bağımsız bir varyanttır: her senaryo için bir coinde aynı anda **yalnızca bir
+açık işlem** tutulur; işlem açıkken gelen yeni sinyaller bloke edilir. Kural tüm
+zaman dilimleri ve long/short yönleri için geçerlidir.
+
+```bash
+python Singular-Backtest/prepare_data.py
+python Singular-Backtest/run_singular.py --workers 10
+python Singular-Backtest/verify_singular.py
+```
+
+Çıktılar `Singular-Backtest/results/` altına yazılır; özet payload
+`Singular-Backtest/singular_results.json` dosyasındadır.
+
 ## Temel ayarlar
 
 [config.json](config.json) içinde risk, komisyon, slippage ve kaldıraç sınırları bulunur. Varsayılan hesaplama 1x kaldıraç sınırıyla ve maliyetler dahil yapılır.
@@ -78,6 +94,7 @@ docs/METHODS.md               220 metodun ayrıntılı kuralları
 docs/FILTERS.md               56 filtrenin açıklaması
 scripts/run_all.sh            Tam otomatik çalışma
 scripts/quick_test.sh          Küçük doğrulama çalışması
+Singular-Backtest/            Tek açık işlem varyantı (ayrı sonuç klasörü)
 ```
 
 ## Veri ve kaynak kod politikası

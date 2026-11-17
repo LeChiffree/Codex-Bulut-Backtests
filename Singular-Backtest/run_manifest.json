@@ -1,0 +1,350 @@
+[
+  {
+    "symbol": "1000PEPEUSDT",
+    "status": "ok",
+    "normal": 292964,
+    "singular": 143906
+  },
+  {
+    "symbol": "1000SHIBUSDT",
+    "status": "ok",
+    "normal": 360053,
+    "singular": 174600
+  },
+  {
+    "symbol": "AAVEUSDT",
+    "status": "ok",
+    "normal": 376440,
+    "singular": 184345
+  },
+  {
+    "symbol": "ADAUSDT",
+    "status": "ok",
+    "normal": 364711,
+    "singular": 175291
+  },
+  {
+    "symbol": "AINUSDT",
+    "status": "ok",
+    "normal": 95130,
+    "singular": 48500
+  },
+  {
+    "symbol": "AKEUSDT",
+    "status": "ok",
+    "normal": 73294,
+    "singular": 37282
+  },
+  {
+    "symbol": "ARBUSDT",
+    "status": "ok",
+    "normal": 313639,
+    "singular": 153523
+  },
+  {
+    "symbol": "ASTERUSDT",
+    "status": "ok",
+    "normal": 83165,
+    "singular": 44123
+  },
+  {
+    "symbol": "AVAUSDT",
+    "status": "ok",
+    "normal": 157894,
+    "singular": 83791
+  },
+  {
+    "symbol": "AVAXUSDT",
+    "status": "ok",
+    "normal": 369051,
+    "singular": 171193
+  },
+  {
+    "symbol": "BCHUSDT",
+    "status": "ok",
+    "normal": 364158,
+    "singular": 180558
+  },
+  {
+    "symbol": "BNBUSDT",
+    "status": "ok",
+    "normal": 371267,
+    "singular": 175308
+  },
+  {
+    "symbol": "BRUSDT",
+    "status": "ok",
+    "normal": 117416,
+    "singular": 60247
+  },
+  {
+    "symbol": "BTCUSDT",
+    "status": "ok",
+    "normal": 364458,
+    "singular": 173811
+  },
+  {
+    "symbol": "BTWUSDT",
+    "status": "ok",
+    "normal": 20167,
+    "singular": 11406
+  },
+  {
+    "symbol": "BULLAUSDT",
+    "status": "ok",
+    "normal": 91071,
+    "singular": 41850
+  },
+  {
+    "symbol": "COTIUSDT",
+    "status": "ok",
+    "normal": 368462,
+    "singular": 180935
+  },
+  {
+    "symbol": "CRVUSDT",
+    "status": "ok",
+    "normal": 352111,
+    "singular": 167327
+  },
+  {
+    "symbol": "DASHUSDT",
+    "status": "ok",
+    "normal": 365289,
+    "singular": 179522
+  },
+  {
+    "symbol": "DOGEUSDT",
+    "status": "ok",
+    "normal": 358741,
+    "singular": 175496
+  },
+  {
+    "symbol": "DOTUSDT",
+    "status": "ok",
+    "normal": 369784,
+    "singular": 179024
+  },
+  {
+    "symbol": "ENAUSDT",
+    "status": "ok",
+    "normal": 221605,
+    "singular": 99482
+  },
+  {
+    "symbol": "ETHUSDT",
+    "status": "ok",
+    "normal": 357739,
+    "singular": 171298
+  },
+  {
+    "symbol": "FETUSDT",
+    "status": "ok",
+    "normal": 325438,
+    "singular": 153710
+  },
+  {
+    "symbol": "FILUSDT",
+    "status": "ok",
+    "normal": 356966,
+    "singular": 172787
+  },
+  {
+    "symbol": "GENIUSUSDT",
+    "status": "ok",
+    "normal": 31142,
+    "singular": 16530
+  },
+  {
+    "symbol": "HEIUSDT",
+    "status": "ok",
+    "normal": 130972,
+    "singular": 64786
+  },
+  {
+    "symbol": "HYPEUSDT",
+    "status": "ok",
+    "normal": 117322,
+    "singular": 60397
+  },
+  {
+    "symbol": "INJUSDT",
+    "status": "ok",
+    "normal": 371134,
+    "singular": 180185
+  },
+  {
+    "symbol": "IOSTUSDT",
+    "status": "ok",
+    "normal": 367872,
+    "singular": 176840
+  },
+  {
+    "symbol": "LINKUSDT",
+    "status": "ok",
+    "normal": 373792,
+    "singular": 182798
+  },
+  {
+    "symbol": "LITUSDT",
+    "status": "ok",
+    "normal": 283143,
+    "singular": 140869
+  },
+  {
+    "symbol": "LSKUSDT",
+    "status": "ok",
+    "normal": 236500,
+    "singular": 112672
+  },
+  {
+    "symbol": "LTCUSDT",
+    "status": "ok",
+    "normal": 365916,
+    "singular": 179459
+  },
+  {
+    "symbol": "NEARUSDT",
+    "status": "ok",
+    "normal": 372001,
+    "singular": 182879
+  },
+  {
+    "symbol": "ONDOUSDT",
+    "status": "ok",
+    "normal": 239742,
+    "singular": 117882
+  },
+  {
+    "symbol": "ONEUSDT",
+    "status": "ok",
+    "normal": 365909,
+    "singular": 172261
+  },
+  {
+    "symbol": "PAXGUSDT",
+    "status": "ok",
+    "normal": 131416,
+    "singular": 68718
+  },
+  {
+    "symbol": "PENGUUSDT",
+    "status": "ok",
+    "normal": 154556,
+    "singular": 77343
+  },
+  {
+    "symbol": "PUMPUSDT",
+    "status": "ok",
+    "normal": 113571,
+    "singular": 54076
+  },
+  {
+    "symbol": "RAYSOLUSDT",
+    "status": "ok",
+    "normal": 156138,
+    "singular": 75055
+  },
+  {
+    "symbol": "SAGAUSDT",
+    "status": "ok",
+    "normal": 212573,
+    "singular": 104697
+  },
+  {
+    "symbol": "SOLUSDT",
+    "status": "ok",
+    "normal": 367777,
+    "singular": 176852
+  },
+  {
+    "symbol": "SUIUSDT",
+    "status": "ok",
+    "normal": 304724,
+    "singular": 152423
+  },
+  {
+    "symbol": "SYNUSDT",
+    "status": "ok",
+    "normal": 178555,
+    "singular": 88238
+  },
+  {
+    "symbol": "TAOUSDT",
+    "status": "ok",
+    "normal": 217957,
+    "singular": 110235
+  },
+  {
+    "symbol": "TRUMPUSDT",
+    "status": "ok",
+    "normal": 135449,
+    "singular": 59466
+  },
+  {
+    "symbol": "UNIUSDT",
+    "status": "ok",
+    "normal": 371225,
+    "singular": 177877
+  },
+  {
+    "symbol": "USELESSUSDT",
+    "status": "ok",
+    "normal": 94929,
+    "singular": 52294
+  },
+  {
+    "symbol": "VVVUSDT",
+    "status": "ok",
+    "normal": 143230,
+    "singular": 72635
+  },
+  {
+    "symbol": "WLDUSDT",
+    "status": "ok",
+    "normal": 275839,
+    "singular": 127668
+  },
+  {
+    "symbol": "XAUTUSDT",
+    "status": "ok",
+    "normal": 41445,
+    "singular": 22721
+  },
+  {
+    "symbol": "XLMUSDT",
+    "status": "ok",
+    "normal": 370446,
+    "singular": 180565
+  },
+  {
+    "symbol": "XMRUSDT",
+    "status": "ok",
+    "normal": 376351,
+    "singular": 187183
+  },
+  {
+    "symbol": "XPLUSDT",
+    "status": "ok",
+    "normal": 91195,
+    "singular": 50246
+  },
+  {
+    "symbol": "XRPUSDT",
+    "status": "ok",
+    "normal": 354233,
+    "singular": 172236
+  },
+  {
+    "symbol": "ZECUSDT",
+    "status": "ok",
+    "normal": 367594,
+    "singular": 184305
+  },
+  {
+    "symbol": "ZENUSDT",
+    "status": "ok",
+    "normal": 369410,
+    "singular": 180382
+  }
+]
