@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="tr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strateji Taraması PRO · Codex Bulut Backtests</title>
+<style>
+:root{--bg0:#0e1117;--bg1:#10141c;--panel:#161b27;--panel-2:#1c2332;--panel-3:#222a3a;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--accent:#6ea8fe;--accent-dim:rgba(110,168,254,.14);--accent-line:rgba(110,168,254,.28);--up:#3fbf7f;--down:#ef5b5b;--amber:#f4b942;--purple:#b794f4;--ink:#e8ecf4;--ink-dim:#c9d3e3;--muted:#93a0b8;--faint:#64798b;--font:system-ui,'Segoe UI',Roboto,Arial,sans-serif;--r:14px}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg0) 55%);color:var(--ink);font:13px/1.5 var(--font)}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:13px 26px;background:linear-gradient(180deg,rgba(19,26,42,.98),rgba(14,17,23,.96));border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.brand{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:20px;margin:2px 0 0;letter-spacing:-.3px;line-height:1.1}
+.pro-badge{font-size:10px;vertical-align:middle;margin-left:8px;padding:2px 7px;border-radius:6px;background:var(--accent-dim);border:1px solid var(--accent-line);color:var(--accent);letter-spacing:1.4px;font-weight:700}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabbtn{display:inline-flex;align-items:center;gap:6px;font:12px var(--font);color:var(--muted);background:transparent;border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;cursor:pointer;text-decoration:none}
+.tabbtn:hover{color:var(--ink);border-color:var(--accent-line)}
+.tabbtn.active{color:var(--bg0);background:linear-gradient(135deg,#8fc0ff,#6ea8fe 50%,#4f83c8);border-color:transparent;font-weight:700}
+.tabcount{font-size:10px;padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.14);color:inherit}
+.topmeta{margin-left:auto;font-size:11px;color:var(--faint);white-space:nowrap}
+.toplink{margin-left:10px;font-size:11px;color:var(--accent);text-decoration:none;border:1px solid var(--accent-line);padding:4px 8px;border-radius:6px;background:var(--accent-dim)}
+.toplink:hover{background:rgba(110,168,254,.22)}
+.wrap{max-width:1920px;margin:0 auto;padding:18px 24px 34px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:4px 0 14px}
+.crumb{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);font-weight:700}
+h2{font-size:24px;margin:6px 0 4px;letter-spacing:-.5px}
+.hero p{margin:0;color:var(--muted);font-size:12.5px;max-width:830px}
+.scorekey{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:11px;color:var(--muted);line-height:1.65;max-width:520px}
+.scorekey b{color:var(--accent)}
+.scorekey .dim{color:var(--faint)}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+input[type=text],input[type=number],select{background:var(--panel-3);color:var(--ink);border:1px solid var(--line-2);border-radius:8px;padding:7px 9px;font:12px var(--font);outline:none}
+input[type=text]:focus,input[type=number]:focus,select:focus{border-color:var(--accent-line)}
+#scanSearch{width:260px}
+#scanFilter{max-width:250px}
+#scanMinN{width:78px}
+label.toggle{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;white-space:nowrap}
+.chkbox{accent-color:var(--accent);cursor:pointer}
+#scanHint{margin-left:auto;color:var(--faint);font-size:11.5px;white-space:nowrap}
+.btn{font:12px var(--font);border-radius:8px;padding:7px 11px;cursor:pointer;border:1px solid var(--line-2);background:transparent;color:var(--ink)}
+.btn:hover{border-color:var(--accent-line);color:var(--accent)}
+.btn.accent{background:var(--accent-dim);border-color:var(--accent-line);color:var(--accent)}
+.btn.danger:hover{border-color:rgba(239,91,91,.5);color:var(--down)}
+.tablewrap{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:var(--r);overflow:auto;max-height:calc(100vh - 305px);box-shadow:0 18px 44px -24px rgba(0,0,0,.8)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1180px;font-size:12px}
+thead th{position:sticky;top:0;z-index:2;background:#1a2231;color:var(--faint);font-weight:600;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-2);white-space:nowrap}
+thead th[data-k]{cursor:pointer;user-select:none}
+thead th[data-k]:hover{color:var(--ink)}
+thead th.num{text-align:right}
+th.sortasc::after{content:' ▲';color:var(--accent)}
+th.sortdesc::after{content:' ▼';color:var(--accent)}
+tbody td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.045);vertical-align:middle}
+tbody tr:hover{background:rgba(110,168,254,.055)}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chkcell{width:34px;text-align:center;padding-left:8px;padding-right:4px}
+.rank{color:var(--faint);font-size:11px;width:46px}
+.method{min-width:280px;max-width:460px}
+.methodname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-dim)}
+.mini{font-size:10.5px;color:var(--faint);margin-top:2px}
+.badge{display:inline-block;padding:2px 6px;border-radius:5px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--ink-dim);font-size:10.5px;font-weight:600}
+.pos{color:var(--up)}.neg{color:var(--down)}.muted{color:var(--faint)}
+.scorebar{height:3px;width:58px;margin-left:auto;margin-top:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.scorebar i{display:block;height:100%;border-radius:2px}
+.openlink{color:var(--accent);text-decoration:none;font-size:11px;border-bottom:1px dotted var(--accent-line)}
+.openlink:hover{color:#9ecbff}
+.rmbtn{font:11px var(--font);color:var(--down);background:transparent;border:1px solid rgba(239,91,91,.35);border-radius:6px;padding:4px 7px;cursor:pointer}
+.rmbtn:hover{background:rgba(239,91,91,.12)}
+.empty{padding:34px;text-align:center;color:var(--muted);font-size:12.5px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 13px}
+.sumcard{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.sumk{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.sumv{font-size:21px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+.footnote{color:var(--faint);font-size:11px;line-height:1.7;margin-top:10px}
+#loader{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(14,17,23,.82);backdrop-filter:blur(3px);color:var(--muted);font-size:12px;transition:opacity .25s}
+#loader.hide{opacity:0;pointer-events:none}
+.spin{width:26px;height:26px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:1100px){.topmeta{display:none}.tablewrap{max-height:none}#scanSearch{width:200px}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="spin"></div><span>Tarama verisi yükleniyor…</span></div>
+<header class="topbar">
+  <div>
+    <div class="brand">Codex · Bulut Backtests</div>
+    <h1>Strateji Taraması <span class="pro-badge">PRO</span></h1>
+  </div>
+  <nav class="tabs">
+    <a class="tabbtn" href="/">Metot analizi</a>
+    <button class="tabbtn active" data-tab="scan">Strateji taraması<span class="tabcount" id="scanCount">—</span></button>
+    <button class="tabbtn" data-tab="chosen">Chosen Ones<span class="tabcount" id="chosenTabCount">0</span></button>
+  </nav>
+  <div class="topmeta">220 metot · 56 filtre · 2020–2026 <a class="toplink" href="/eski">Klasik</a></div>
+</header>
+<main class="wrap">
+  <div id="tab-scan" class="tabpane">
+    <section class="hero">
+      <div>
+        <div class="crumb">Sıralanabilir tarama</div>
+        <h2>Strateji × filtre × timeframe</h2>
+        <p>Her satır tek bir metot × timeframe kombinasyonu; seçtiğin filtre tüm satırlara uygulanır. Sütun başlığına tıkla: sırala. Satırdaki kutuyu işaretle: Chosen Ones’a ekle.</p>
+      </div>
+      <div class="scorekey"><b>Puan (0–100)</b> = Ort. sembol net %40 · 2026 %25 · Kazanma %15 · Ort. R %15 · İşlem %5<br><span class="dim">Her metrik 800 kombinasyon içinde yüzdelik dilime çevrilir. 2026 ve poz. yıl filtresiz baz veridir.</span></div>
+    </section>
+    <div class="toolbar">
+      <input type="text" id="scanSearch" placeholder="SID / metot / filtre ara…">
+      <select id="scanTf"><option value="">Tüm TF</option></select>
+      <select id="scanFilter"></select>
+      <label class="toggle">Min işlem <input type="number" id="scanMinN" value="0" min="0" step="10"></label>
+      <label class="toggle"><input type="checkbox" id="scanPositive"> sadece pozitif</label>
+      <span id="scanHint"></span>
+      <button class="btn accent" id="scanCsv">CSV indir</button>
+    </div>
+    <div class="tablewrap"><table id="scanTable"><thead></thead><tbody></tbody></table></div>
+    <div class="footnote">* 2026 kısmi yıldır; 2026 ve poz. yıl değerleri filtresiz baz yıllık veridir, filtre seçimi bu iki sütunu değiştirmez. Net % ve Ort. R, seçili filtrenin sembol ortalamasıdır (portföy toplamı değildir). Filtreler tek tek uygulanır; 2^56 kombinasyonu değildir. Sonuçlar fee + slippage dahildir.</div>
+  </div>
+
+  <div id="tab-chosen" class="tabpane" hidden>
+    <section class="hero">
+      <div>
+        <div class="crumb">Seçilen kombinasyonlar</div>
+        <h2>Chosen Ones</h2>
+        <p>Strateji taramasında işaretlediğin metot × timeframe × filtre kombinasyonları. Seçimler tarayıcıda saklanır; CSV olarak dışa aktarılabilir.</p>
+      </div>
+      <div class="scorekey"><b>Seçim durumu</b><br><span id="chosenHint">0 kombinasyon</span><br><span class="dim">Chosen Ones listesi tarayıcıda saklanır.</span></div>
+    </section>
+    <div class="summary">
+      <div class="sumcard"><div class="sumk">Kombinasyon</div><div class="sumv" id="chosenCount">0</div></div>
+      <div class="sumcard"><div class="sumk">Metot</div><div class="sumv" id="chosenMethods">0</div></div>
+      <div class="sumcard"><div class="sumk">Filtre</div><div class="sumv" id="chosenFilters">0</div></div>
+      <div class="sumcard"><div class="sumk">Ortalama puan</div><div class="sumv" id="chosenAvg">—</div></div>
+      <div class="sumcard"><div class="sumk">En iyi net</div><div class="sumv pos" id="chosenBest">—</div></div>
+    </div>
+    <div class="toolbar">
+      <span id="chosenStatus" style="color:var(--faint);font-size:11.5px"></span>
+      <span style="margin-left:auto"></span>
+      <button class="btn accent" id="chosenCsv">CSV indir</button>
+      <button class="btn danger" id="chosenClear">Tümünü temizle</button>
+    </div>
+    <div class="tablewrap"><table id="chosenTable"><thead></thead><tbody></tbody></table></div>
+    <div class="footnote">CSV dosyası ; ayraçlı ve UTF-8 BOM’ludur; Excel’de doğrudan açılır. Yıllık getiriler filtresiz baz veridir; 2026 kısmi yıldır.</div>
+  </div>
+</main>
+<div id="tip"></div>
+<script>
+const $=id=>document.getElementById(id);
+const TF_ORDER=['1d','4h','1h','1w'];
+const LS_KEY='codex_scan_chosen_v1';
+const state={tab:'scan',filter:'baseline',tf:'',search:'',minN:0,positive:false,sort:'score',dir:-1};
+const chosenState={sort:'score',dir:-1};
+let DATA=null;
+const rowMap=new Map();
+const scoreCache=new Map();
+const chosen=(()=>{try{return new Set(JSON.parse(localStorage.getItem(LS_KEY)||'[]'))}catch(e){return new Set()}})();
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmtPct(x,d=2){if(x==null||!isFinite(x))return '—';return (x*100).toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%'}
+function fmtNum(x){return (+x||0).toLocaleString('tr-TR')}
+function fmtR(x){if(x==null||!isFinite(x))return '—';return (+x).toLocaleString('tr-TR',{minimumFractionDigits:3,maximumFractionDigits:3})}
+function fmtScore(x){if(x==null||!isFinite(x))return '—';return (+x).toLocaleString('tr-TR',{minimumFractionDigits:1,maximumFractionDigits:1})}
+function filterName(id){return DATA&&DATA.filters.find(f=>f.id===id)?DATA.filters.find(f=>f.id===id).name:id}
+function keyOf(r,fid){return r.sid+'|'+r.tf+'|'+fid}
+function rowKey(r){return r.sid+'|'+r.tf}
+function saveChosen(){try{localStorage.setItem(LS_KEY,JSON.stringify([...chosen]))}catch(e){}}
+
+function percentileMap(values){
+  const valid=[];
+  values.forEach((v,i)=>{if(v!=null&&isFinite(v))valid.push([v,i])});
+  valid.sort((a,b)=>a[0]-b[0]);
+  const m=new Map(),denom=Math.max(1,valid.length-1);
+  valid.forEach(([v,i],k)=>m.set(i,k/denom));
+  return m;
+}
+function scoreMap(fid){
+  if(scoreCache.has(fid))return scoreCache.get(fid);
+  const rows=DATA.rows;
+  const pRet=percentileMap(rows.map(r=>r.f[fid]?r.f[fid].ret:null));
+  const p26=percentileMap(rows.map(r=>r.y['2026']));
+  const pWr=percentileMap(rows.map(r=>r.f[fid]?r.f[fid].wr:null));
+  const pR=percentileMap(rows.map(r=>r.f[fid]?r.f[fid].r:null));
+  const pTr=percentileMap(rows.map(r=>r.f[fid]?r.f[fid].trades:null));
+  const map=new Map();
+  rows.forEach((r,i)=>{
+    const m=r.f[fid];
+    if(!m){map.set(keyOf(r,fid),null);return}
+    const s=100*(.40*(pRet.get(i)??0)+.25*(p26.get(i)??0)+.15*(pWr.get(i)??0)+.15*(pR.get(i)??0)+.05*(pTr.get(i)??0));
+    map.set(keyOf(r,fid),Math.round(s*10)/10);
+  });
+  scoreCache.set(fid,map);
+  return map;
+}
+function scoreFor(r,fid){return scoreMap(fid).get(keyOf(r,fid))??null}
+
+function sortBy(rows,get,dir){
+  rows.sort((a,b)=>{
+    const av=get(a),bv=get(b);
+    if(typeof av==='string'||typeof bv==='string'){
+      const as=av==null?'':String(av).toLocaleLowerCase('tr');
+      const bs=bv==null?'':String(bv).toLocaleLowerCase('tr');
+      if(as===bs)return 0;
+      return (as>bs?1:-1)*dir;
+    }
+    if(av==null&&bv==null)return 0;
+    if(av==null)return 1;
+    if(bv==null)return -1;
+    if(av===bv)return 0;
+    return (av>bv?1:-1)*dir;
+  });
+  return rows;
+}
+function scanSortVal(r,k){
+  const m=r._m;
+  switch(k){
+    case 'sid':return r.sid;
+    case 'name':return r.name;
+    case 'tf':return TF_ORDER.indexOf(r.tf);
+    case 'trades':return m.trades;
+    case 'symbols':return m.symbols;
+    case 'ret':return m.ret;
+    case 'y26':return r.y['2026']??null;
+    case 'wr':return m.wr;
+    case 'r':return m.r;
+    case 'pos':return r.ny?r.pos/r.ny:null;
+    case 'score':return r._score;
+    default:return r.sid;
+  }
+}
+const scanCols=[
+  {k:'sid',label:'#'},
+  {k:'name',label:'Metot'},
+  {k:'tf',label:'TF'},
+  {k:'trades',label:'İşlem',num:true},
+  {k:'symbols',label:'Sembol',num:true},
+  {k:'ret',label:'Ort. sembol net %',num:true},
+  {k:'y26',label:'2026 % *',num:true},
+  {k:'wr',label:'Kazanma %',num:true},
+  {k:'r',label:'Ort. R',num:true},
+  {k:'pos',label:'Poz. yıl *',num:true},
+  {k:'score',label:'Puan',num:true},
+  {k:null,label:'Aç'}
+];
+function selectedScanRows(){
+  if(!DATA)return [];
+  const fid=state.filter;
+  const sm=scoreMap(fid);
+  const q=state.search.trim().toLocaleLowerCase('tr');
+  const rows=DATA.rows.filter(r=>{
+    if(state.tf&&r.tf!==state.tf)return false;
+    const m=r.f[fid];
+    if(!m)return false;
+    if(state.minN&&m.trades<state.minN)return false;
+    if(state.positive&&m.ret<=0)return false;
+    if(q){
+      const hay=(r.sid+' '+r.name+' '+r.tf+' '+filterName(fid)).toLocaleLowerCase('tr');
+      if(!hay.includes(q))return false;
+    }
+    return true;
+  }).map(r=>({...r,_m:r.f[fid],_score:sm.get(keyOf(r,fid))??null}));
+  return sortBy(rows,r=>scanSortVal(r,state.sort),state.dir);
+}
+function renderScan(){
+  if(!DATA)return;
+  const fid=state.filter;
+  const rows=selectedScanRows();
+  $('scanHint').textContent=`${fmtNum(rows.length)} / ${fmtNum(DATA.rows.length)} kombinasyon · ${filterName(fid)}`;
+  const thead=$('scanTable').querySelector('thead');
+  thead.innerHTML='<tr><th class="chkcell"><input type="checkbox" id="chkAll" class="chkbox" title="Görünen tümünü seç"></th>'+scanCols.map(c=>{
+    if(!c.k)return `<th class="${c.num?'num':''}">${c.label}</th>`;
+    const active=state.sort===c.k;
+    return `<th data-k="${c.k}" class="${c.num?'num':''} ${active?(state.dir>0?'sortasc':'sortdesc'):''}">${c.label}</th>`;
+  }).join('')+'</tr>';
+  const tbody=$('scanTable').querySelector('tbody');
+  tbody.innerHTML=rows.map((r,i)=>{
+    const m=r._m,y26=r.y['2026'],sc=r._score;
+    const scc=sc==null?'':sc>=67?'var(--up)':sc>=40?'var(--amber)':'var(--down)';
+    const cls=sc==null?'':sc>=67?'pos':sc>=40?'':'neg';
+    return `<tr class="rowline" data-key="${esc(keyOf(r,fid))}">
+      <td class="chkcell"><input type="checkbox" class="chkbox" data-key="${esc(keyOf(r,fid))}" ${chosen.has(keyOf(r,fid))?'checked':''} aria-label="Seç"></td>
+      <td class="num rank">${i+1}</td>
+      <td class="method"><div class="methodname" title="${esc(r.name)}">${esc(r.name)}</div><div class="mini">SID ${String(r.sid).padStart(3,'0')} · ${r.ny} yıl</div></td>
+      <td><span class="badge">${r.tf}</span></td>
+      <td class="num">${fmtNum(m.trades)}</td>
+      <td class="num">${fmtNum(m.symbols)}</td>
+      <td class="num ${m.ret>=0?'pos':'neg'}">${fmtPct(m.ret,2)}</td>
+      <td class="num ${y26==null?'':y26>=0?'pos':'neg'}">${y26==null?'—':fmtPct(y26,2)}</td>
+      <td class="num">${fmtPct(m.wr,1)}</td>
+      <td class="num">${fmtR(m.r)}</td>
+      <td class="num">${r.pos}/${r.ny}</td>
+      <td class="num"><b class="${cls}">${fmtScore(sc)}</b><div class="scorebar"><i style="width:${sc==null?0:Math.max(0,Math.min(100,sc))}%;background:${scc||'var(--faint)'}"></i></div></td>
+      <td><a class="openlink" href="/?sid=${r.sid}&tf=${encodeURIComponent(r.tf)}">Aç</a></td>
+    </tr>`;
+  }).join('')||`<tr><td colspan="${scanCols.length+1}"><div class="empty">Bu filtre ve arama için kombinasyon yok.</div></td></tr>`;
+
+  thead.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{
+    const k=th.dataset.k;
+    state.dir=state.sort===k?-state.dir:-1;
+    state.sort=k;
+    renderScan();
+  });
+  const all=$('chkAll');
+  if(all){
+    const keys=rows.map(r=>keyOf(r,fid));
+    const sel=keys.filter(k=>chosen.has(k)).length;
+    all.checked=keys.length>0&&sel===keys.length;
+    all.indeterminate=sel>0&&sel<keys.length;
+    all.onchange=()=>{
+      keys.forEach(k=>all.checked?chosen.add(k):chosen.delete(k));
+      saveChosen();updateChosenBadges();renderScan();
+      if(state.tab==='chosen')renderChosen();
+    };
+  }
+  tbody.querySelectorAll('.chkbox').forEach(cb=>{
+    cb.onchange=()=>{
+      const k=cb.dataset.key;
+      if(cb.checked)chosen.add(k);else chosen.delete(k);
+      saveChosen();updateChosenBadges();
+      if(state.tab==='chosen')renderChosen();
+    };
+  });
+}
+const chosenCols=[
+  {k:'sid',label:'#'},
+  {k:'name',label:'Metot'},
+  {k:'tf',label:'TF'},
+  {k:'filter',label:'Filtre'},
+  {k:'trades',label:'İşlem',num:true},
+  {k:'symbols',label:'Sembol',num:true},
+  {k:'ret',label:'Net %',num:true},
+  {k:'y26',label:'2026 % *',num:true},
+  {k:'wr',label:'Kazanma %',num:true},
+  {k:'r',label:'Ort. R',num:true},
+  {k:'pos',label:'Poz. yıl *',num:true},
+  {k:'score',label:'Puan',num:true},
+  {k:null,label:'Aç'}
+];
+function chosenItems(){
+  const items=[];
+  chosen.forEach(k=>{
+    const [sid,tf,fid]=k.split('|');
+    const r=rowMap.get(sid+'|'+tf);
+    if(!r||!r.f[fid])return;
+    items.push({key:k,r,fid,m:r.f[fid],score:scoreFor(r,fid)});
+  });
+  return sortBy(items,x=>{
+    switch(chosenState.sort){
+      case 'sid':return x.r.sid;
+      case 'name':return x.r.name;
+      case 'tf':return TF_ORDER.indexOf(x.r.tf);
+      case 'filter':return filterName(x.fid);
+      case 'trades':return x.m.trades;
+      case 'symbols':return x.m.symbols;
+      case 'ret':return x.m.ret;
+      case 'y26':return x.r.y['2026']??null;
+      case 'wr':return x.m.wr;
+      case 'r':return x.m.r;
+      case 'pos':return x.r.ny?x.r.pos/x.r.ny:null;
+      default:return x.score;
+    }
+  },chosenState.dir);
+}
+function updateChosenBadges(){
+  const n=chosen.size;
+  $('chosenTabCount').textContent=n;
+  const c=$('chosenCount');if(c)c.textContent=n;
+}
+function renderChosen(){
+  if(!DATA)return;
+  updateChosenBadges();
+  const items=chosenItems();
+  const uniqMethods=new Set(items.map(x=>x.r.sid+'|'+x.r.tf)).size;
+  const uniqFilters=new Set(items.map(x=>x.fid)).size;
+  const scores=items.map(x=>x.score).filter(v=>v!=null);
+  const avg=scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:null;
+  const best=items.length?Math.max(...items.map(x=>x.m.ret)):null;
+  $('chosenMethods').textContent=uniqMethods;
+  $('chosenFilters').textContent=uniqFilters;
+  $('chosenAvg').textContent=avg==null?'—':fmtScore(avg);
+  $('chosenBest').textContent=best==null?'—':fmtPct(best,2);
+  $('chosenHint').textContent=`${fmtNum(items.length)} kombinasyon · ${uniqMethods} metot · ${uniqFilters} filtre`;
+  $('chosenStatus').textContent=`${fmtNum(items.length)} kombinasyon · ${uniqMethods} metot · ${uniqFilters} filtre`;
+  const thead=$('chosenTable').querySelector('thead');
+  thead.innerHTML='<tr><th>Kaldır</th>'+chosenCols.map(c=>{
+    if(!c.k)return `<th class="${c.num?'num':''}">${c.label}</th>`;
+    const active=chosenState.sort===c.k;
+    return `<th data-k="${c.k}" class="${c.num?'num':''} ${active?(chosenState.dir>0?'sortasc':'sortdesc'):''}">${c.label}</th>`;
+  }).join('')+'</tr>';
+  const tbody=$('chosenTable').querySelector('tbody');
+  tbody.innerHTML=items.length?items.map((x,i)=>{
+    const r=x.r,m=x.m,y26=r.y['2026'],sc=x.score;
+    const scc=sc==null?'':sc>=67?'var(--up)':sc>=40?'var(--amber)':'var(--down)';
+    const cls=sc==null?'':sc>=67?'pos':sc>=40?'':'neg';
+    return `<tr class="rowline" data-key="${esc(x.key)}">
+      <td><button class="rmbtn" data-key="${esc(x.key)}">Kaldır</button></td>
+      <td class="num rank">${i+1}</td>
+      <td class="method"><div class="methodname" title="${esc(r.name)}">${esc(r.name)}</div><div class="mini">SID ${String(r.sid).padStart(3,'0')} · ${r.ny} yıl</div></td>
+      <td><span class="badge">${r.tf}</span></td>
+      <td>${esc(filterName(x.fid))}</td>
+      <td class="num">${fmtNum(m.trades)}</td>
+      <td class="num">${fmtNum(m.symbols)}</td>
+      <td class="num ${m.ret>=0?'pos':'neg'}">${fmtPct(m.ret,2)}</td>
+      <td class="num ${y26==null?'':y26>=0?'pos':'neg'}">${y26==null?'—':fmtPct(y26,2)}</td>
+      <td class="num">${fmtPct(m.wr,1)}</td>
+      <td class="num">${fmtR(m.r)}</td>
+      <td class="num">${r.pos}/${r.ny}</td>
+      <td class="num"><b class="${cls}">${fmtScore(sc)}</b><div class="scorebar"><i style="width:${sc==null?0:Math.max(0,Math.min(100,sc))}%;background:${scc||'var(--faint)'}"></i></div></td>
+      <td><a class="openlink" href="/?sid=${r.sid}&tf=${encodeURIComponent(r.tf)}">Aç</a></td>
+    </tr>`;
+  }).join(''):`<tr><td colspan="${chosenCols.length+1}"><div class="empty">Henüz seçim yok. “Strateji taraması” sekmesinde Seç sütunundaki kutuları işaretle.</div></td></tr>`;
+  thead.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{
+    const k=th.dataset.k;
+    chosenState.dir=chosenState.sort===k?-chosenState.dir:-1;
+    chosenState.sort=k;
+    renderChosen();
+  });
+  tbody.querySelectorAll('.rmbtn').forEach(btn=>btn.onclick=()=>{
+    chosen.delete(btn.dataset.key);saveChosen();
+    renderChosen();renderScan();
+  });
+}
+function activateTab(name){
+  state.tab=name;
+  document.querySelectorAll('.tabbtn[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  $('tab-scan').hidden=name!=='scan';
+  $('tab-chosen').hidden=name!=='chosen';
+  if(name==='chosen')renderChosen();
+  const hash='#'+name;
+  if(location.hash!==hash)history.replaceState(null,'',hash);
+}
+function csvCell(v){const s=v==null?'':String(v);return /[";\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function downloadCsv(filename,head,rows){
+  const csv=[head.join(';'),...rows.map(r=>r.map(csvCell).join(';'))].join('\r\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+function downloadScanCsv(){
+  const rows=selectedScanRows();
+  if(!rows.length){alert('Dışa aktarılacak satır yok.');return}
+  const fid=state.filter;
+  const head=['Sıra','Strateji ID','Başlık','TF','Filtre','İşlem','Sembol','Ort. sembol net %','2026 % (baz)','Kazanma %','Ort. R','Poz. yıl','Toplam yıl','Puan'];
+  const body=rows.map((r,i)=>[
+    i+1,r.sid,r.name,r.tf,filterName(fid),r._m.trades,r._m.symbols,
+    (r._m.ret*100).toFixed(4),r.y['2026']==null?'':(r.y['2026']*100).toFixed(4),
+    (r._m.wr*100).toFixed(2),(+r._m.r).toFixed(4),r.pos,r.ny,
+    r._score==null?'':r._score.toFixed(1)
+  ]);
+  downloadCsv('codex_tarama_'+new Date().toISOString().slice(0,10)+'.csv',head,body);
+}
+function downloadChosenCsv(){
+  const items=chosenItems();
+  if(!items.length){alert('Chosen Ones listesi boş. Önce Strateji taraması sekmesinden seçim yap.');return}
+  const years=['2020','2021','2022','2023','2024','2025','2026'];
+  const head=['Strateji ID','Başlık','TF','Filtre','İşlem','Sembol','Ort. sembol net %',...years.map(y=>y+' %'),'Kazanma %','Ort. R','Poz. yıl','Toplam yıl','Puan'];
+  const body=items.map(x=>[
+    x.r.sid,x.r.name,x.r.tf,filterName(x.fid),x.m.trades,x.m.symbols,(x.m.ret*100).toFixed(4),
+    ...years.map(y=>x.r.y[y]==null?'':(x.r.y[y]*100).toFixed(4)),
+    (x.m.wr*100).toFixed(2),(+x.m.r).toFixed(4),x.r.pos,x.r.ny,
+    x.score==null?'':x.score.toFixed(1)
+  ]);
+  downloadCsv('codex_chosen_'+new Date().toISOString().slice(0,10)+'.csv',head,body);
+}
+document.querySelectorAll('.tabbtn[data-tab]').forEach(b=>b.onclick=()=>activateTab(b.dataset.tab));
+$('scanSearch').addEventListener('input',e=>{state.search=e.target.value;renderScan()});
+$('scanTf').addEventListener('change',e=>{state.tf=e.target.value;renderScan()});
+$('scanFilter').addEventListener('change',e=>{state.filter=e.target.value;renderScan()});
+$('scanMinN').addEventListener('input',e=>{state.minN=+e.target.value||0;renderScan()});
+$('scanPositive').addEventListener('change',e=>{state.positive=e.target.checked;renderScan()});
+$('scanCsv').onclick=downloadScanCsv;
+$('chosenCsv').onclick=downloadChosenCsv;
+$('chosenClear').onclick=()=>{
+  if(!chosen.size)return;
+  chosen.clear();saveChosen();updateChosenBadges();renderChosen();renderScan();
+};
+fetch('data/scan.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(d=>{
+  DATA=d;
+  rowMap.clear();d.rows.forEach(r=>rowMap.set(rowKey(r),r));
+  const tfs=[...new Set(d.rows.map(r=>r.tf))].sort((a,b)=>TF_ORDER.indexOf(a)-TF_ORDER.indexOf(b));
+  $('scanTf').innerHTML='<option value="">Tüm TF</option>'+tfs.map(tf=>`<option>${tf}</option>`).join('');
+  $('scanFilter').innerHTML=d.filters.map(f=>`<option value="${esc(f.id)}">${esc(f.name)}</option>`).join('');
+  $('scanFilter').value='baseline';state.filter='baseline';
+  let pruned=false;
+  for(const k of [...chosen]){const [sid,tf,fid]=k.split('|');const r=rowMap.get(sid+'|'+tf);if(!r||!r.f[fid]){chosen.delete(k);pruned=true}}
+  if(pruned)saveChosen();
+  $('scanCount').textContent=fmtNum(d.rows.length);
+  updateChosenBadges();
+  renderScan();
+  $('loader').classList.add('hide');
+  activateTab(location.hash==='#chosen'?'chosen':'scan');
+}).catch(e=>{
+  const l=$('loader');l.querySelector('span').textContent='Tarama verisi yüklenemedi: '+e.message;
+});
+</script>
+</body></html>

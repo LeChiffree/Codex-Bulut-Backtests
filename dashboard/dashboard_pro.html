@@ -1,0 +1,212 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Metot Analizi PRO · Codex Bulut Backtests</title>
+<style>
+:root{--bg0:#0e1117;--bg1:#10141c;--bg2:#141925;--panel:#161b27;--panel-2:#1c2332;--panel-3:#222a3a;--gold:#6ea8fe;--gold-hi:#e8ecf4;--gold-deep:#4f83c8;--gold-grad:linear-gradient(135deg,#8fc0ff 0%,#6ea8fe 50%,#4f83c8 100%);--gold-dim:rgba(110,168,254,.14);--gold-line:rgba(110,168,254,.28);--ink:#e8ecf4;--ink-dim:#c9d3e3;--muted:#93a0b8;--faint:#64798b;--up:#3fbf7f;--down:#ef5b5b;--info:#6ea8fe;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--shadow-lg:0 22px 60px -18px rgba(0,0,0,.85);--shadow-sm:0 8px 26px -12px rgba(0,0,0,.7);--font-display:system-ui,'Segoe UI',Roboto,Arial,sans-serif;--font-body:system-ui,'Segoe UI',Roboto,Arial,sans-serif;--r-lg:16px;--r-md:12px;--r-sm:10px;--pad:18px}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg0) 55%);color:var(--ink);font:15.5px/1.55 var(--font-body)}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:14px 26px;background:linear-gradient(180deg,rgba(19,26,42,.98),rgba(14,17,23,.96));border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+h1{font-family:var(--font-display);font-weight:700;font-size:20px;margin:2px 0 0;color:var(--ink);letter-spacing:-.3px;line-height:1.1}
+.brand{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.pro-badge{font-size:10px;vertical-align:middle;margin-left:8px;padding:2px 7px;border-radius:6px;background:var(--gold-dim);border:1px solid var(--gold-line);color:var(--gold);letter-spacing:1.4px;font-weight:700}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.topmeta{margin-left:auto;font-size:11px;color:var(--faint);white-space:nowrap}
+.toplink{margin-left:10px;font-size:11px;color:var(--gold);text-decoration:none;border:1px solid var(--gold-line);padding:4px 8px;border-radius:6px;background:var(--gold-dim)}
+.toplink:hover{background:rgba(110,168,254,.22)}
+label{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.05em;display:grid;gap:4px}
+select{min-width:180px;padding:8px 10px;background:var(--panel-2);color:var(--ink);border:1px solid var(--line-2);border-radius:999px;font:13px var(--font-body)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px;max-width:1900px;margin:0 auto}
+.column{min-width:0}
+.period{font-family:var(--font-display);font-size:19px;padding:8px 3px;color:var(--gold-hi);display:flex;align-items:baseline;gap:10px}
+.period-sub{font-family:var(--font-body);font-size:9.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--faint);border:1px solid var(--line-2);padding:2px 6px;border-radius:5px;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px}
+.card,.panel{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.card{padding:13px 14px;border-radius:var(--r-sm)}
+.k{color:var(--faint);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em}
+.v{font-size:21px;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums}
+.sub{color:var(--muted);margin-top:4px;font-size:12px}
+.panel{padding:16px;margin-top:12px}
+.panel h2{font-family:var(--font-display);font-weight:600;font-size:15px;margin:0 0 12px;color:var(--ink-dim)}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{background:transparent;color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;cursor:pointer;font:12px var(--font-body)}
+.tabs button.on{color:var(--bg0);background:var(--gold-grad);border-color:transparent;box-shadow:0 10px 30px -12px rgba(110,168,254,.45);font-weight:700}
+.chart{height:230px;width:100%}
+.chart svg{width:100%;height:100%;display:block}
+.scroll{max-height:380px;overflow:auto}
+.pos{color:var(--up)}.neg{color:var(--down)}
+.heat{display:grid;grid-template-columns:180px repeat(4,1fr);gap:2px}
+.hc{padding:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--panel-2);font-size:12px;color:var(--ink-dim);font-variant-numeric:tabular-nums}
+.hn{color:var(--faint);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;background:transparent}
+.alert{margin:0 0 8px;padding:10px 12px;border:1px solid var(--gold-line);background:var(--gold-dim);color:var(--gold-hi);border-radius:var(--r-sm)}
+.empty{padding:18px;color:var(--muted);font-size:13px;line-height:1.7;border:1px dashed var(--line-2);border-radius:var(--r-sm);background:rgba(255,255,255,.02)}
+#loader{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(14,17,23,.82);backdrop-filter:blur(3px);color:var(--muted);font-size:12px;transition:opacity .25s}
+#loader.hide{opacity:0;pointer-events:none}
+.spin{width:26px;height:26px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--gold);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.note{padding:0 22px 18px;color:var(--muted);font-size:12.5px}
+#tip{position:fixed;display:none;z-index:20;pointer-events:none;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--gold-line);border-radius:var(--r-sm);padding:9px 11px;color:var(--ink);box-shadow:var(--shadow-lg);font-size:12px;max-width:280px}
+.btsvg text{font-family:var(--font-body)}
+@media(max-width:1000px){.split{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div id="loader"><div class="spin"></div><span>Veri yükleniyor…</span></div><header class="top"><div><div class="brand">Codex · Bulut Backtests</div><h1>Metot Analizi <span class="pro-badge">PRO</span></h1></div><div class="controls"><label>Metot<select id="scenario"></select></label><label>Zaman dilimi<select id="tf"></select></label></div><div class="topmeta">220 metot · 56 filtre · 1h / 4h / 1d / 1w <a class="toplink" href="/tara">Strateji Taraması</a> <a class="toplink" href="/eski">Klasik</a></div></header><main class="split"><section class="column" id="left"></section><section class="column" id="right"></section></main><div id="tip"></div><div class="note">Kâr ve zarar, kaldıraçsız işlem getirilerinin toplamıdır. Aynı 5 dakikalık mumda iki seviye görülürse stop önce uygulanır. 2026 paneli mevcut son veri tarihine kadardır. · PRO görünüm · fee + slippage dahil. · Süre dağılımı, kaynak verideki zaman birimi hatası nedeniyle bu sürümde yer almaz.</div>
+<script>
+
+
+
+
+
+const $=x=>document.getElementById(x), fmt=x=>{const v=+x*100;return(Math.abs(v)<.005?0:v).toLocaleString('tr-TR',{maximumFractionDigits:2})+'%'}, n=x=>(+x||0).toLocaleString('tr-TR'), hrs=x=>(+x||0).toLocaleString('tr-TR',{maximumFractionDigits:1})+' sa';let scenarios=[],data,grain={left:'month',right:'month'};
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showTip(e,html,pin=false){let t=$('tip');t.innerHTML=html;t.style.display='block';t.style.left=Math.min(innerWidth-300,e.clientX+14)+'px';t.style.top=Math.min(innerHeight-130,e.clientY+14)+'px';if(pin)t.dataset.pin='1'}
+function hideTip(){let t=$('tip');if(t.dataset.pin!=='1')t.style.display='none'}
+function svgXY(svg,e,vbw,vbh){let r=svg.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*vbw,y:(e.clientY-r.top)/r.height*vbh}}
+function heatColor(v,mx){let t=Math.pow(Math.min(1,Math.abs(v)/mx),.6),neutral=[0x24,0x30,0x49],target=v>=0?[0x3f,0xbf,0x7f]:[0xef,0x5b,0x5b],r=Math.round(neutral[0]+(target[0]-neutral[0])*t),g=Math.round(neutral[1]+(target[1]-neutral[1])*t),b=Math.round(neutral[2]+(target[2]-neutral[2])*t);return `rgb(${r},${g},${b})`}
+function bindBars(svg,rows,key,mode,pad,w){let hit=e=>{let {x}=svgXY(svg,e,w,230),idx=Math.floor((x-pad.l)/(w-pad.l-pad.r)*rows.length);if(idx<0||idx>=rows.length)return hideTip();let z=rows[idx],html=`<b>${esc(z[key])}</b><br>${mode==='count'?'İşlem: '+n(z.trades):'Net kâr: '+fmt(z.profit||0)+'<br>Net zarar: '+fmt(z.loss||0)+'<br>İşlem: '+n(z.trades||0)}`;showTip(e,html)};svg.onmousemove=hit;svg.onmouseleave=hideTip;svg.onclick=e=>{hit(e);$('tip').dataset.pin='1'}}
+function bindLines(svg,series,p,w){let hit=e=>{let {x}=svgXY(svg,e,w,230),nx=Math.max(...series.map(s=>s.values.length)),i=Math.max(0,Math.min(nx-1,Math.round((x-p)/(w-2*p)*(nx-1))));showTip(e,`<b>Nokta ${i+1}</b><br>`+series.map(s=>`${esc(s.name)}: ${fmt(s.values[i]||0)}`).join('<br>'))};svg.onmousemove=hit;svg.onmouseleave=hideTip;svg.onclick=e=>{hit(e);$('tip').dataset.pin='1'}}
+function bindScatter(svg,rows,p,w,h,mx,lo,hi){let hit=e=>{let {x,y}=svgXY(svg,e,w,h),best=null,bd=18;rows.forEach(z=>{let px=p.l+(+z.trades/mx)*(w-p.l-p.r),py=h-p.b-(+z.total_return-lo)/(hi-lo)*(h-p.t-p.b),d=Math.hypot(px-x,py-y);if(d<bd){bd=d;best=z}});if(!best)return hideTip();showTip(e,`<b>${esc(best.filter_name)}</b><br>Net getiri: ${fmt(best.total_return)}<br>İşlem: ${n(best.trades)}<br>Win rate: ${fmt(best.win_rate)}`)};svg.onmousemove=hit;svg.onmouseleave=hideTip;svg.onclick=e=>{hit(e);$('tip').dataset.pin='1'}}
+document.addEventListener('click',e=>{if(!e.target.closest('svg')){let t=$('tip');t.dataset.pin='';t.style.display='none'}});
+function chart(container,rows,labelKey,mode='money'){let w=680,h=230;if(!rows.length){container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" class="btsvg"><text x="10" y="20" fill="var(--muted)" font-size="11">Veri yok</text></svg>`;return}let pad={l:42,r:8,t:12,b:42},cw=w-pad.l-pad.r,ch=h-pad.t-pad.b,max=Math.max(mode==='count'?1:0.000000001,...rows.flatMap(x=>mode==='count'?[+x.trades||0]:[Math.abs(+x.profit||0),Math.abs(+x.loss||0)])),bw=Math.max(2,cw/rows.length*.7),zero=mode==='count'?h-pad.b:pad.t+ch/2,bars='',labels='';rows.forEach((x,i)=>{let cx=pad.l+(i+.5)*cw/rows.length;if(mode==='count'){let bh=(+x.trades||0)/max*ch;bars+=`<rect data-i="${i}" x="${(cx-bw/2).toFixed(1)}" y="${(zero-bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="2" fill="var(--info)"><title>${esc(x[labelKey])}: ${n(x.trades||0)}</title></rect>`}else{let ph=Math.abs(+x.profit||0)/max*ch/2,lh=Math.abs(+x.loss||0)/max*ch/2;bars+=`<rect data-i="${i}" x="${(cx-bw/2).toFixed(1)}" y="${(zero-ph).toFixed(1)}" width="${bw.toFixed(1)}" height="${ph.toFixed(1)}" rx="2" fill="var(--up)"><title>${esc(x[labelKey])} kâr: ${fmt(x.profit||0)}</title></rect>`;bars+=`<rect data-i="${i}" x="${(cx-bw/2).toFixed(1)}" y="${zero.toFixed(1)}" width="${bw.toFixed(1)}" height="${lh.toFixed(1)}" rx="2" fill="var(--down)"><title>${esc(x[labelKey])} zarar: ${fmt(x.loss||0)}</title></rect>`}if(rows.length<=20||i%Math.ceil(rows.length/12)===0){labels+=`<text x="${cx.toFixed(1)}" y="${h-26}" font-size="9" fill="var(--faint)" text-anchor="end" transform="rotate(-32 ${cx.toFixed(1)} ${h-26})">${esc(String(x[labelKey]).replace(/_/g,' ').slice(0,14))}</text>`}});let legend=mode==='count'?`<rect x="${pad.l}" y="2" width="8" height="8" rx="2" fill="var(--info)"/><text x="${pad.l+12}" y="10" font-size="10" fill="var(--muted)">İşlem</text>`:`<rect x="${pad.l}" y="2" width="8" height="8" rx="2" fill="var(--up)"/><text x="${pad.l+12}" y="10" font-size="10" fill="var(--muted)">Kâr</text><rect x="${pad.l+55}" y="2" width="8" height="8" rx="2" fill="var(--down)"/><text x="${pad.l+67}" y="10" font-size="10" fill="var(--muted)">Zarar</text>`;let grid='';for(let i=0;i<=4;i++){let v=mode==='count'?max*i/4:-max+2*max*i/4,y=mode==='count'?zero-v/max*ch:zero-v/max*ch/2;grid+='<line x1="'+pad.l+'" y1="'+y.toFixed(1)+'" x2="'+(w-pad.r)+'" y2="'+y.toFixed(1)+'" stroke="var(--line)" stroke-dasharray="2,3"/><text x="'+(pad.l-6)+'" y="'+(y+3).toFixed(1)+'" font-size="9" fill="var(--faint)" text-anchor="end">'+(mode==='count'?n(Math.round(v)):fmt(v))+'</text>';}container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" class="btsvg"><line x1="${pad.l}" y1="${zero}" x2="${w-pad.r}" y2="${zero}" stroke="var(--line-2)"/>${grid}${bars}${labels}${legend}</svg>`;bindBars(container.querySelector('svg'),rows,labelKey,mode,pad,w)}
+function lineChart(container,series){let w=680,h=230,p=24,vals=series.flatMap(s=>s.values),mn=Math.min(0,...vals),mx=Math.max(.0001,...vals),gridlines='',paths='',legend='',ticks=4;for(let i=0;i<=ticks;i++){let v=mn+(mx-mn)*i/ticks,y=h-p-(v-mn)/(mx-mn)*(h-2*p);gridlines+=`<line x1="${p}" y1="${y.toFixed(1)}" x2="${w-p}" y2="${y.toFixed(1)}" stroke="var(--line)" stroke-dasharray="${Math.abs(v)<1e-9?'0':'2,3'}"/><text x="${p-4}" y="${(y+3).toFixed(1)}" font-size="9" fill="var(--faint)" text-anchor="end">${fmt(v)}</text>`}series.forEach((s,j)=>{let pts=s.values.map((v,i)=>{let x=p+i*(w-2*p)/Math.max(1,s.values.length-1),y=h-p-(v-mn)/(mx-mn)*(h-2*p);return `${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');paths+=`<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="1.8"/>`;legend+=`<rect x="${p+j*95}" y="5" width="8" height="8" rx="2" fill="${s.color}"/><text x="${p+12+j*95}" y="13" font-size="10" fill="var(--muted)">${esc(s.name)}</text>`});container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" class="btsvg">${gridlines}${paths}${legend}</svg>`;bindLines(container.querySelector('svg'),series,p,w)}
+function filterScatter(container,rows){let w=680,h=230,p={l:52,r:16,t:18,b:38},mx=Math.max(1,...rows.map(x=>+x.trades)),ys=rows.map(x=>+x.total_return),lo=Math.min(0,...ys),hi=Math.max(.001,...ys),zy=h-p.b-(0-lo)/(hi-lo)*(h-p.t-p.b),dots='',baseLabel='';rows.forEach(x=>{let px=p.l+(+x.trades/mx)*(w-p.l-p.r),py=h-p.b-(+x.total_return-lo)/(hi-lo)*(h-p.t-p.b),r=x.filter_id==='baseline'?6:4;dots+=`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${r}" fill="${x.total_return>=0?'var(--up)':'var(--down)'}"><title>${esc(x.filter_name)}: ${fmt(x.total_return)}</title></circle>`;if(x.filter_id==='baseline')baseLabel=`<text x="${(px+7).toFixed(1)}" y="${(py-5).toFixed(1)}" font-size="9" fill="var(--muted)">Filtresiz</text>`});container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" class="btsvg"><rect x="${p.l}" y="${p.t}" width="${w-p.l-p.r}" height="${h-p.t-p.b}" fill="none" stroke="var(--line-2)"/><line x1="${p.l}" y1="${zy.toFixed(1)}" x2="${w-p.r}" y2="${zy.toFixed(1)}" stroke="var(--line)"/>${dots}${baseLabel}<text x="${p.l}" y="${h-8}" font-size="10" fill="var(--muted)">Toplam işlem sayısı →</text><text x="11" y="${h-p.b}" font-size="10" fill="var(--muted)" transform="rotate(-90 11 ${h-p.b})">Net toplam getiri →</text></svg>`;bindScatter(container.querySelector('svg'),rows,p,w,h,mx,lo,hi)}
+function matrix(rows){let years=[...new Set(rows.map(x=>x.bucket.slice(0,4)))].sort(),months=[...Array(12)].map((_,i)=>String(i+1).padStart(2,'0')),map=Object.fromEntries(rows.map(x=>[x.bucket,(+x.profit||0)+(+x.loss||0)])),mx=Math.max(.001,...Object.values(map).map(Math.abs)),padL=46,cw=54,ch=24,headH=20,w=padL+months.length*cw,h=headH+years.length*ch,headers=months.map((m,j)=>`<text x="${(padL+j*cw+cw/2).toFixed(1)}" y="14" font-size="10" fill="var(--faint)" text-anchor="middle">${m}</text>`).join(''),cells='';years.forEach((y,i)=>{let ry=headH+i*ch;if(i%2===1)cells+=`<rect x="0" y="${ry}" width="${w}" height="${ch}" fill="rgba(255,255,255,.018)"/>`;cells+=`<text x="${padL-8}" y="${(ry+ch*0.65).toFixed(1)}" font-size="10" fill="var(--ink-dim)" text-anchor="end">${y}</text>`;months.forEach((m,j)=>{let v=map[y+'-'+m]||0,color=heatColor(v,mx),cx=padL+j*cw,cy=ry;cells+=`<rect x="${cx+1}" y="${cy+1}" width="${cw-2}" height="${ch-2}" rx="3" fill="${color}"><title>${y}-${m}: ${fmt(v)}</title></rect><text x="${(cx+cw/2).toFixed(1)}" y="${(cy+ch*0.65).toFixed(1)}" font-size="9" fill="var(--ink-dim)" text-anchor="middle">${v?fmt(v):''}</text>`})});return `<div class="scroll"><svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" class="btsvg">${headers}${cells}</svg></div>`}
+function panelChart(title,id,rows,key,mode='money'){return `<div class="panel"><h2>${title}</h2><div class="chart" id="${id}"></div></div>`}
+function heatmap(rows){let sorted=[...rows].sort((a,b)=>b.total_return-a.total_return),mx=Math.max(.001,...sorted.map(x=>Math.abs(x.total_return)));return `<div class="panel"><h2>10 · Filtreler ve net toplam getiri · Heatmap</h2><div class="heat"><b class="hc hn">Filtre</b><b class="hc hn">Getiri</b><b class="hc hn">Win</b><b class="hc hn">Ort. R</b><b class="hc hn">İşlem</b>${sorted.map(x=>{let bg=heatColor(x.total_return,mx);return `<div class="hc" title="${esc(x.filter_name)}">${esc(x.filter_name)}</div><div class="hc" style="background:${bg}">${fmt(x.total_return)}</div><div class="hc">${fmt(x.win_rate)}</div><div class="hc">${(+x.avg_r).toFixed(3)}</div><div class="hc">${n(x.trades)}</div>`}).join('')}</div></div>`}
+// Kaynak veri exit zamanini ms sanip to_timestamp(us/1000) ile yazmis.
+// Yanlis tarihin epoch ms'inin 1/1000'i gercek zamani verir.
+function trueDate(bucket){
+  const p=String(bucket).split('-');
+  const y=+p[0];
+  let m=1,d=1;
+  if(p.length===2){
+    if(/^\d+$/.test(p[1])) m=+p[1];
+    else { m={'Kış':1,'İlkbahar':4,'Yaz':7,'Sonbahar':10}[p[1]]||1; d=15; }
+  } else if(p.length>=3){ m=+p[1]||1; d=+p[2]||1; }
+  return new Date(Date.UTC(y,m-1,d)/1000);
+}
+function isoDay(d){return d.toISOString().slice(0,10)}
+function isoWeek(d){
+  const t=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));
+  const w=(t.getUTCDay()+6)%7;
+  t.setUTCDate(t.getUTCDate()-w);
+  return t.toISOString().slice(0,10);
+}
+function seasonOf(d){const m=d.getUTCMonth()+1;return m===12||m<=2?'Kış':m<=5?'İlkbahar':m<=8?'Yaz':'Sonbahar'}
+function retimeCalendar(rows){
+  const maps={day:new Map(),week:new Map(),month:new Map(),season:new Map()};
+  const put=(g,key,x)=>{
+    let o=maps[g].get(key);
+    if(!o){o={grain:g,bucket:key,profit:0,loss:0,trades:0};maps[g].set(key,o)}
+    o.profit+=+x.profit||0;o.loss+=+x.loss||0;o.trades+=+x.trades||0;
+  };
+  for(const x of rows){
+    let d;
+    try{d=trueDate(x.bucket)}catch(e){continue}
+    if(isNaN(d))continue;
+    if(x.grain==='day') put('day',isoDay(d),x);
+    else if(x.grain==='week') put('week',isoWeek(d),x);
+    else if(x.grain==='month') put('month',d.toISOString().slice(0,7),x);
+    else if(x.grain==='season') put('season',d.getUTCFullYear()+'-'+seasonOf(d),x);
+  }
+  return [...maps.day.values(),...maps.week.values(),...maps.month.values(),...maps.season.values()];
+}
+
+function periodFromDays(period){
+  const days=data.calendar.filter(x=>x.grain==='day'&&(period==='all'||x.bucket.startsWith('2026')));
+  const profit=days.reduce((a,x)=>a+(+x.profit||0),0);
+  const loss=days.reduce((a,x)=>a+(+x.loss||0),0);
+  const trades=days.reduce((a,x)=>a+(+x.trades||0),0);
+  const upDays=days.filter(x=>(+x.profit||0)+(+x.loss||0)>0).length;
+  const downDays=days.filter(x=>(+x.profit||0)+(+x.loss||0)<0).length;
+  return {period,trades,profit,loss,avg_trade:trades?(profit+loss)/trades:0,wins:null,losses:null,upDays,downDays,derived:true};
+}
+
+function renderCol(id,period,title){
+  const el=$(id);
+  const base=data.summary.find(x=>x.period==='all')||{};
+  const s=period==='all'?base:periodFromDays(period);
+  const inPeriod=b=>period==='all'||String(b).startsWith('2026');
+  const days=data.calendar.filter(x=>x.grain==='day'&&inPeriod(x.bucket)).sort((a,b)=>a.bucket.localeCompare(b.bucket));
+  const cal=data.calendar.filter(x=>x.grain===grain[id]&&inPeriod(x.bucket)).sort((a,b)=>String(a.bucket).localeCompare(String(b.bucket)));
+  const monthly=data.calendar.filter(x=>x.grain==='month'&&inPeriod(x.bucket));
+  const coins=data.coin.filter(x=>x.period===period).sort((a,b)=>(b.profit+Math.abs(b.loss))-(a.profit+Math.abs(a.loss))).slice(0,40);
+  const br=data.breakdown.filter(x=>x.period===period);
+  const ex=br.filter(x=>x.kind==='exit');
+  const wd=br.filter(x=>x.kind==='weekday').sort((a,b)=>a.bucket.localeCompare(b.bucket));
+  let eq=[],dd=[],equity=1,peak=1;
+  days.forEach(x=>{const r=(+x.profit||0)+(+x.loss||0);equity*=Math.max(.000001,1+r);eq.push(equity-1);peak=Math.max(peak,equity);dd.push(equity/peak-1)});
+  const portfolioReturn=eq.length?eq[eq.length-1]:0;
+  const maxDrawdown=dd.length?Math.min(...dd):0;
+  const roll=[30,90,365].map((d,j)=>({name:d+' gün',color:['#6ea8fe','#f4b942','#b794f4'][j],values:days.map((x,i)=>days.slice(Math.max(0,i-d+1),i+1).reduce((a,z)=>a+(+z.profit||0)+(+z.loss||0),0))}));
+  const pf=Math.abs(+s.loss)>0?(+s.profit/Math.abs(+s.loss)):0;
+  const dayCount=days.length;
+  const upDays=s.upDays||0,downDays=s.downDays||0;
+  const winRate=period==='all'?((+s.wins||0)/(((+s.wins||0)+(+s.losses||0))||1)):(dayCount?upDays/dayCount:0);
+  const thirdLabel=period==='all'?'Kazanma oranı':'Kârlı gün oranı';
+  const thirdValue=(period==='all'?!!s.trades:!!dayCount)?fmt(winRate):'—';
+  const sub=period==='all'
+    ?`<span class="pos">${n(s.wins)} kârlı</span> · <span class="neg">${n(s.losses)} zararlı</span>`
+    :`<span class="pos">${n(upDays)} kârlı gün</span> · <span class="neg">${n(downDays)} zararlı gün</span>`;
+  el.innerHTML=`<div class="period">${title}${period==='2026'?'<span class="period-sub">günlük veriden türetildi</span>':''}</div>${data.timeframe==='1h'?'<div class="alert">1h sonuçlarında pozitif metot bulunmadı; bu zaman dilimini araştırma amaçlı değerlendirin.</div>':''}${!s.trades?'<div class="alert">Bu metot ve dönem için işlem yok. Yüzde sıfır, performans sonucu olarak yorumlanmamalı.</div>':''}<div class="cards"><div class="card"><div class="k">Toplam işlem</div><div class="v">${n(s.trades)}</div><div class="sub">${sub}</div></div><div class="card"><div class="k">İşlem başı ortalama net getiri</div><div class="v ${(s.avg_trade||0)>=0?'pos':'neg'}">${fmt(s.avg_trade||0)}</div></div><div class="card"><div class="k">${thirdLabel}</div><div class="v ${winRate>=.5?'pos':'neg'}">${thirdValue}</div></div><div class="card"><div class="k">Toplam net kâr</div><div class="v pos">${fmt(s.profit||0)}</div></div><div class="card"><div class="k">Toplam net zarar</div><div class="v neg">${fmt(s.loss||0)}</div></div><div class="card"><div class="k">Portföy net getirisi · risk sınırlandırılmış</div><div class="v ${portfolioReturn>=0?'pos':'neg'}">${s.trades?fmt(portfolioReturn):'—'}</div></div><div class="card"><div class="k">Maksimum drawdown</div><div class="v neg">${s.trades?fmt(maxDrawdown):'—'}</div></div><div class="card"><div class="k">Profit factor · maliyetler dahil</div><div class="v ${pf>=1?'pos':'neg'}">${pf.toFixed(2)}</div></div></div><div class="panel"><h2>Dönemsel portföy kâr ve zararı</h2><div class="tabs">${[['day','Gün'],['week','Hafta'],['month','Ay'],['season','Mevsim']].map(x=>`<button data-col="${id}" data-grain="${x[0]}" class="${grain[id]===x[0]?'on':''}">${x[1]}</button>`).join('')}</div><div class="chart" id="${id}cal"></div></div>${panelChart('1 · Risk sınırlı portföy özsermaye eğrisi',id+'eq',[],'bucket')}${panelChart('2 · Portföy drawdown eğrisi',id+'dd',[],'bucket')}<div class="panel"><h2>7 · Ay × yıl net getiri heatmap’i</h2>${matrix(monthly)}</div>${panelChart('8 · Hareketli 30 / 90 / 365 günlük net getiri',id+'roll',[],'bucket')}${period==='all'?panelChart('4 · Çıkış nedeni dağılımı',id+'exc',ex,'bucket','count')+panelChart('5 · Çıkış nedenine göre net kâr-zarar',id+'exm',ex,'bucket')+panelChart('6 · Haftanın gününe göre net performans',id+'wd',wd,'bucket')+panelChart('Coin bazında net kâr ve zarar · en aktif 40',id+'coin',coins,'symbol'):'<div class="panel"><h2>Kırılım verisi</h2><div class="empty">2026 görünümü günlük portföy verisinden türetilmiştir. Çıkış nedeni, haftanın günü ve coin kırılımı kaynak veride yalnızca tüm yıllar için mevcut.</div></div>'}${period==='all'?heatmap(data.filters)+panelChart('11 · Filtre toplam getiri × toplam işlem sayısı',id+'fs',[],'bucket')+panelChart('9 · Filtreli / filtresiz net getiri · en iyi 20',id+'fc',[],'bucket'):''}`;
+  chart($(id+'cal'),cal,'bucket');
+  lineChart($(id+'eq'),[{name:'Risk sınırlı özsermaye',color:'#3fbf7f',values:eq}]);
+  lineChart($(id+'dd'),[{name:'Drawdown',color:'#ef5b5b',values:dd}]);
+  lineChart($(id+'roll'),roll);
+  if(period==='all'){
+    chart($(id+'exc'),ex,'bucket','count');
+    chart($(id+'exm'),ex,'bucket');
+    chart($(id+'wd'),wd,'bucket');
+    chart($(id+'coin'),coins,'symbol');
+    filterScatter($(id+'fs'),data.filters);
+    let ff=[...data.filters].sort((a,b)=>b.total_return-a.total_return).slice(0,19),baseF=data.filters.find(x=>x.filter_id==='baseline');
+    if(baseF&&!ff.includes(baseF))ff.unshift(baseF);
+    chart($(id+'fc'),ff.map(x=>({bucket:x.filter_name,profit:Math.max(0,x.total_return),loss:Math.min(0,x.total_return)})),'bucket');
+  }
+}
+
+function render(){renderCol('left','all','Tüm yıllar');renderCol('right','2026','Yalnızca 2026');document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{grain[b.dataset.col]=b.dataset.grain;render()})}
+async function load(){
+  const sid=$('scenario').value,tf=$('tf').value;
+  const L=$('loader'),msg=L.querySelector('span');
+  L.classList.remove('hide');msg.textContent='Veri yükleniyor…';
+  let ok=false;
+  try{
+    const r=await fetch(`data/${sid}_${tf}.json`);
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    data=await r.json();
+    data.timeframe=tf;
+    data.calendar=retimeCalendar(data.calendar);
+    render();
+    ok=true;
+    msg.textContent='Hazır';
+  }catch(e){
+    console.error(e);
+    msg.textContent='Veri yüklenemedi: '+e.message;
+  }finally{
+    if(ok)setTimeout(()=>L.classList.add('hide'),120);
+  }
+}
+
+fetch('data/scenarios.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(x=>{
+  scenarios=x;
+  const uniq=[...new Map(x.map(s=>[s.scenario_id,s])).values()];
+  $('scenario').innerHTML=uniq.map(s=>`<option value="${s.scenario_id}">${String(s.scenario_id).padStart(3,'0')} · ${esc(s.scenario)}</option>`).join('');
+  const q=new URLSearchParams(location.search);
+  const qs=+q.get('sid');
+  let qt=q.get('tf');
+  if(qs&&uniq.some(s=>s.scenario_id===qs))$('scenario').value=String(qs);
+  function syncUrl(){
+    const u=new URL(location.href);
+    u.searchParams.set('sid',$('scenario').value);
+    u.searchParams.set('tf',$('tf').value);
+    history.replaceState(null,'',u);
+    const o=$('scenario').selectedOptions[0];
+    $('scenario').title=o?o.textContent:'';
+  }
+  function fillTf(){
+    const sid=+$('scenario').value,vals=x.filter(s=>s.scenario_id===sid).map(s=>s.timeframe);
+    $('tf').innerHTML=vals.map(v=>`<option>${v}</option>`).join('');
+    if(qt&&vals.includes(qt))$('tf').value=qt;
+    syncUrl();load();
+  }
+  $('scenario').onchange=()=>{qt=null;fillTf()};
+  $('tf').onchange=()=>{syncUrl();load()};
+  fillTf();
+}).catch(e=>{const L=$('loader');if(L)L.querySelector('span').textContent='Metot listesi yüklenemedi: '+e.message});
+
+</script></body></html>
