@@ -2,9 +2,9 @@
 """Prepare local Binance USD-M 1h parquet files for the Singular backtest.
 
 The repository normally downloads data from data.binance.vision.  This helper
-builds the same `data/1h/<SYMBOL>.parquet` layout from the user's monthly CSV
-archive (D:/1mdatabinance by default) so the singular run can be reproduced
-offline.
+builds the same `data/1h/<SYMBOL>.parquet` layout from either the monthly 1h
+CSV archive or the daily 1m parquet archive under D:/1mdatabinance.  The latter
+is resampled to closed UTC hours and is the preferred source for fresh runs.
 """
 from __future__ import annotations
 
@@ -29,52 +29,98 @@ KEEP = ["open_time", "open", "high", "low", "close", "volume",
         "quote_volume", "trades", "taker_base", "taker_quote"]
 
 
-def load_symbol(csv_dir: Path) -> pd.DataFrame | None:
-    files = sorted(csv_dir.glob("*.csv"))
-    if not files:
+def _normalize(frame: pd.DataFrame) -> pd.DataFrame | None:
+    if frame.empty:
         return None
-    frames = []
-    for path in files:
-        try:
-            df = pd.read_csv(path)
-        except Exception:
-            continue
-        if df.empty:
-            continue
-        missing = [c for c in COLS if c not in df.columns]
-        if missing:
-            continue
-        frames.append(df[list(COLS)].rename(columns=COLS))
-    if not frames:
+    missing = [c for c in COLS if c not in frame.columns]
+    if missing:
         return None
-    df = pd.concat(frames, ignore_index=True)
+    df = frame[list(COLS)].rename(columns=COLS).copy()
     ts = pd.to_numeric(df["open_time"], errors="coerce")
     unit = "us" if ts.dropna().median() > 10**14 else "ms"
     df["open_time"] = pd.to_datetime(ts, unit=unit, utc=True)
     for col in KEEP[1:]:
         df[col] = pd.to_numeric(df[col], errors="coerce")
-    df = df.dropna(subset=["open_time", "open", "high", "low", "close"])
+    return df.dropna(subset=["open_time", "open", "high", "low", "close"])
+
+
+def _resample_1h(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.set_index("open_time").sort_index()
+    out = df.resample("1h", origin="epoch", label="left", closed="left").agg({
+        "open": "first", "high": "max", "low": "min", "close": "last",
+        "volume": "sum", "quote_volume": "sum", "trades": "sum",
+        "taker_base": "sum", "taker_quote": "sum",
+    })
+    return out.dropna(subset=["open", "high", "low", "close"]).reset_index()
+
+
+def load_symbol(source_dir: Path) -> pd.DataFrame | None:
+    parquet_files = sorted(source_dir.glob("*.parquet"))
+    csv_files = sorted(source_dir.glob("*.csv"))
+    files = parquet_files or csv_files
+    if not files:
+        return None
+    frames = []
+    for path in files:
+        try:
+            raw = pd.read_parquet(path) if path.suffix == ".parquet" else pd.read_csv(path)
+        except Exception:
+            continue
+        df = _normalize(raw)
+        if df is not None and not df.empty:
+            frames.append(df)
+    if not frames:
+        return None
+    df = pd.concat(frames, ignore_index=True)
     df = df.drop_duplicates("open_time").sort_values("open_time").reset_index(drop=True)
+    if parquet_files:
+        # The live archive stores daily 1m parquet files.  A directory with a
+        # median spacing below one hour must be aggregated before backtesting.
+        spacing = df["open_time"].diff().dropna().median()
+        if pd.notna(spacing) and spacing < pd.Timedelta(hours=1):
+            df = _resample_1h(df)
     return df[KEEP]
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--csv-root", type=Path, default=Path("D:/1mdatabinance/1h"))
+    ap.add_argument("--csv-root", type=Path, default=Path("D:/1mdatabinance/1m"),
+                    help="symbol directories containing monthly CSV or daily parquet files")
+    ap.add_argument("--history-root", type=Path, default=Path("D:/1mdatabinance/1h"),
+                    help="optional older 1h archive merged before the fresher source")
     ap.add_argument("--out-root", type=Path,
                     default=Path(__file__).resolve().parent.parent / "data" / "1h")
     ap.add_argument("--symbols", nargs="*", help="Optional symbol subset")
+    ap.add_argument("--symbols-file", type=Path,
+                    default=Path("D:/1mdatabinance/selected_symbols.txt"),
+                    help="one symbol per line; combined with --symbols when supplied")
     args = ap.parse_args()
 
     args.out_root.mkdir(parents=True, exist_ok=True)
-    wanted = set(args.symbols) if args.symbols else None
+    wanted = {s.upper() for s in args.symbols} if args.symbols else set()
+    if args.symbols_file and args.symbols_file.is_file():
+        wanted.update(
+            line.strip().upper() for line in
+            args.symbols_file.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        )
+    wanted = wanted or None
     dirs = sorted(p for p in args.csv_root.iterdir() if p.is_dir())
     written = 0
     for i, csv_dir in enumerate(dirs, 1):
         symbol = csv_dir.name
         if wanted and symbol not in wanted:
             continue
-        df = load_symbol(csv_dir)
+        fresh = load_symbol(csv_dir)
+        history_dir = args.history_root / symbol if args.history_root else None
+        history = (load_symbol(history_dir)
+                   if history_dir is not None and history_dir.is_dir() else None)
+        parts = [part for part in (history, fresh) if part is not None and not part.empty]
+        df = None if not parts else pd.concat(parts, ignore_index=True)
+        if df is not None:
+            # Fresh rows are appended last and win on overlapping timestamps.
+            df = (df.drop_duplicates("open_time", keep="last")
+                  .sort_values("open_time").reset_index(drop=True))
         if df is None or df.empty:
             print(f"[{i}/{len(dirs)}] {symbol}: empty")
             continue

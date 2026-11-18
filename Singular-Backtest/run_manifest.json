@@ -2,349 +2,361 @@
   {
     "symbol": "1000PEPEUSDT",
     "status": "ok",
-    "normal": 292964,
-    "singular": 143906
+    "normal": 311189,
+    "singular": 151996
   },
   {
     "symbol": "1000SHIBUSDT",
     "status": "ok",
-    "normal": 360053,
-    "singular": 174600
+    "normal": 476528,
+    "singular": 226645
   },
   {
     "symbol": "AAVEUSDT",
     "status": "ok",
-    "normal": 376440,
-    "singular": 184345
+    "normal": 558690,
+    "singular": 256382
   },
   {
     "symbol": "ADAUSDT",
     "status": "ok",
-    "normal": 364711,
-    "singular": 175291
+    "normal": 600818,
+    "singular": 274418
   },
   {
     "symbol": "AINUSDT",
     "status": "ok",
-    "normal": 95130,
-    "singular": 48500
+    "normal": 111942,
+    "singular": 56828
   },
   {
     "symbol": "AKEUSDT",
     "status": "ok",
-    "normal": 73294,
-    "singular": 37282
+    "normal": 89988,
+    "singular": 45510
   },
   {
     "symbol": "ARBUSDT",
     "status": "ok",
-    "normal": 313639,
-    "singular": 153523
+    "normal": 332564,
+    "singular": 162389
   },
   {
     "symbol": "ASTERUSDT",
     "status": "ok",
-    "normal": 83165,
-    "singular": 44123
+    "normal": 102894,
+    "singular": 53021
   },
   {
     "symbol": "AVAUSDT",
     "status": "ok",
-    "normal": 157894,
-    "singular": 83791
+    "normal": 177857,
+    "singular": 93534
   },
   {
     "symbol": "AVAXUSDT",
     "status": "ok",
-    "normal": 369051,
-    "singular": 171193
+    "normal": 557854,
+    "singular": 258000
   },
   {
     "symbol": "BCHUSDT",
     "status": "ok",
-    "normal": 364158,
-    "singular": 180558
+    "normal": 609252,
+    "singular": 293241
   },
   {
     "symbol": "BNBUSDT",
     "status": "ok",
-    "normal": 371267,
-    "singular": 175308
+    "normal": 612996,
+    "singular": 290003
   },
   {
     "symbol": "BRUSDT",
     "status": "ok",
-    "normal": 117416,
-    "singular": 60247
+    "normal": 135559,
+    "singular": 69093
   },
   {
     "symbol": "BTCUSDT",
     "status": "ok",
-    "normal": 364458,
-    "singular": 173811
+    "normal": 606604,
+    "singular": 284609
   },
   {
     "symbol": "BTWUSDT",
     "status": "ok",
-    "normal": 20167,
-    "singular": 11406
+    "normal": 39572,
+    "singular": 21861
   },
   {
     "symbol": "BULLAUSDT",
     "status": "ok",
-    "normal": 91071,
-    "singular": 41850
+    "normal": 107530,
+    "singular": 49047
   },
   {
     "symbol": "COTIUSDT",
     "status": "ok",
-    "normal": 368462,
-    "singular": 180935
+    "normal": 514118,
+    "singular": 244467
   },
   {
     "symbol": "CRVUSDT",
     "status": "ok",
-    "normal": 352111,
-    "singular": 167327
+    "normal": 545907,
+    "singular": 251861
   },
   {
     "symbol": "DASHUSDT",
     "status": "ok",
-    "normal": 365289,
-    "singular": 179522
+    "normal": 606457,
+    "singular": 285776
   },
   {
     "symbol": "DOGEUSDT",
     "status": "ok",
-    "normal": 358741,
-    "singular": 175496
+    "normal": 545919,
+    "singular": 245361
   },
   {
     "symbol": "DOTUSDT",
     "status": "ok",
-    "normal": 369784,
-    "singular": 179024
+    "normal": 561436,
+    "singular": 265102
   },
   {
     "symbol": "ENAUSDT",
     "status": "ok",
-    "normal": 221605,
-    "singular": 99482
+    "normal": 239952,
+    "singular": 107511
   },
   {
     "symbol": "ETHUSDT",
     "status": "ok",
-    "normal": 357739,
-    "singular": 171298
+    "normal": 601719,
+    "singular": 284460
   },
   {
     "symbol": "FETUSDT",
     "status": "ok",
-    "normal": 325438,
-    "singular": 153710
+    "normal": 344716,
+    "singular": 162990
   },
   {
     "symbol": "FILUSDT",
     "status": "ok",
-    "normal": 356966,
-    "singular": 172787
+    "normal": 519981,
+    "singular": 243864
   },
   {
     "symbol": "GENIUSUSDT",
     "status": "ok",
-    "normal": 31142,
-    "singular": 16530
+    "normal": 50061,
+    "singular": 27120
   },
   {
     "symbol": "HEIUSDT",
     "status": "ok",
-    "normal": 130972,
-    "singular": 64786
+    "normal": 148494,
+    "singular": 73044
   },
   {
     "symbol": "HYPEUSDT",
     "status": "ok",
-    "normal": 117322,
-    "singular": 60397
+    "normal": 137048,
+    "singular": 70387
   },
   {
     "symbol": "INJUSDT",
     "status": "ok",
-    "normal": 371134,
-    "singular": 180185
+    "normal": 390409,
+    "singular": 188450
   },
   {
     "symbol": "IOSTUSDT",
     "status": "ok",
-    "normal": 367872,
-    "singular": 176840
+    "normal": 603744,
+    "singular": 283214
   },
   {
     "symbol": "LINKUSDT",
     "status": "ok",
-    "normal": 373792,
-    "singular": 182798
+    "normal": 621380,
+    "singular": 304422
   },
   {
     "symbol": "LITUSDT",
     "status": "ok",
-    "normal": 283143,
-    "singular": 140869
+    "normal": 302888,
+    "singular": 150840
   },
   {
     "symbol": "LSKUSDT",
     "status": "ok",
-    "normal": 236500,
-    "singular": 112672
+    "normal": 254952,
+    "singular": 121068
   },
   {
     "symbol": "LTCUSDT",
     "status": "ok",
-    "normal": 365916,
-    "singular": 179459
+    "normal": 613620,
+    "singular": 293959
+  },
+  {
+    "symbol": "MARSCOINUSDT",
+    "status": "ok",
+    "normal": 18068,
+    "singular": 10888
   },
   {
     "symbol": "NEARUSDT",
     "status": "ok",
-    "normal": 372001,
-    "singular": 182879
+    "normal": 554693,
+    "singular": 265362
   },
   {
     "symbol": "ONDOUSDT",
     "status": "ok",
-    "normal": 239742,
-    "singular": 117882
+    "normal": 258601,
+    "singular": 126969
   },
   {
     "symbol": "ONEUSDT",
     "status": "ok",
-    "normal": 365909,
-    "singular": 172261
+    "normal": 506756,
+    "singular": 230093
   },
   {
     "symbol": "PAXGUSDT",
     "status": "ok",
-    "normal": 131416,
-    "singular": 68718
+    "normal": 153048,
+    "singular": 80060
   },
   {
     "symbol": "PENGUUSDT",
     "status": "ok",
-    "normal": 154556,
-    "singular": 77343
+    "normal": 173884,
+    "singular": 86588
+  },
+  {
+    "symbol": "PONSUSDT",
+    "status": "ok",
+    "normal": 16768,
+    "singular": 9740
   },
   {
     "symbol": "PUMPUSDT",
     "status": "ok",
-    "normal": 113571,
-    "singular": 54076
+    "normal": 133271,
+    "singular": 63345
   },
   {
     "symbol": "RAYSOLUSDT",
     "status": "ok",
-    "normal": 156138,
-    "singular": 75055
+    "normal": 176090,
+    "singular": 83439
   },
   {
     "symbol": "SAGAUSDT",
     "status": "ok",
-    "normal": 212573,
-    "singular": 104697
+    "normal": 230931,
+    "singular": 112912
   },
   {
     "symbol": "SOLUSDT",
     "status": "ok",
-    "normal": 367777,
-    "singular": 176852
+    "normal": 560265,
+    "singular": 261640
   },
   {
     "symbol": "SUIUSDT",
     "status": "ok",
-    "normal": 304724,
-    "singular": 152423
+    "normal": 323351,
+    "singular": 160759
   },
   {
     "symbol": "SYNUSDT",
     "status": "ok",
-    "normal": 178555,
-    "singular": 88238
+    "normal": 196624,
+    "singular": 96966
   },
   {
     "symbol": "TAOUSDT",
     "status": "ok",
-    "normal": 217957,
-    "singular": 110235
+    "normal": 236804,
+    "singular": 119145
   },
   {
     "symbol": "TRUMPUSDT",
     "status": "ok",
-    "normal": 135449,
-    "singular": 59466
+    "normal": 153753,
+    "singular": 66782
   },
   {
     "symbol": "UNIUSDT",
     "status": "ok",
-    "normal": 371225,
-    "singular": 177877
+    "normal": 558192,
+    "singular": 258961
   },
   {
     "symbol": "USELESSUSDT",
     "status": "ok",
-    "normal": 94929,
-    "singular": 52294
+    "normal": 114468,
+    "singular": 60775
   },
   {
     "symbol": "VVVUSDT",
     "status": "ok",
-    "normal": 143230,
-    "singular": 72635
+    "normal": 163429,
+    "singular": 82111
   },
   {
     "symbol": "WLDUSDT",
     "status": "ok",
-    "normal": 275839,
-    "singular": 127668
+    "normal": 294791,
+    "singular": 135842
   },
   {
     "symbol": "XAUTUSDT",
     "status": "ok",
-    "normal": 41445,
-    "singular": 22721
+    "normal": 62449,
+    "singular": 34625
   },
   {
     "symbol": "XLMUSDT",
     "status": "ok",
-    "normal": 370446,
-    "singular": 180565
+    "normal": 613252,
+    "singular": 290199
   },
   {
     "symbol": "XMRUSDT",
     "status": "ok",
-    "normal": 376351,
-    "singular": 187183
+    "normal": 624170,
+    "singular": 299104
   },
   {
     "symbol": "XPLUSDT",
     "status": "ok",
-    "normal": 91195,
-    "singular": 50246
+    "normal": 110337,
+    "singular": 56589
   },
   {
     "symbol": "XRPUSDT",
     "status": "ok",
-    "normal": 354233,
-    "singular": 172236
+    "normal": 586937,
+    "singular": 282627
   },
   {
     "symbol": "ZECUSDT",
     "status": "ok",
-    "normal": 367594,
-    "singular": 184305
+    "normal": 609073,
+    "singular": 266527
   },
   {
     "symbol": "ZENUSDT",
     "status": "ok",
-    "normal": 369410,
-    "singular": 180382
+    "normal": 539297,
+    "singular": 253301
   }
 ]

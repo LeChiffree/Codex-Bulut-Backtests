@@ -28,10 +28,12 @@ Aynı sinyal zamanına birden fazla aday düşerse sıralama deterministiktir:
 
 ## Veri
 
-- Kaynak: `D:/1mdatabinance` aylık Binance USD-M CSV arşivi (`1h` klasörü).
-- 58 sembol; kapsam sembolün listelenme tarihine göre **2022-08-01 → 2026-08-31**.
-- `prepare_data.py` bu arşivi reponun beklediği `data/1h/<SEMBOL>.parquet`
-  düzenine çevirir.
+- Kaynak: `D:/1mdatabinance`. Eski aylık `1h` CSV arşivi, günlük `1m`
+  Parquet arşiviyle birleştirilir; çakışan saatlerde güncel 1m kaynağı kazanır.
+- `selected_symbols.txt` içindeki 60 sembol; kapsam sembolün listelenme tarihine
+  göre **2020-01-01 → 2026-11-17**.
+- `prepare_data.py`, 1m mumları UTC saatlerine doğru OHLCV kurallarıyla
+  toplar ve reponun beklediği `data/1h/<SEMBOL>.parquet` düzenine çevirir.
 - Tüm işlem mekaniği kök motordan (`backtest.py`) aynen alınır: 1.5 ATR stop,
   1R/2R kısmi kâr al, EMA20 takip çıkışı, 500 bar timeout, stop-first önceliği,
   komisyon + slippage.
@@ -81,33 +83,28 @@ de kopyalanır:
 
 | | Normal | Singular | Fark |
 |---|---:|---:|---:|
-| İşlem | 14.975.071 | 7.302.088 | −7.672.983 (bloke %51,24) |
-| Kazanma oranı | %47,95 | %47,32 | −0,63 puan |
-| Ort. işlem getirisi | −0,0285% | −0,0368% | −0,0083 puan |
-| Ort. R | −0,0581 | −0,0748 | −0,0167 |
-| 2026 ort. getiri | −0,0267% | −0,0361% | −0,0094 puan |
+| İşlem | 21.003.940 | 9.985.822 | −11.018.118 (bloke %52,46) |
+| Kazanma oranı | %48,07 | %47,50 | −0,57 puan |
+| Ort. işlem getirisi | −0,0248% | −0,0325% | −0,0077 puan |
+| Ort. R | −0,0506 | −0,0662 | −0,0156 |
 
 Zaman dilimi bazında:
 
 | TF | Normal işlem | Singular işlem | Bloke | Bloke % | Normal ort. | Singular ort. |
 |---|---:|---:|---:|---:|---:|---:|
-| 1h | 12.026.432 | 6.436.553 | 5.589.879 | 46,48 | −0,0351% | −0,0411% |
-| 4h | 2.516.049 | 742.253 | 1.773.796 | 70,50 | −0,0050% | −0,0087% |
-| 1d | 391.482 | 111.265 | 280.217 | 71,58 | +0,0191% | +0,0221% |
-| 1w | 41.108 | 12.017 | 29.091 | 70,77 | +0,0256% | +0,0065% |
+| 1h | 16.842.220 | 8.798.460 | 8.043.760 | 47,76 | −0,0313% | −0,0368% |
+| 4h | 3.545.674 | 1.014.067 | 2.531.607 | 71,40 | −0,0026% | −0,0056% |
+| 1d | 556.798 | 155.570 | 401.228 | 72,06 | +0,0233% | +0,0292% |
+| 1w | 59.248 | 17.725 | 41.523 | 70,08 | +0,0490% | +0,0218% |
 
 Yorum:
 
-- Yüksek zaman dilimleri işlemlerin ~%70'ini kaybediyor; 1h görece daha az
-  etkileniyor (%46,5) çünkü sinyaller zaten sık ve kısa ömürlü.
-- En anlamlı etki 1d tarafında: ortalama getiri **+0,0191% → +0,0221%**.
-- Tek tek bakıldığında, en az 100 singular işlemi olan 624 senaryo x TF
-  kombinasyonunun **212'si** ortalama getiride iyileşiyor. En iyi iyileşmeler:
-  - `125 1d`: +0,0128% → +0,0875% (+0,0747 puan, 3.078 sinyal bloke)
-  - `114 1w`: +0,0657% → +0,1308% (+0,0650 puan)
-  - `133 1d` ve `138 1d`: +0,0784% → +0,1434% (+0,0650 puan)
-  - `49 1d`: +0,0591% → +0,1211% (+0,0620 puan)
-- En kötü etkilenenler `101 1w` (−0,0861 puan) ve `217 1d` (−0,0838 puan).
+- Güncel tam koşuda toplam adayların %52,46'sı tek-açık-işlem kuralı nedeniyle
+  bloke edildi.
+- En az 500 singular işlem koşulunda `133 1d` ve `138 1d`, normalde
+  +0,0935% ortalama getiriden singular koşuda +0,1741%'e yükseldi.
+- `125 1d`, 4.320 sinyal bloke edildikten sonra +0,0389%'dan +0,1241%'e
+  yükseldi. Bunlar tarihsel sonuçlardır; bağımsız ileri dönem doğrulaması değildir.
 
 ## Doğrulama
 

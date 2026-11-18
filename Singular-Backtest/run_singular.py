@@ -359,7 +359,8 @@ def aggregate(out_dir: Path, scope: str, cfg: dict,
             "start": str(normal["entry_time"].min()) if len(normal) else "",
             "end": str(normal["exit_time"].max()) if len(normal) else "",
             "timeframes": list(cfg["timeframes"]),
-            "source": "D:/1mdatabinance (monthly Binance USD-M CSV archive)",
+            "source": ("D:/1mdatabinance (monthly 1h CSV history merged with "
+                       "daily 1m parquet, resampled to UTC 1h)"),
         },
         "totals": {
             "normal": totals(normal),
