@@ -71,7 +71,7 @@ def agg_groups(g):
     xt = g["exit_time"].to_numpy("datetime64[ns]")
     dur_h = (xt - et) / np.timedelta64(1, "h")
     g["_win"] = (r > 0).astype(np.int64)
-    y26 = et >= Y26
+    y26 = xt >= Y26
     g["_r26"] = np.where(y26, r, 0.0)
     g["_n26"] = y26.astype(np.int64)
     g["_durwin"] = np.where(r > 0, dur_h, 0.0)
@@ -161,21 +161,22 @@ def main():
 
     for k, path in enumerate(files, 1):
         df = pd.read_parquet(path, columns=["symbol", "timeframe", "scenario_id", "scenario",
-                                            "entry_time", "exit_time", "return", "side"])
+                                            "signal_time", "entry_time", "exit_time", "return", "side"])
         if df.empty:
             continue
         for sid, nm in df[["scenario_id", "scenario"]].drop_duplicates().itertuples(index=False):
             names[int(sid)] = nm
+        df["signal_time"] = pd.to_datetime(df["signal_time"], utc=True)
         df["entry_time"] = pd.to_datetime(df["entry_time"], utc=True)
         df["exit_time"] = pd.to_datetime(df["exit_time"], utc=True)
         df["_tf"] = df["timeframe"].map(TF_RANK).fillna(9).astype(np.int8)
         df["_side"] = df["side"].map(SIDE_RANK).fillna(9).astype(np.int8)
-        df = df.sort_values(["entry_time", "_tf", "_side"], kind="stable").reset_index(drop=True)
+        df = df.sort_values(["signal_time", "_tf", "_side"], kind="stable").reset_index(drop=True)
 
         st = states.reindex(df["entry_time"], method="ffill")
         scen = df["scenario_id"].to_numpy(np.int64)
         uniq, scen_idx = np.unique(scen, return_inverse=True)
-        entry = df["entry_time"].to_numpy("int64")
+        signal = df["signal_time"].to_numpy("int64")
         exit_ = df["exit_time"].to_numpy("int64")
         total_n += len(df)
 
@@ -185,7 +186,7 @@ def main():
                 continue
             gn = agg_groups(df[mask])
             accumulate(norm, fid, gn)
-            a = greedy(entry, exit_, mask, scen_idx, len(uniq))
+            a = greedy(signal, exit_, mask, scen_idx, len(uniq))
             ga = agg_groups(df[a])
             accumulate(acc, fid, ga)
 

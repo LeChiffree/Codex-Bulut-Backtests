@@ -48,25 +48,38 @@ def main() -> None:
     base = args.results
     cols = ["symbol", "timeframe", "scenario_id", "side", "signal_time",
             "entry_time", "exit_time", "r_multiple", "return"]
-    normal = load(base / "normal_trades", cols)
-    singular = load(base / "singular_trades", cols)
-    print(f"normal trades   : {len(normal):,}")
-    print(f"singular trades : {len(singular):,}")
-    print(f"blocked         : {len(normal) - len(singular):,}")
-
-    violations = overlap_count(singular, ["scenario_id", "symbol"])
-    print(f"singular overlaps (scenario+coin): {violations}")
-    side_overlaps = overlap_count(normal, ["scenario_id", "symbol", "timeframe", "side"])
-    print(f"normal per-side overlaps        : {side_overlaps}")
-
+    normal_files = sorted((base / "normal_trades").glob("*.parquet"))
+    if not normal_files:
+        raise SystemExit(f"no parquet files in {base / 'normal_trades'}")
+    normal_count = singular_count = violations = side_overlaps = missing = 0
     key = ["symbol", "timeframe", "scenario_id", "side", "entry_time"]
-    merged = singular[key].merge(normal[key].drop_duplicates(), on=key,
-                                 how="left", indicator=True)
-    missing = int((merged["_merge"] != "both").sum())
+    for i, normal_file in enumerate(normal_files, 1):
+        singular_file = base / "singular_trades" / normal_file.name
+        if not singular_file.exists():
+            raise SystemExit(f"missing singular file: {singular_file}")
+        normal = pd.read_parquet(normal_file, columns=cols)
+        singular = pd.read_parquet(singular_file, columns=cols)
+        normal_count += len(normal)
+        singular_count += len(singular)
+        violations += overlap_count(singular, ["scenario_id", "symbol"])
+        side_overlaps += overlap_count(
+            normal, ["scenario_id", "symbol", "timeframe", "side"]
+        )
+        merged = singular[key].merge(normal[key].drop_duplicates(), on=key,
+                                     how="left", indicator=True)
+        missing += int((merged["_merge"] != "both").sum())
+        if i % 50 == 0 or i == len(normal_files):
+            print(f"verified {i}/{len(normal_files)} symbols", flush=True)
+
+    print(f"normal trades   : {normal_count:,}")
+    print(f"singular trades : {singular_count:,}")
+    print(f"blocked         : {normal_count - singular_count:,}")
+    print(f"singular overlaps (scenario+coin): {violations}")
+    print(f"normal per-side overlaps        : {side_overlaps}")
     print(f"singular trades missing in normal: {missing}")
 
-    blocked = len(normal) - len(singular)
-    pct = blocked / len(normal) * 100 if len(normal) else 0
+    blocked = normal_count - singular_count
+    pct = blocked / normal_count * 100 if normal_count else 0
     print(f"blocked ratio   : {pct:.2f}%")
     if violations or side_overlaps or missing:
         print("FAILED")

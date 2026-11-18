@@ -9,6 +9,9 @@ is resampled to closed UTC hours and is the preferred source for fresh runs.
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
+import os
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -83,6 +86,8 @@ def load_symbol(source_dir: Path) -> pd.DataFrame | None:
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv-root", type=Path, default=Path("D:/1mdatabinance/1m"),
                     help="symbol directories containing monthly CSV or daily parquet files")
@@ -94,11 +99,15 @@ def main() -> None:
     ap.add_argument("--symbols-file", type=Path,
                     default=Path("D:/1mdatabinance/selected_symbols.txt"),
                     help="one symbol per line; combined with --symbols when supplied")
+    ap.add_argument("--all-symbols", action="store_true",
+                    help="ignore the default selected-symbol list and process every symbol directory")
+    ap.add_argument("--workers", type=int, default=min(6, max(1, (os.cpu_count() or 4) - 2)),
+                    help="parallel symbol readers (default: up to 6)")
     args = ap.parse_args()
 
     args.out_root.mkdir(parents=True, exist_ok=True)
     wanted = {s.upper() for s in args.symbols} if args.symbols else set()
-    if args.symbols_file and args.symbols_file.is_file():
+    if not args.all_symbols and args.symbols_file and args.symbols_file.is_file():
         wanted.update(
             line.strip().upper() for line in
             args.symbols_file.read_text(encoding="utf-8").splitlines()
@@ -106,11 +115,15 @@ def main() -> None:
         )
     wanted = wanted or None
     dirs = sorted(p for p in args.csv_root.iterdir() if p.is_dir())
-    written = 0
+    jobs = []
     for i, csv_dir in enumerate(dirs, 1):
         symbol = csv_dir.name
         if wanted and symbol not in wanted:
             continue
+        jobs.append((i, csv_dir, symbol))
+
+    def prepare(job):
+        i, csv_dir, symbol = job
         fresh = load_symbol(csv_dir)
         history_dir = args.history_root / symbol if args.history_root else None
         history = (load_symbol(history_dir)
@@ -122,13 +135,19 @@ def main() -> None:
             df = (df.drop_duplicates("open_time", keep="last")
                   .sort_values("open_time").reset_index(drop=True))
         if df is None or df.empty:
-            print(f"[{i}/{len(dirs)}] {symbol}: empty")
-            continue
+            return i, symbol, None, "empty"
         out = args.out_root / f"{symbol}.parquet"
         df.to_parquet(out, index=False, compression="zstd", row_group_size=100_000)
-        written += 1
-        print(f"[{i}/{len(dirs)}] {symbol}: {len(df):,} bars "
-              f"{df.open_time.min().date()} -> {df.open_time.max().date()}", flush=True)
+        detail = (f"{len(df):,} bars {df.open_time.min().date()} -> "
+                  f"{df.open_time.max().date()}")
+        return i, symbol, out, detail
+
+    written = 0
+    with cf.ThreadPoolExecutor(max_workers=args.workers) as executor:
+        for i, symbol, out, detail in executor.map(prepare, jobs):
+            if out is not None:
+                written += 1
+            print(f"[{i}/{len(dirs)}] {symbol}: {detail}", flush=True)
     print(f"wrote {written} files to {args.out_root}")
 
 

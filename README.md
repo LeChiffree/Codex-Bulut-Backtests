@@ -72,7 +72,7 @@ açık işlem** tutulur; işlem açıkken gelen yeni sinyaller bloke edilir. Kur
 zaman dilimleri ve long/short yönleri için geçerlidir.
 
 ```bash
-python Singular-Backtest/prepare_data.py
+python Singular-Backtest/prepare_data.py --all-symbols --workers 10
 python Singular-Backtest/run_singular.py --workers 10
 python Singular-Backtest/verify_singular.py
 ```

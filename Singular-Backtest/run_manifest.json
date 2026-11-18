@@ -1,9 +1,63 @@
 [
   {
+    "symbol": "0GUSDT",
+    "status": "ok",
+    "normal": 100303,
+    "singular": 51630
+  },
+  {
+    "symbol": "1000000MOGUSDT",
+    "status": "ok",
+    "normal": 180969,
+    "singular": 85471
+  },
+  {
+    "symbol": "1000BONKUSDT",
+    "status": "ok",
+    "normal": 269232,
+    "singular": 135242
+  },
+  {
+    "symbol": "1000CATUSDT",
+    "status": "ok",
+    "normal": 187013,
+    "singular": 90999
+  },
+  {
+    "symbol": "1000CHEEMSUSDT",
+    "status": "ok",
+    "normal": 178253,
+    "singular": 89851
+  },
+  {
+    "symbol": "1000FLOKIUSDT",
+    "status": "ok",
+    "normal": 316791,
+    "singular": 152855
+  },
+  {
+    "symbol": "1000LUNCUSDT",
+    "status": "ok",
+    "normal": 358138,
+    "singular": 179631
+  },
+  {
     "symbol": "1000PEPEUSDT",
     "status": "ok",
     "normal": 311189,
     "singular": 151996
+  },
+  {
+    "symbol": "1000RATSUSDT",
+    "status": "ok",
+    "normal": 255921,
+    "singular": 114987
+  },
+  {
+    "symbol": "1000SATSUSDT",
+    "status": "ok",
+    "normal": 240726,
+    "singular": 109358
   },
   {
     "symbol": "1000SHIBUSDT",
@@ -12,10 +66,64 @@
     "singular": 226645
   },
   {
+    "symbol": "1000XECUSDT",
+    "status": "ok",
+    "normal": 452055,
+    "singular": 204902
+  },
+  {
+    "symbol": "1INCHUSDT",
+    "status": "ok",
+    "normal": 532928,
+    "singular": 221747
+  },
+  {
+    "symbol": "1MBABYDOGEUSDT",
+    "status": "ok",
+    "normal": 194026,
+    "singular": 95547
+  },
+  {
+    "symbol": "2ZUSDT",
+    "status": "ok",
+    "normal": 99748,
+    "singular": 47781
+  },
+  {
+    "symbol": "4USDT",
+    "status": "ok",
+    "normal": 94348,
+    "singular": 48597
+  },
+  {
     "symbol": "AAVEUSDT",
     "status": "ok",
     "normal": 558690,
     "singular": 256382
+  },
+  {
+    "symbol": "ACEUSDT",
+    "status": "ok",
+    "normal": 260584,
+    "singular": 125321
+  },
+  {
+    "symbol": "ACHUSDT",
+    "status": "ok",
+    "normal": 344059,
+    "singular": 170322
+  },
+  {
+    "symbol": "ACTUSDT",
+    "status": "ok",
+    "normal": 173363,
+    "singular": 85811
+  },
+  {
+    "symbol": "ACUUSDT",
+    "status": "ok",
+    "normal": 71879,
+    "singular": 39244
   },
   {
     "symbol": "ADAUSDT",
@@ -24,10 +132,64 @@
     "singular": 274418
   },
   {
+    "symbol": "AEROUSDT",
+    "status": "ok",
+    "normal": 181106,
+    "singular": 90462
+  },
+  {
+    "symbol": "AEVOUSDT",
+    "status": "ok",
+    "normal": 241753,
+    "singular": 114173
+  },
+  {
+    "symbol": "AGLDUSDT",
+    "status": "ok",
+    "normal": 301039,
+    "singular": 146340
+  },
+  {
+    "symbol": "AGTUSDT",
+    "status": "ok",
+    "normal": 125550,
+    "singular": 65013
+  },
+  {
+    "symbol": "AIAUSDT",
+    "status": "ok",
+    "normal": 67043,
+    "singular": 34754
+  },
+  {
+    "symbol": "AIGENSYNUSDT",
+    "status": "ok",
+    "normal": 47490,
+    "singular": 26443
+  },
+  {
     "symbol": "AINUSDT",
     "status": "ok",
     "normal": 111942,
     "singular": 56828
+  },
+  {
+    "symbol": "AIOTUSDT",
+    "status": "ok",
+    "normal": 124955,
+    "singular": 63780
+  },
+  {
+    "symbol": "AIOUSDT",
+    "status": "ok",
+    "normal": 102268,
+    "singular": 50217
+  },
+  {
+    "symbol": "AIXBTUSDT",
+    "status": "ok",
+    "normal": 174232,
+    "singular": 88586
   },
   {
     "symbol": "AKEUSDT",
@@ -36,16 +198,190 @@
     "singular": 45510
   },
   {
+    "symbol": "AKTUSDT",
+    "status": "ok",
+    "normal": 182245,
+    "singular": 89053
+  },
+  {
+    "symbol": "ALCHUSDT",
+    "status": "ok",
+    "normal": 158013,
+    "singular": 75864
+  },
+  {
+    "symbol": "ALGOUSDT",
+    "status": "ok",
+    "normal": 585024,
+    "singular": 271758
+  },
+  {
+    "symbol": "ALICEUSDT",
+    "status": "ok",
+    "normal": 490263,
+    "singular": 229773
+  },
+  {
+    "symbol": "ALLOUSDT",
+    "status": "ok",
+    "normal": 87817,
+    "singular": 44367
+  },
+  {
+    "symbol": "ALLUSDT",
+    "status": "ok",
+    "normal": 115457,
+    "singular": 57710
+  },
+  {
+    "symbol": "ALPINEUSDT",
+    "status": "ok",
+    "normal": 125460,
+    "singular": 54219
+  },
+  {
+    "symbol": "ALTUSDT",
+    "status": "ok",
+    "normal": 253408,
+    "singular": 118459
+  },
+  {
+    "symbol": "ANIMEUSDT",
+    "status": "ok",
+    "normal": 161836,
+    "singular": 78254
+  },
+  {
+    "symbol": "ANKRUSDT",
+    "status": "ok",
+    "normal": 521852,
+    "singular": 246370
+  },
+  {
+    "symbol": "APEUSDT",
+    "status": "ok",
+    "normal": 415752,
+    "singular": 188190
+  },
+  {
+    "symbol": "API3USDT",
+    "status": "ok",
+    "normal": 421810,
+    "singular": 200111
+  },
+  {
+    "symbol": "APRUSDT",
+    "status": "ok",
+    "normal": 88213,
+    "singular": 44535
+  },
+  {
+    "symbol": "APTUSDT",
+    "status": "ok",
+    "normal": 369240,
+    "singular": 164517
+  },
+  {
     "symbol": "ARBUSDT",
     "status": "ok",
     "normal": 332564,
     "singular": 162389
   },
   {
+    "symbol": "ARCUSDT",
+    "status": "ok",
+    "normal": 160087,
+    "singular": 80159
+  },
+  {
+    "symbol": "ARIAUSDT",
+    "status": "ok",
+    "normal": 97562,
+    "singular": 44466
+  },
+  {
+    "symbol": "ARKMUSDT",
+    "status": "ok",
+    "normal": 299140,
+    "singular": 146787
+  },
+  {
+    "symbol": "ARKUSDT",
+    "status": "ok",
+    "normal": 282036,
+    "singular": 134298
+  },
+  {
+    "symbol": "ARPAUSDT",
+    "status": "ok",
+    "normal": 449753,
+    "singular": 218450
+  },
+  {
+    "symbol": "ARUSDT",
+    "status": "ok",
+    "normal": 465137,
+    "singular": 220605
+  },
+  {
+    "symbol": "ARXUSDT",
+    "status": "ok",
+    "normal": 35863,
+    "singular": 18706
+  },
+  {
+    "symbol": "ASRUSDT",
+    "status": "ok",
+    "normal": 127146,
+    "singular": 63179
+  },
+  {
     "symbol": "ASTERUSDT",
     "status": "ok",
     "normal": 102894,
     "singular": 53021
+  },
+  {
+    "symbol": "ASTRUSDT",
+    "status": "ok",
+    "normal": 343747,
+    "singular": 159031
+  },
+  {
+    "symbol": "ATHUSDT",
+    "status": "ok",
+    "normal": 146935,
+    "singular": 68451
+  },
+  {
+    "symbol": "ATOMUSDT",
+    "status": "ok",
+    "normal": 619127,
+    "singular": 299072
+  },
+  {
+    "symbol": "ATUSDT",
+    "status": "ok",
+    "normal": 88792,
+    "singular": 47208
+  },
+  {
+    "symbol": "AUCTIONUSDT",
+    "status": "ok",
+    "normal": 256490,
+    "singular": 114206
+  },
+  {
+    "symbol": "AUSDT",
+    "status": "ok",
+    "normal": 132805,
+    "singular": 60014
+  },
+  {
+    "symbol": "AVAAIUSDT",
+    "status": "ok",
+    "normal": 158708,
+    "singular": 78206
   },
   {
     "symbol": "AVAUSDT",
@@ -60,10 +396,190 @@
     "singular": 258000
   },
   {
+    "symbol": "AVNTUSDT",
+    "status": "ok",
+    "normal": 106157,
+    "singular": 52487
+  },
+  {
+    "symbol": "AWEUSDT",
+    "status": "ok",
+    "normal": 132007,
+    "singular": 64797
+  },
+  {
+    "symbol": "AXLUSDT",
+    "status": "ok",
+    "normal": 252115,
+    "singular": 123344
+  },
+  {
+    "symbol": "AXSUSDT",
+    "status": "ok",
+    "normal": 532640,
+    "singular": 238967
+  },
+  {
+    "symbol": "AZTECUSDT",
+    "status": "ok",
+    "normal": 67446,
+    "singular": 35348
+  },
+  {
+    "symbol": "B2USDT",
+    "status": "ok",
+    "normal": 129417,
+    "singular": 63111
+  },
+  {
+    "symbol": "BABYUSDT",
+    "status": "ok",
+    "normal": 137873,
+    "singular": 64462
+  },
+  {
+    "symbol": "BANANAS31USDT",
+    "status": "ok",
+    "normal": 136986,
+    "singular": 63083
+  },
+  {
+    "symbol": "BANANAUSDT",
+    "status": "ok",
+    "normal": 201752,
+    "singular": 99518
+  },
+  {
+    "symbol": "BANDUSDT",
+    "status": "ok",
+    "normal": 576170,
+    "singular": 273300
+  },
+  {
+    "symbol": "BANKUSDT",
+    "status": "ok",
+    "normal": 129796,
+    "singular": 59402
+  },
+  {
+    "symbol": "BANUSDT",
+    "status": "ok",
+    "normal": 173262,
+    "singular": 79060
+  },
+  {
+    "symbol": "BARDUSDT",
+    "status": "ok",
+    "normal": 101859,
+    "singular": 49886
+  },
+  {
+    "symbol": "BASEDUSDT",
+    "status": "ok",
+    "normal": 53183,
+    "singular": 28847
+  },
+  {
+    "symbol": "BASUSDT",
+    "status": "ok",
+    "normal": 104600,
+    "singular": 50764
+  },
+  {
+    "symbol": "BATUSDT",
+    "status": "ok",
+    "normal": 622883,
+    "singular": 282364
+  },
+  {
+    "symbol": "BBUSDT",
+    "status": "ok",
+    "normal": 225099,
+    "singular": 103248
+  },
+  {
     "symbol": "BCHUSDT",
     "status": "ok",
     "normal": 609252,
     "singular": 293241
+  },
+  {
+    "symbol": "BEAMXUSDT",
+    "status": "ok",
+    "normal": 277363,
+    "singular": 136527
+  },
+  {
+    "symbol": "BEATUSDT",
+    "status": "ok",
+    "normal": 85182,
+    "singular": 42936
+  },
+  {
+    "symbol": "BELUSDT",
+    "status": "ok",
+    "normal": 538910,
+    "singular": 256904
+  },
+  {
+    "symbol": "BERAUSDT",
+    "status": "ok",
+    "normal": 160451,
+    "singular": 77601
+  },
+  {
+    "symbol": "BICOUSDT",
+    "status": "ok",
+    "normal": 285936,
+    "singular": 142037
+  },
+  {
+    "symbol": "BIGTIMEUSDT",
+    "status": "ok",
+    "normal": 281461,
+    "singular": 133713
+  },
+  {
+    "symbol": "BILLUSDT",
+    "status": "ok",
+    "normal": 45833,
+    "singular": 23304
+  },
+  {
+    "symbol": "BIOUSDT",
+    "status": "ok",
+    "normal": 164932,
+    "singular": 82975
+  },
+  {
+    "symbol": "BIRBUSDT",
+    "status": "ok",
+    "normal": 68980,
+    "singular": 34983
+  },
+  {
+    "symbol": "BLESSUSDT",
+    "status": "ok",
+    "normal": 94850,
+    "singular": 45889
+  },
+  {
+    "symbol": "BLUAIUSDT",
+    "status": "ok",
+    "normal": 87202,
+    "singular": 45712
+  },
+  {
+    "symbol": "BLURUSDT",
+    "status": "ok",
+    "normal": 322845,
+    "singular": 156515
+  },
+  {
+    "symbol": "BMTUSDT",
+    "status": "ok",
+    "normal": 142840,
+    "singular": 70502
   },
   {
     "symbol": "BNBUSDT",
@@ -72,16 +588,76 @@
     "singular": 290003
   },
   {
+    "symbol": "BNTUSDT",
+    "status": "ok",
+    "normal": 296617,
+    "singular": 139110
+  },
+  {
+    "symbol": "BOMEUSDT",
+    "status": "ok",
+    "normal": 241189,
+    "singular": 122871
+  },
+  {
+    "symbol": "BRETTUSDT",
+    "status": "ok",
+    "normal": 205155,
+    "singular": 96818
+  },
+  {
+    "symbol": "BREVUSDT",
+    "status": "ok",
+    "normal": 77917,
+    "singular": 40288
+  },
+  {
+    "symbol": "BROCCOLI714USDT",
+    "status": "ok",
+    "normal": 143246,
+    "singular": 70330
+  },
+  {
+    "symbol": "BROCCOLIF3BUSDT",
+    "status": "ok",
+    "normal": 136195,
+    "singular": 67759
+  },
+  {
     "symbol": "BRUSDT",
     "status": "ok",
     "normal": 135559,
     "singular": 69093
   },
   {
+    "symbol": "BSBUSDT",
+    "status": "ok",
+    "normal": 54958,
+    "singular": 29416
+  },
+  {
+    "symbol": "BSVUSDT",
+    "status": "ok",
+    "normal": 274847,
+    "singular": 140547
+  },
+  {
+    "symbol": "BTCDOMUSDT",
+    "status": "ok",
+    "normal": 495041,
+    "singular": 234267
+  },
+  {
     "symbol": "BTCUSDT",
     "status": "ok",
     "normal": 606604,
     "singular": 284609
+  },
+  {
+    "symbol": "BTRUSDT",
+    "status": "ok",
+    "normal": 94031,
+    "singular": 44375
   },
   {
     "symbol": "BTWUSDT",
@@ -96,10 +672,166 @@
     "singular": 49047
   },
   {
+    "symbol": "BUSDT",
+    "status": "ok",
+    "normal": 125328,
+    "singular": 62523
+  },
+  {
+    "symbol": "C98USDT",
+    "status": "ok",
+    "normal": 462099,
+    "singular": 214730
+  },
+  {
+    "symbol": "CAKEUSDT",
+    "status": "ok",
+    "normal": 274223,
+    "singular": 135567
+  },
+  {
+    "symbol": "CAPUSDT",
+    "status": "ok",
+    "normal": 31238,
+    "singular": 17374
+  },
+  {
+    "symbol": "CARVUSDT",
+    "status": "ok",
+    "normal": 111385,
+    "singular": 56643
+  },
+  {
+    "symbol": "CATIUSDT",
+    "status": "ok",
+    "normal": 187114,
+    "singular": 90084
+  },
+  {
+    "symbol": "CCUSDT",
+    "status": "ok",
+    "normal": 92220,
+    "singular": 48969
+  },
+  {
+    "symbol": "CELOUSDT",
+    "status": "ok",
+    "normal": 442429,
+    "singular": 208500
+  },
+  {
+    "symbol": "CELRUSDT",
+    "status": "ok",
+    "normal": 506173,
+    "singular": 220299
+  },
+  {
+    "symbol": "CETUSUSDT",
+    "status": "ok",
+    "normal": 180925,
+    "singular": 86643
+  },
+  {
+    "symbol": "CFGUSDT",
+    "status": "ok",
+    "normal": 59205,
+    "singular": 32077
+  },
+  {
+    "symbol": "CFXUSDT",
+    "status": "ok",
+    "normal": 331628,
+    "singular": 165076
+  },
+  {
+    "symbol": "CGPTUSDT",
+    "status": "ok",
+    "normal": 171295,
+    "singular": 81221
+  },
+  {
+    "symbol": "CHILLGUYUSDT",
+    "status": "ok",
+    "normal": 174505,
+    "singular": 84702
+  },
+  {
+    "symbol": "CHIPUSDT",
+    "status": "ok",
+    "normal": 52192,
+    "singular": 29092
+  },
+  {
+    "symbol": "CHRUSDT",
+    "status": "ok",
+    "normal": 507334,
+    "singular": 222674
+  },
+  {
+    "symbol": "CHZUSDT",
+    "status": "ok",
+    "normal": 518933,
+    "singular": 240620
+  },
+  {
+    "symbol": "CKBUSDT",
+    "status": "ok",
+    "normal": 338816,
+    "singular": 171493
+  },
+  {
+    "symbol": "CLANKERUSDT",
+    "status": "ok",
+    "normal": 86270,
+    "singular": 48739
+  },
+  {
+    "symbol": "CLOUSDT",
+    "status": "ok",
+    "normal": 89187,
+    "singular": 47224
+  },
+  {
+    "symbol": "COAIUSDT",
+    "status": "ok",
+    "normal": 94611,
+    "singular": 41330
+  },
+  {
+    "symbol": "COLLECTUSDT",
+    "status": "ok",
+    "normal": 76908,
+    "singular": 41611
+  },
+  {
+    "symbol": "COMPUSDT",
+    "status": "ok",
+    "normal": 583574,
+    "singular": 281916
+  },
+  {
+    "symbol": "COOKIEUSDT",
+    "status": "ok",
+    "normal": 169080,
+    "singular": 80828
+  },
+  {
     "symbol": "COTIUSDT",
     "status": "ok",
     "normal": 514118,
     "singular": 244467
+  },
+  {
+    "symbol": "COWUSDT",
+    "status": "ok",
+    "normal": 180525,
+    "singular": 88312
+  },
+  {
+    "symbol": "CROSSUSDT",
+    "status": "ok",
+    "normal": 114278,
+    "singular": 58060
   },
   {
     "symbol": "CRVUSDT",
@@ -108,10 +840,94 @@
     "singular": 251861
   },
   {
+    "symbol": "CTKUSDT",
+    "status": "ok",
+    "normal": 140053,
+    "singular": 67107
+  },
+  {
+    "symbol": "CTRUSDT",
+    "status": "ok",
+    "normal": 40426,
+    "singular": 21907
+  },
+  {
+    "symbol": "CTSIUSDT",
+    "status": "ok",
+    "normal": 448917,
+    "singular": 213249
+  },
+  {
+    "symbol": "CTUSDT",
+    "status": "ok",
+    "normal": 10904,
+    "singular": 6825
+  },
+  {
+    "symbol": "CUSDT",
+    "status": "ok",
+    "normal": 119767,
+    "singular": 59032
+  },
+  {
+    "symbol": "CVCUSDT",
+    "status": "ok",
+    "normal": 134752,
+    "singular": 64227
+  },
+  {
+    "symbol": "CVXUSDT",
+    "status": "ok",
+    "normal": 119279,
+    "singular": 59258
+  },
+  {
+    "symbol": "CYBERUSDT",
+    "status": "ok",
+    "normal": 288526,
+    "singular": 135419
+  },
+  {
+    "symbol": "CYSUSDT",
+    "status": "ok",
+    "normal": 82559,
+    "singular": 44836
+  },
+  {
     "symbol": "DASHUSDT",
     "status": "ok",
     "normal": 606457,
     "singular": 285776
+  },
+  {
+    "symbol": "DATAIPUSDT",
+    "status": "ok",
+    "normal": 34069,
+    "singular": 18528
+  },
+  {
+    "symbol": "DEEPUSDT",
+    "status": "ok",
+    "normal": 143267,
+    "singular": 71373
+  },
+  {
+    "symbol": "DEXEUSDT",
+    "status": "ok",
+    "normal": 159779,
+    "singular": 76035
+  },
+  {
+    "symbol": "DIAUSDT",
+    "status": "ok",
+    "normal": 192857,
+    "singular": 96631
+  },
+  {
+    "symbol": "DODOXUSDT",
+    "status": "ok",
+    "normal": 290085,
+    "singular": 143192
   },
   {
     "symbol": "DOGEUSDT",
@@ -120,10 +936,94 @@
     "singular": 245361
   },
   {
+    "symbol": "DOGSUSDT",
+    "status": "ok",
+    "normal": 192976,
+    "singular": 96110
+  },
+  {
+    "symbol": "DOLOUSDT",
+    "status": "ok",
+    "normal": 133523,
+    "singular": 60228
+  },
+  {
+    "symbol": "DOODUSDT",
+    "status": "ok",
+    "normal": 131638,
+    "singular": 65959
+  },
+  {
+    "symbol": "DOSUSDT",
+    "status": "ok",
+    "normal": 21469,
+    "singular": 12117
+  },
+  {
     "symbol": "DOTUSDT",
     "status": "ok",
     "normal": 561436,
     "singular": 265102
+  },
+  {
+    "symbol": "DRIFTUSDT",
+    "status": "ok",
+    "normal": 180645,
+    "singular": 88505
+  },
+  {
+    "symbol": "DUSKUSDT",
+    "status": "ok",
+    "normal": 443258,
+    "singular": 209396
+  },
+  {
+    "symbol": "DYDXUSDT",
+    "status": "ok",
+    "normal": 454731,
+    "singular": 215339
+  },
+  {
+    "symbol": "DYMUSDT",
+    "status": "ok",
+    "normal": 247521,
+    "singular": 117069
+  },
+  {
+    "symbol": "EDENUSDT",
+    "status": "ok",
+    "normal": 97773,
+    "singular": 42253
+  },
+  {
+    "symbol": "EDGEUSDT",
+    "status": "ok",
+    "normal": 54452,
+    "singular": 28091
+  },
+  {
+    "symbol": "EDUUSDT",
+    "status": "ok",
+    "normal": 317472,
+    "singular": 158230
+  },
+  {
+    "symbol": "EGLDUSDT",
+    "status": "ok",
+    "normal": 554577,
+    "singular": 242106
+  },
+  {
+    "symbol": "EIGENUSDT",
+    "status": "ok",
+    "normal": 196515,
+    "singular": 87279
+  },
+  {
+    "symbol": "ELSAUSDT",
+    "status": "ok",
+    "normal": 72385,
+    "singular": 38769
   },
   {
     "symbol": "ENAUSDT",
@@ -132,10 +1032,88 @@
     "singular": 107511
   },
   {
+    "symbol": "ENJUSDT",
+    "status": "ok",
+    "normal": 552586,
+    "singular": 261077
+  },
+  {
+    "symbol": "ENSOUSDT",
+    "status": "ok",
+    "normal": 94294,
+    "singular": 51602
+  },
+  {
+    "symbol": "ENSUSDT",
+    "status": "ok",
+    "normal": 449118,
+    "singular": 215727
+  },
+  {
+    "symbol": "EPICUSDT",
+    "status": "ok",
+    "normal": 137296,
+    "singular": 66035
+  },
+  {
+    "symbol": "ERAUSDT",
+    "status": "ok",
+    "normal": 116824,
+    "singular": 57923
+  },
+  {
+    "symbol": "ESPORTSUSDT",
+    "status": "ok",
+    "normal": 101413,
+    "singular": 48922
+  },
+  {
+    "symbol": "ESPUSDT",
+    "status": "ok",
+    "normal": 69677,
+    "singular": 38372
+  },
+  {
+    "symbol": "ETCUSDT",
+    "status": "ok",
+    "normal": 599394,
+    "singular": 291499
+  },
+  {
+    "symbol": "ETHFIUSDT",
+    "status": "ok",
+    "normal": 241894,
+    "singular": 114570
+  },
+  {
     "symbol": "ETHUSDT",
     "status": "ok",
     "normal": 601719,
     "singular": 284460
+  },
+  {
+    "symbol": "ETHWUSDT",
+    "status": "ok",
+    "normal": 260726,
+    "singular": 122820
+  },
+  {
+    "symbol": "EULUSDT",
+    "status": "ok",
+    "normal": 94340,
+    "singular": 50371
+  },
+  {
+    "symbol": "EVAAUSDT",
+    "status": "ok",
+    "normal": 90947,
+    "singular": 44874
+  },
+  {
+    "symbol": "FARTCOINUSDT",
+    "status": "ok",
+    "normal": 172982,
+    "singular": 83076
   },
   {
     "symbol": "FETUSDT",
@@ -144,10 +1122,100 @@
     "singular": 162990
   },
   {
+    "symbol": "FFUSDT",
+    "status": "ok",
+    "normal": 99610,
+    "singular": 52280
+  },
+  {
+    "symbol": "FHEUSDT",
+    "status": "ok",
+    "normal": 130774,
+    "singular": 64007
+  },
+  {
+    "symbol": "FIDAUSDT",
+    "status": "ok",
+    "normal": 189235,
+    "singular": 91275
+  },
+  {
+    "symbol": "FIGHTUSDT",
+    "status": "ok",
+    "normal": 67099,
+    "singular": 37260
+  },
+  {
     "symbol": "FILUSDT",
     "status": "ok",
     "normal": 519981,
     "singular": 243864
+  },
+  {
+    "symbol": "FLOCKUSDT",
+    "status": "ok",
+    "normal": 103327,
+    "singular": 50775
+  },
+  {
+    "symbol": "FLOWUSDT",
+    "status": "ok",
+    "normal": 408742,
+    "singular": 187647
+  },
+  {
+    "symbol": "FLUIDUSDT",
+    "status": "ok",
+    "normal": 100428,
+    "singular": 49410
+  },
+  {
+    "symbol": "FLUXUSDT",
+    "status": "ok",
+    "normal": 202255,
+    "singular": 96327
+  },
+  {
+    "symbol": "FOGOUSDT",
+    "status": "ok",
+    "normal": 72613,
+    "singular": 37405
+  },
+  {
+    "symbol": "FOLKSUSDT",
+    "status": "ok",
+    "normal": 82520,
+    "singular": 42817
+  },
+  {
+    "symbol": "FORMUSDT",
+    "status": "ok",
+    "normal": 144023,
+    "singular": 70110
+  },
+  {
+    "symbol": "FRAXUSDT",
+    "status": "ok",
+    "normal": 72194,
+    "singular": 39292
+  },
+  {
+    "symbol": "FUSDT",
+    "status": "ok",
+    "normal": 122971,
+    "singular": 62906
+  },
+  {
+    "symbol": "GALAUSDT",
+    "status": "ok",
+    "normal": 450585,
+    "singular": 202466
+  },
+  {
+    "symbol": "GASUSDT",
+    "status": "ok",
+    "normal": 271528,
+    "singular": 130190
   },
   {
     "symbol": "GENIUSUSDT",
@@ -156,10 +1224,178 @@
     "singular": 27120
   },
   {
+    "symbol": "GIGGLEUSDT",
+    "status": "ok",
+    "normal": 93125,
+    "singular": 48386
+  },
+  {
+    "symbol": "GLMUSDT",
+    "status": "ok",
+    "normal": 251948,
+    "singular": 123879
+  },
+  {
+    "symbol": "GMTUSDT",
+    "status": "ok",
+    "normal": 416341,
+    "singular": 194163
+  },
+  {
+    "symbol": "GMXUSDT",
+    "status": "ok",
+    "normal": 342440,
+    "singular": 167303
+  },
+  {
+    "symbol": "GOATUSDT",
+    "status": "ok",
+    "normal": 179657,
+    "singular": 86635
+  },
+  {
+    "symbol": "GPSUSDT",
+    "status": "ok",
+    "normal": 151085,
+    "singular": 71286
+  },
+  {
+    "symbol": "GRAMUSDT",
+    "status": "ok",
+    "normal": 32462,
+    "singular": 18833
+  },
+  {
+    "symbol": "GRASSUSDT",
+    "status": "ok",
+    "normal": 184390,
+    "singular": 85170
+  },
+  {
+    "symbol": "GRIFFAINUSDT",
+    "status": "ok",
+    "normal": 166879,
+    "singular": 80150
+  },
+  {
+    "symbol": "GRTUSDT",
+    "status": "ok",
+    "normal": 538234,
+    "singular": 244097
+  },
+  {
+    "symbol": "GRVTUSDT",
+    "status": "ok",
+    "normal": 25376,
+    "singular": 14182
+  },
+  {
+    "symbol": "GTCUSDT",
+    "status": "ok",
+    "normal": 469804,
+    "singular": 210533
+  },
+  {
+    "symbol": "GUAUSDT",
+    "status": "ok",
+    "normal": 75038,
+    "singular": 38593
+  },
+  {
+    "symbol": "GUNUSDT",
+    "status": "ok",
+    "normal": 140049,
+    "singular": 66639
+  },
+  {
+    "symbol": "GUSDT",
+    "status": "ok",
+    "normal": 205382,
+    "singular": 96073
+  },
+  {
+    "symbol": "GWEIUSDT",
+    "status": "ok",
+    "normal": 66872,
+    "singular": 33956
+  },
+  {
+    "symbol": "HAEDALUSDT",
+    "status": "ok",
+    "normal": 136878,
+    "singular": 67460
+  },
+  {
+    "symbol": "HANAUSDT",
+    "status": "ok",
+    "normal": 92988,
+    "singular": 44120
+  },
+  {
+    "symbol": "HBARUSDT",
+    "status": "ok",
+    "normal": 515066,
+    "singular": 243701
+  },
+  {
     "symbol": "HEIUSDT",
     "status": "ok",
     "normal": 148494,
     "singular": 73044
+  },
+  {
+    "symbol": "HEMIUSDT",
+    "status": "ok",
+    "normal": 103241,
+    "singular": 54046
+  },
+  {
+    "symbol": "HIVEUSDT",
+    "status": "ok",
+    "normal": 169076,
+    "singular": 79146
+  },
+  {
+    "symbol": "HMSTRUSDT",
+    "status": "ok",
+    "normal": 183036,
+    "singular": 88137
+  },
+  {
+    "symbol": "HOLOUSDT",
+    "status": "ok",
+    "normal": 101189,
+    "singular": 48694
+  },
+  {
+    "symbol": "HOMEUSDT",
+    "status": "ok",
+    "normal": 130426,
+    "singular": 66010
+  },
+  {
+    "symbol": "HOTUSDT",
+    "status": "ok",
+    "normal": 491657,
+    "singular": 214789
+  },
+  {
+    "symbol": "HUMAUSDT",
+    "status": "ok",
+    "normal": 134112,
+    "singular": 66234
+  },
+  {
+    "symbol": "HUSDT",
+    "status": "ok",
+    "normal": 116068,
+    "singular": 61275
+  },
+  {
+    "symbol": "HYPERUSDT",
+    "status": "ok",
+    "normal": 138934,
+    "singular": 70660
   },
   {
     "symbol": "HYPEUSDT",
@@ -168,10 +1404,64 @@
     "singular": 70387
   },
   {
+    "symbol": "ICNTUSDT",
+    "status": "ok",
+    "normal": 121035,
+    "singular": 61317
+  },
+  {
+    "symbol": "ICPUSDT",
+    "status": "ok",
+    "normal": 460453,
+    "singular": 205021
+  },
+  {
+    "symbol": "IDOLUSDT",
+    "status": "ok",
+    "normal": 115206,
+    "singular": 60301
+  },
+  {
+    "symbol": "IDUSDT",
+    "status": "ok",
+    "normal": 329448,
+    "singular": 158056
+  },
+  {
+    "symbol": "ILVUSDT",
+    "status": "ok",
+    "normal": 274050,
+    "singular": 130106
+  },
+  {
+    "symbol": "IMXUSDT",
+    "status": "ok",
+    "normal": 434357,
+    "singular": 200068
+  },
+  {
+    "symbol": "INITUSDT",
+    "status": "ok",
+    "normal": 143204,
+    "singular": 72020
+  },
+  {
     "symbol": "INJUSDT",
     "status": "ok",
     "normal": 390409,
     "singular": 188450
+  },
+  {
+    "symbol": "INUSDT",
+    "status": "ok",
+    "normal": 107891,
+    "singular": 52092
+  },
+  {
+    "symbol": "INXUSDT",
+    "status": "ok",
+    "normal": 68075,
+    "singular": 38287
   },
   {
     "symbol": "IOSTUSDT",
@@ -180,16 +1470,208 @@
     "singular": 283214
   },
   {
+    "symbol": "IOTAUSDT",
+    "status": "ok",
+    "normal": 607637,
+    "singular": 275729
+  },
+  {
+    "symbol": "IOTXUSDT",
+    "status": "ok",
+    "normal": 473310,
+    "singular": 217561
+  },
+  {
+    "symbol": "IOUSDT",
+    "status": "ok",
+    "normal": 221313,
+    "singular": 105818
+  },
+  {
+    "symbol": "IRYSUSDT",
+    "status": "ok",
+    "normal": 80413,
+    "singular": 42474
+  },
+  {
+    "symbol": "JASMYUSDT",
+    "status": "ok",
+    "normal": 407497,
+    "singular": 192061
+  },
+  {
+    "symbol": "JCTUSDT",
+    "status": "ok",
+    "normal": 84678,
+    "singular": 45409
+  },
+  {
+    "symbol": "JELLYJELLYUSDT",
+    "status": "ok",
+    "normal": 138391,
+    "singular": 64176
+  },
+  {
+    "symbol": "JOEUSDT",
+    "status": "ok",
+    "normal": 331762,
+    "singular": 161520
+  },
+  {
+    "symbol": "JSTUSDT",
+    "status": "ok",
+    "normal": 143833,
+    "singular": 67169
+  },
+  {
+    "symbol": "JTOUSDT",
+    "status": "ok",
+    "normal": 272624,
+    "singular": 134617
+  },
+  {
+    "symbol": "JUPUSDT",
+    "status": "ok",
+    "normal": 256531,
+    "singular": 126428
+  },
+  {
+    "symbol": "KAIAUSDT",
+    "status": "ok",
+    "normal": 171464,
+    "singular": 83296
+  },
+  {
+    "symbol": "KAITOUSDT",
+    "status": "ok",
+    "normal": 154372,
+    "singular": 77224
+  },
+  {
+    "symbol": "KASUSDT",
+    "status": "ok",
+    "normal": 270852,
+    "singular": 135056
+  },
+  {
+    "symbol": "KATUSDT",
+    "status": "ok",
+    "normal": 60031,
+    "singular": 33565
+  },
+  {
+    "symbol": "KAVAUSDT",
+    "status": "ok",
+    "normal": 570660,
+    "singular": 255036
+  },
+  {
+    "symbol": "KERNELUSDT",
+    "status": "ok",
+    "normal": 139904,
+    "singular": 72573
+  },
+  {
+    "symbol": "KGENUSDT",
+    "status": "ok",
+    "normal": 94423,
+    "singular": 51979
+  },
+  {
+    "symbol": "KITEUSDT",
+    "status": "ok",
+    "normal": 93682,
+    "singular": 51134
+  },
+  {
+    "symbol": "KMNOUSDT",
+    "status": "ok",
+    "normal": 174852,
+    "singular": 83564
+  },
+  {
+    "symbol": "KNCUSDT",
+    "status": "ok",
+    "normal": 583982,
+    "singular": 269330
+  },
+  {
+    "symbol": "KOMAUSDT",
+    "status": "ok",
+    "normal": 163816,
+    "singular": 79183
+  },
+  {
+    "symbol": "KSMUSDT",
+    "status": "ok",
+    "normal": 549729,
+    "singular": 248806
+  },
+  {
+    "symbol": "LABUSDT",
+    "status": "ok",
+    "normal": 88324,
+    "singular": 45208
+  },
+  {
+    "symbol": "LAUSDT",
+    "status": "ok",
+    "normal": 125862,
+    "singular": 62625
+  },
+  {
+    "symbol": "LAYERUSDT",
+    "status": "ok",
+    "normal": 153428,
+    "singular": 77898
+  },
+  {
+    "symbol": "LDOUSDT",
+    "status": "ok",
+    "normal": 379134,
+    "singular": 182856
+  },
+  {
+    "symbol": "LIGHTUSDT",
+    "status": "ok",
+    "normal": 90742,
+    "singular": 42773
+  },
+  {
+    "symbol": "LINEAUSDT",
+    "status": "ok",
+    "normal": 107792,
+    "singular": 54964
+  },
+  {
     "symbol": "LINKUSDT",
     "status": "ok",
     "normal": 621380,
     "singular": 304422
   },
   {
+    "symbol": "LISTAUSDT",
+    "status": "ok",
+    "normal": 215326,
+    "singular": 108611
+  },
+  {
     "symbol": "LITUSDT",
     "status": "ok",
     "normal": 302888,
     "singular": 150840
+  },
+  {
+    "symbol": "LPTUSDT",
+    "status": "ok",
+    "normal": 454206,
+    "singular": 222276
+  },
+  {
+    "symbol": "LQTYUSDT",
+    "status": "ok",
+    "normal": 331123,
+    "singular": 160898
   },
   {
     "symbol": "LSKUSDT",
@@ -204,16 +1686,286 @@
     "singular": 293959
   },
   {
+    "symbol": "LUMIAUSDT",
+    "status": "ok",
+    "normal": 165698,
+    "singular": 75024
+  },
+  {
+    "symbol": "LUNA2USDT",
+    "status": "ok",
+    "normal": 353618,
+    "singular": 174986
+  },
+  {
+    "symbol": "LYNUSDT",
+    "status": "ok",
+    "normal": 91990,
+    "singular": 48534
+  },
+  {
+    "symbol": "MAGICUSDT",
+    "status": "ok",
+    "normal": 340825,
+    "singular": 159929
+  },
+  {
+    "symbol": "MAGMAUSDT",
+    "status": "ok",
+    "normal": 74911,
+    "singular": 40281
+  },
+  {
+    "symbol": "MANAUSDT",
+    "status": "ok",
+    "normal": 510070,
+    "singular": 238835
+  },
+  {
+    "symbol": "MANTAUSDT",
+    "status": "ok",
+    "normal": 254727,
+    "singular": 123045
+  },
+  {
+    "symbol": "MANTRAUSDT",
+    "status": "ok",
+    "normal": 59396,
+    "singular": 31719
+  },
+  {
     "symbol": "MARSCOINUSDT",
     "status": "ok",
     "normal": 18068,
     "singular": 10888
   },
   {
+    "symbol": "MASKUSDT",
+    "status": "ok",
+    "normal": 466292,
+    "singular": 213351
+  },
+  {
+    "symbol": "MAVIAUSDT",
+    "status": "ok",
+    "normal": 136928,
+    "singular": 61670
+  },
+  {
+    "symbol": "MAVUSDT",
+    "status": "ok",
+    "normal": 304839,
+    "singular": 137081
+  },
+  {
+    "symbol": "MEGAUSDT",
+    "status": "ok",
+    "normal": 71523,
+    "singular": 39297
+  },
+  {
+    "symbol": "MELANIAUSDT",
+    "status": "ok",
+    "normal": 153828,
+    "singular": 66985
+  },
+  {
+    "symbol": "MEMEUSDT",
+    "status": "ok",
+    "normal": 274706,
+    "singular": 130545
+  },
+  {
+    "symbol": "MERLUSDT",
+    "status": "ok",
+    "normal": 129814,
+    "singular": 64306
+  },
+  {
+    "symbol": "METISUSDT",
+    "status": "ok",
+    "normal": 241298,
+    "singular": 116802
+  },
+  {
+    "symbol": "METUSDT",
+    "status": "ok",
+    "normal": 101332,
+    "singular": 54931
+  },
+  {
+    "symbol": "MEUSDT",
+    "status": "ok",
+    "normal": 172224,
+    "singular": 84905
+  },
+  {
+    "symbol": "MEWUSDT",
+    "status": "ok",
+    "normal": 221609,
+    "singular": 106282
+  },
+  {
+    "symbol": "MINAUSDT",
+    "status": "ok",
+    "normal": 343658,
+    "singular": 161384
+  },
+  {
+    "symbol": "MIRAUSDT",
+    "status": "ok",
+    "normal": 97237,
+    "singular": 46449
+  },
+  {
+    "symbol": "MITOUSDT",
+    "status": "ok",
+    "normal": 96114,
+    "singular": 48125
+  },
+  {
+    "symbol": "MMTUSDT",
+    "status": "ok",
+    "normal": 85935,
+    "singular": 41530
+  },
+  {
+    "symbol": "MOCAUSDT",
+    "status": "ok",
+    "normal": 173308,
+    "singular": 87985
+  },
+  {
+    "symbol": "MONUSDT",
+    "status": "ok",
+    "normal": 96832,
+    "singular": 46635
+  },
+  {
+    "symbol": "MOODENGUSDT",
+    "status": "ok",
+    "normal": 182331,
+    "singular": 87219
+  },
+  {
+    "symbol": "MORPHOUSDT",
+    "status": "ok",
+    "normal": 182305,
+    "singular": 92609
+  },
+  {
+    "symbol": "MOVEUSDT",
+    "status": "ok",
+    "normal": 171078,
+    "singular": 83833
+  },
+  {
+    "symbol": "MOVRUSDT",
+    "status": "ok",
+    "normal": 258575,
+    "singular": 124791
+  },
+  {
+    "symbol": "MTLUSDT",
+    "status": "ok",
+    "normal": 506677,
+    "singular": 237021
+  },
+  {
+    "symbol": "MUBARAKUSDT",
+    "status": "ok",
+    "normal": 144759,
+    "singular": 69494
+  },
+  {
+    "symbol": "MUSDT",
+    "status": "ok",
+    "normal": 115462,
+    "singular": 60329
+  },
+  {
+    "symbol": "MYXUSDT",
+    "status": "ok",
+    "normal": 112045,
+    "singular": 56413
+  },
+  {
+    "symbol": "NAORISUSDT",
+    "status": "ok",
+    "normal": 105060,
+    "singular": 50904
+  },
+  {
     "symbol": "NEARUSDT",
     "status": "ok",
     "normal": 554693,
     "singular": 265362
+  },
+  {
+    "symbol": "NEIROUSDT",
+    "status": "ok",
+    "normal": 193021,
+    "singular": 94750
+  },
+  {
+    "symbol": "NEOUSDT",
+    "status": "ok",
+    "normal": 610803,
+    "singular": 272705
+  },
+  {
+    "symbol": "NEWTUSDT",
+    "status": "ok",
+    "normal": 125234,
+    "singular": 61252
+  },
+  {
+    "symbol": "NIGHTUSDT",
+    "status": "ok",
+    "normal": 83310,
+    "singular": 45312
+  },
+  {
+    "symbol": "NILUSDT",
+    "status": "ok",
+    "normal": 145985,
+    "singular": 75094
+  },
+  {
+    "symbol": "NMRUSDT",
+    "status": "ok",
+    "normal": 305801,
+    "singular": 148959
+  },
+  {
+    "symbol": "NOMUSDT",
+    "status": "ok",
+    "normal": 94355,
+    "singular": 45006
+  },
+  {
+    "symbol": "NOTUSDT",
+    "status": "ok",
+    "normal": 224225,
+    "singular": 108999
+  },
+  {
+    "symbol": "NXPCUSDT",
+    "status": "ok",
+    "normal": 134304,
+    "singular": 67361
+  },
+  {
+    "symbol": "OGNUSDT",
+    "status": "ok",
+    "normal": 490141,
+    "singular": 233765
+  },
+  {
+    "symbol": "OGUSDT",
+    "status": "ok",
+    "normal": 123503,
+    "singular": 61966
   },
   {
     "symbol": "ONDOUSDT",
@@ -228,10 +1980,88 @@
     "singular": 230093
   },
   {
+    "symbol": "ONGUSDT",
+    "status": "ok",
+    "normal": 268418,
+    "singular": 130327
+  },
+  {
+    "symbol": "ONTUSDT",
+    "status": "ok",
+    "normal": 610346,
+    "singular": 282528
+  },
+  {
+    "symbol": "ONUSDT",
+    "status": "ok",
+    "normal": 89712,
+    "singular": 48221
+  },
+  {
+    "symbol": "OPENUSDT",
+    "status": "ok",
+    "normal": 101989,
+    "singular": 52199
+  },
+  {
+    "symbol": "OPGUSDT",
+    "status": "ok",
+    "normal": 48977,
+    "singular": 27116
+  },
+  {
+    "symbol": "OPNUSDT",
+    "status": "ok",
+    "normal": 63258,
+    "singular": 32676
+  },
+  {
+    "symbol": "OPUSDT",
+    "status": "ok",
+    "normal": 402148,
+    "singular": 188071
+  },
+  {
+    "symbol": "ORCAUSDT",
+    "status": "ok",
+    "normal": 173992,
+    "singular": 87563
+  },
+  {
+    "symbol": "ORDERUSDT",
+    "status": "ok",
+    "normal": 98983,
+    "singular": 47449
+  },
+  {
+    "symbol": "ORDIUSDT",
+    "status": "ok",
+    "normal": 268081,
+    "singular": 118710
+  },
+  {
+    "symbol": "OUSDT",
+    "status": "ok",
+    "normal": 35047,
+    "singular": 18153
+  },
+  {
+    "symbol": "PARTIUSDT",
+    "status": "ok",
+    "normal": 145471,
+    "singular": 74233
+  },
+  {
     "symbol": "PAXGUSDT",
     "status": "ok",
     "normal": 153048,
     "singular": 80060
+  },
+  {
+    "symbol": "PENDLEUSDT",
+    "status": "ok",
+    "normal": 310502,
+    "singular": 150246
   },
   {
     "symbol": "PENGUUSDT",
@@ -240,10 +2070,130 @@
     "singular": 86588
   },
   {
+    "symbol": "PEOPLEUSDT",
+    "status": "ok",
+    "normal": 431741,
+    "singular": 203996
+  },
+  {
+    "symbol": "PHAROSUSDT",
+    "status": "ok",
+    "normal": 46758,
+    "singular": 25520
+  },
+  {
+    "symbol": "PHAUSDT",
+    "status": "ok",
+    "normal": 169492,
+    "singular": 72334
+  },
+  {
+    "symbol": "PIEVERSEUSDT",
+    "status": "ok",
+    "normal": 88273,
+    "singular": 48069
+  },
+  {
+    "symbol": "PIPPINUSDT",
+    "status": "ok",
+    "normal": 151521,
+    "singular": 71771
+  },
+  {
+    "symbol": "PIXELUSDT",
+    "status": "ok",
+    "normal": 245962,
+    "singular": 106643
+  },
+  {
+    "symbol": "PLAYUSDT",
+    "status": "ok",
+    "normal": 107260,
+    "singular": 52901
+  },
+  {
+    "symbol": "PLUMEUSDT",
+    "status": "ok",
+    "normal": 150508,
+    "singular": 72458
+  },
+  {
+    "symbol": "PNUTUSDT",
+    "status": "ok",
+    "normal": 179702,
+    "singular": 80590
+  },
+  {
+    "symbol": "POLUSDT",
+    "status": "ok",
+    "normal": 197714,
+    "singular": 93337
+  },
+  {
+    "symbol": "POLYXUSDT",
+    "status": "ok",
+    "normal": 280976,
+    "singular": 133895
+  },
+  {
     "symbol": "PONSUSDT",
     "status": "ok",
     "normal": 16768,
     "singular": 9740
+  },
+  {
+    "symbol": "POPCATUSDT",
+    "status": "ok",
+    "normal": 203694,
+    "singular": 96831
+  },
+  {
+    "symbol": "PORTALUSDT",
+    "status": "ok",
+    "normal": 241356,
+    "singular": 112102
+  },
+  {
+    "symbol": "POWERUSDT",
+    "status": "ok",
+    "normal": 76721,
+    "singular": 42663
+  },
+  {
+    "symbol": "POWRUSDT",
+    "status": "ok",
+    "normal": 277840,
+    "singular": 132012
+  },
+  {
+    "symbol": "PREDICTUSDT",
+    "status": "ok",
+    "normal": 3929,
+    "singular": 2495
+  },
+  {
+    "symbol": "PRLUSDT",
+    "status": "ok",
+    "normal": 53064,
+    "singular": 26590
+  },
+  {
+    "symbol": "PROMUSDT",
+    "status": "ok",
+    "normal": 156896,
+    "singular": 74401
+  },
+  {
+    "symbol": "PROVEUSDT",
+    "status": "ok",
+    "normal": 116034,
+    "singular": 59195
+  },
+  {
+    "symbol": "PTBUSDT",
+    "status": "ok",
+    "normal": 91579,
+    "singular": 47190
   },
   {
     "symbol": "PUMPUSDT",
@@ -252,10 +2202,154 @@
     "singular": 63345
   },
   {
+    "symbol": "PUNDIXUSDT",
+    "status": "ok",
+    "normal": 139965,
+    "singular": 68771
+  },
+  {
+    "symbol": "PYTHUSDT",
+    "status": "ok",
+    "normal": 275883,
+    "singular": 133748
+  },
+  {
+    "symbol": "QNTUSDT",
+    "status": "ok",
+    "normal": 377853,
+    "singular": 184676
+  },
+  {
+    "symbol": "QTUMUSDT",
+    "status": "ok",
+    "normal": 607851,
+    "singular": 291016
+  },
+  {
+    "symbol": "QUSDT",
+    "status": "ok",
+    "normal": 97266,
+    "singular": 49647
+  },
+  {
+    "symbol": "RAREUSDT",
+    "status": "ok",
+    "normal": 198172,
+    "singular": 99074
+  },
+  {
+    "symbol": "RAVEUSDT",
+    "status": "ok",
+    "normal": 74905,
+    "singular": 38399
+  },
+  {
     "symbol": "RAYSOLUSDT",
     "status": "ok",
     "normal": 176090,
     "singular": 83439
+  },
+  {
+    "symbol": "RECALLUSDT",
+    "status": "ok",
+    "normal": 93088,
+    "singular": 47460
+  },
+  {
+    "symbol": "REDUSDT",
+    "status": "ok",
+    "normal": 151641,
+    "singular": 71129
+  },
+  {
+    "symbol": "RENDERUSDT",
+    "status": "ok",
+    "normal": 214048,
+    "singular": 108753
+  },
+  {
+    "symbol": "RESOLVUSDT",
+    "status": "ok",
+    "normal": 125597,
+    "singular": 61632
+  },
+  {
+    "symbol": "REUSDT",
+    "status": "ok",
+    "normal": 36397,
+    "singular": 19893
+  },
+  {
+    "symbol": "REZUSDT",
+    "status": "ok",
+    "normal": 231573,
+    "singular": 111149
+  },
+  {
+    "symbol": "RIFUSDT",
+    "status": "ok",
+    "normal": 282163,
+    "singular": 138778
+  },
+  {
+    "symbol": "RIVERUSDT",
+    "status": "ok",
+    "normal": 91280,
+    "singular": 47187
+  },
+  {
+    "symbol": "RLCUSDT",
+    "status": "ok",
+    "normal": 573793,
+    "singular": 278896
+  },
+  {
+    "symbol": "ROBOUSDT",
+    "status": "ok",
+    "normal": 61391,
+    "singular": 32494
+  },
+  {
+    "symbol": "RONINUSDT",
+    "status": "ok",
+    "normal": 248361,
+    "singular": 121612
+  },
+  {
+    "symbol": "ROSEUSDT",
+    "status": "ok",
+    "normal": 436133,
+    "singular": 212610
+  },
+  {
+    "symbol": "RPLUSDT",
+    "status": "ok",
+    "normal": 199610,
+    "singular": 98906
+  },
+  {
+    "symbol": "RSRUSDT",
+    "status": "ok",
+    "normal": 551456,
+    "singular": 246382
+  },
+  {
+    "symbol": "RUNEUSDT",
+    "status": "ok",
+    "normal": 566548,
+    "singular": 263833
+  },
+  {
+    "symbol": "RVNUSDT",
+    "status": "ok",
+    "normal": 505607,
+    "singular": 242301
+  },
+  {
+    "symbol": "SAFEUSDT",
+    "status": "ok",
+    "normal": 187834,
+    "singular": 87626
   },
   {
     "symbol": "SAGAUSDT",
@@ -264,10 +2358,232 @@
     "singular": 112912
   },
   {
+    "symbol": "SAHARAUSDT",
+    "status": "ok",
+    "normal": 118293,
+    "singular": 52697
+  },
+  {
+    "symbol": "SANDUSDT",
+    "status": "ok",
+    "normal": 518705,
+    "singular": 239937
+  },
+  {
+    "symbol": "SANTOSUSDT",
+    "status": "ok",
+    "normal": 171994,
+    "singular": 87451
+  },
+  {
+    "symbol": "SAPIENUSDT",
+    "status": "ok",
+    "normal": 111296,
+    "singular": 57516
+  },
+  {
+    "symbol": "SCRUSDT",
+    "status": "ok",
+    "normal": 190161,
+    "singular": 89035
+  },
+  {
+    "symbol": "SEIUSDT",
+    "status": "ok",
+    "normal": 296544,
+    "singular": 145372
+  },
+  {
+    "symbol": "SENTUSDT",
+    "status": "ok",
+    "normal": 88154,
+    "singular": 46504
+  },
+  {
+    "symbol": "SFPUSDT",
+    "status": "ok",
+    "normal": 525963,
+    "singular": 244986
+  },
+  {
+    "symbol": "SHELLUSDT",
+    "status": "ok",
+    "normal": 155226,
+    "singular": 77978
+  },
+  {
+    "symbol": "SIGNUSDT",
+    "status": "ok",
+    "normal": 137322,
+    "singular": 65244
+  },
+  {
+    "symbol": "SIRENUSDT",
+    "status": "ok",
+    "normal": 131366,
+    "singular": 64872
+  },
+  {
+    "symbol": "SKLUSDT",
+    "status": "ok",
+    "normal": 536660,
+    "singular": 214465
+  },
+  {
+    "symbol": "SKRUSDT",
+    "status": "ok",
+    "normal": 73679,
+    "singular": 37428
+  },
+  {
+    "symbol": "SKYAIUSDT",
+    "status": "ok",
+    "normal": 129313,
+    "singular": 62876
+  },
+  {
+    "symbol": "SKYUSDT",
+    "status": "ok",
+    "normal": 107751,
+    "singular": 55559
+  },
+  {
+    "symbol": "SLPUSDT",
+    "status": "ok",
+    "normal": 116316,
+    "singular": 60560
+  },
+  {
+    "symbol": "SLXUSDT",
+    "status": "ok",
+    "normal": 38684,
+    "singular": 19967
+  },
+  {
+    "symbol": "SNXUSDT",
+    "status": "ok",
+    "normal": 573064,
+    "singular": 258424
+  },
+  {
     "symbol": "SOLUSDT",
     "status": "ok",
     "normal": 560265,
     "singular": 261640
+  },
+  {
+    "symbol": "SOLVUSDT",
+    "status": "ok",
+    "normal": 155614,
+    "singular": 74394
+  },
+  {
+    "symbol": "SOMIUSDT",
+    "status": "ok",
+    "normal": 106481,
+    "singular": 51513
+  },
+  {
+    "symbol": "SONICUSDT",
+    "status": "ok",
+    "normal": 162285,
+    "singular": 76259
+  },
+  {
+    "symbol": "SOONUSDT",
+    "status": "ok",
+    "normal": 126279,
+    "singular": 63691
+  },
+  {
+    "symbol": "SOPHUSDT",
+    "status": "ok",
+    "normal": 128708,
+    "singular": 59713
+  },
+  {
+    "symbol": "SPACEUSDT",
+    "status": "ok",
+    "normal": 70260,
+    "singular": 37995
+  },
+  {
+    "symbol": "SPELLUSDT",
+    "status": "ok",
+    "normal": 369748,
+    "singular": 168725
+  },
+  {
+    "symbol": "SPKUSDT",
+    "status": "ok",
+    "normal": 124966,
+    "singular": 64336
+  },
+  {
+    "symbol": "SPORTFUNUSDT",
+    "status": "ok",
+    "normal": 71026,
+    "singular": 38347
+  },
+  {
+    "symbol": "SPXUSDT",
+    "status": "ok",
+    "normal": 179419,
+    "singular": 90568
+  },
+  {
+    "symbol": "SQDUSDT",
+    "status": "ok",
+    "normal": 125466,
+    "singular": 65800
+  },
+  {
+    "symbol": "SSVUSDT",
+    "status": "ok",
+    "normal": 337620,
+    "singular": 157872
+  },
+  {
+    "symbol": "STABLEUSDT",
+    "status": "ok",
+    "normal": 90058,
+    "singular": 47528
+  },
+  {
+    "symbol": "STARUSDT",
+    "status": "ok",
+    "normal": 43041,
+    "singular": 24743
+  },
+  {
+    "symbol": "STBLUSDT",
+    "status": "ok",
+    "normal": 103940,
+    "singular": 53927
+  },
+  {
+    "symbol": "STEEMUSDT",
+    "status": "ok",
+    "normal": 276971,
+    "singular": 131704
+  },
+  {
+    "symbol": "STOUSDT",
+    "status": "ok",
+    "normal": 132573,
+    "singular": 65441
+  },
+  {
+    "symbol": "STRKUSDT",
+    "status": "ok",
+    "normal": 249575,
+    "singular": 116492
+  },
+  {
+    "symbol": "STXUSDT",
+    "status": "ok",
+    "normal": 337490,
+    "singular": 155196
   },
   {
     "symbol": "SUIUSDT",
@@ -276,10 +2592,76 @@
     "singular": 160759
   },
   {
+    "symbol": "SUNUSDT",
+    "status": "ok",
+    "normal": 196463,
+    "singular": 94142
+  },
+  {
+    "symbol": "SUPERUSDT",
+    "status": "ok",
+    "normal": 268035,
+    "singular": 130911
+  },
+  {
+    "symbol": "SUSDT",
+    "status": "ok",
+    "normal": 163251,
+    "singular": 75083
+  },
+  {
+    "symbol": "SUSHIUSDT",
+    "status": "ok",
+    "normal": 557424,
+    "singular": 264181
+  },
+  {
+    "symbol": "SWARMSUSDT",
+    "status": "ok",
+    "normal": 158783,
+    "singular": 75907
+  },
+  {
+    "symbol": "SXTUSDT",
+    "status": "ok",
+    "normal": 136207,
+    "singular": 59907
+  },
+  {
     "symbol": "SYNUSDT",
     "status": "ok",
     "normal": 196624,
     "singular": 96966
+  },
+  {
+    "symbol": "SYRUPUSDT",
+    "status": "ok",
+    "normal": 142031,
+    "singular": 72927
+  },
+  {
+    "symbol": "TACUSDT",
+    "status": "ok",
+    "normal": 106168,
+    "singular": 53178
+  },
+  {
+    "symbol": "TAGUSDT",
+    "status": "ok",
+    "normal": 109228,
+    "singular": 56369
+  },
+  {
+    "symbol": "TAIKOUSDT",
+    "status": "ok",
+    "normal": 123194,
+    "singular": 60827
+  },
+  {
+    "symbol": "TAKEUSDT",
+    "status": "ok",
+    "normal": 99094,
+    "singular": 47751
   },
   {
     "symbol": "TAOUSDT",
@@ -288,10 +2670,154 @@
     "singular": 119145
   },
   {
+    "symbol": "TAUSDT",
+    "status": "ok",
+    "normal": 106066,
+    "singular": 53942
+  },
+  {
+    "symbol": "THETAUSDT",
+    "status": "ok",
+    "normal": 589087,
+    "singular": 241110
+  },
+  {
+    "symbol": "THEUSDT",
+    "status": "ok",
+    "normal": 167235,
+    "singular": 75854
+  },
+  {
+    "symbol": "TIAUSDT",
+    "status": "ok",
+    "normal": 278135,
+    "singular": 131447
+  },
+  {
+    "symbol": "TLMUSDT",
+    "status": "ok",
+    "normal": 319798,
+    "singular": 150664
+  },
+  {
+    "symbol": "TNSRUSDT",
+    "status": "ok",
+    "normal": 236093,
+    "singular": 108127
+  },
+  {
+    "symbol": "TOSHIUSDT",
+    "status": "ok",
+    "normal": 103442,
+    "singular": 52654
+  },
+  {
+    "symbol": "TOWNSUSDT",
+    "status": "ok",
+    "normal": 111850,
+    "singular": 56043
+  },
+  {
+    "symbol": "TRADOORUSDT",
+    "status": "ok",
+    "normal": 87297,
+    "singular": 37319
+  },
+  {
+    "symbol": "TRBUSDT",
+    "status": "ok",
+    "normal": 546589,
+    "singular": 257399
+  },
+  {
+    "symbol": "TREEUSDT",
+    "status": "ok",
+    "normal": 111060,
+    "singular": 54184
+  },
+  {
+    "symbol": "TRIAUSDT",
+    "status": "ok",
+    "normal": 69301,
+    "singular": 34341
+  },
+  {
     "symbol": "TRUMPUSDT",
     "status": "ok",
     "normal": 153753,
     "singular": 66782
+  },
+  {
+    "symbol": "TRUSTUSDT",
+    "status": "ok",
+    "normal": 85909,
+    "singular": 44383
+  },
+  {
+    "symbol": "TRUTHUSDT",
+    "status": "ok",
+    "normal": 92997,
+    "singular": 45024
+  },
+  {
+    "symbol": "TRXUSDT",
+    "status": "ok",
+    "normal": 625074,
+    "singular": 300018
+  },
+  {
+    "symbol": "TSTUSDT",
+    "status": "ok",
+    "normal": 145255,
+    "singular": 69314
+  },
+  {
+    "symbol": "TURBOUSDT",
+    "status": "ok",
+    "normal": 223683,
+    "singular": 112457
+  },
+  {
+    "symbol": "TURTLEUSDT",
+    "status": "ok",
+    "normal": 91117,
+    "singular": 48318
+  },
+  {
+    "symbol": "TUSDT",
+    "status": "ok",
+    "normal": 339824,
+    "singular": 165941
+  },
+  {
+    "symbol": "TUTUSDT",
+    "status": "ok",
+    "normal": 138912,
+    "singular": 64166
+  },
+  {
+    "symbol": "TWTUSDT",
+    "status": "ok",
+    "normal": 278463,
+    "singular": 140470
+  },
+  {
+    "symbol": "UAIUSDT",
+    "status": "ok",
+    "normal": 84850,
+    "singular": 45297
+  },
+  {
+    "symbol": "UBUSDT",
+    "status": "ok",
+    "normal": 109214,
+    "singular": 56607
+  },
+  {
+    "symbol": "UMAUSDT",
+    "status": "ok",
+    "normal": 314170,
+    "singular": 156726
   },
   {
     "symbol": "UNIUSDT",
@@ -300,10 +2826,70 @@
     "singular": 258961
   },
   {
+    "symbol": "USDCUSDT",
+    "status": "ok",
+    "normal": 841471,
+    "singular": 515383
+  },
+  {
     "symbol": "USELESSUSDT",
     "status": "ok",
     "normal": 114468,
     "singular": 60775
+  },
+  {
+    "symbol": "USTCUSDT",
+    "status": "ok",
+    "normal": 257338,
+    "singular": 127563
+  },
+  {
+    "symbol": "USUALUSDT",
+    "status": "ok",
+    "normal": 170034,
+    "singular": 82823
+  },
+  {
+    "symbol": "USUSDT",
+    "status": "ok",
+    "normal": 78594,
+    "singular": 42007
+  },
+  {
+    "symbol": "VANAUSDT",
+    "status": "ok",
+    "normal": 171654,
+    "singular": 81741
+  },
+  {
+    "symbol": "VELODROMEUSDT",
+    "status": "ok",
+    "normal": 165862,
+    "singular": 85982
+  },
+  {
+    "symbol": "VELVETUSDT",
+    "status": "ok",
+    "normal": 107587,
+    "singular": 53181
+  },
+  {
+    "symbol": "VETUSDT",
+    "status": "ok",
+    "normal": 611222,
+    "singular": 285535
+  },
+  {
+    "symbol": "VIRTUALUSDT",
+    "status": "ok",
+    "normal": 176710,
+    "singular": 90111
+  },
+  {
+    "symbol": "VTHOUSDT",
+    "status": "ok",
+    "normal": 160498,
+    "singular": 77579
   },
   {
     "symbol": "VVVUSDT",
@@ -312,10 +2898,70 @@
     "singular": 82111
   },
   {
+    "symbol": "WALUSDT",
+    "status": "ok",
+    "normal": 149450,
+    "singular": 72699
+  },
+  {
+    "symbol": "WAXPUSDT",
+    "status": "ok",
+    "normal": 280332,
+    "singular": 138394
+  },
+  {
+    "symbol": "WCTUSDT",
+    "status": "ok",
+    "normal": 142463,
+    "singular": 69939
+  },
+  {
+    "symbol": "WETUSDT",
+    "status": "ok",
+    "normal": 82474,
+    "singular": 42526
+  },
+  {
+    "symbol": "WIFUSDT",
+    "status": "ok",
+    "normal": 258376,
+    "singular": 129572
+  },
+  {
     "symbol": "WLDUSDT",
     "status": "ok",
     "normal": 294791,
     "singular": 135842
+  },
+  {
+    "symbol": "WLFIUSDT",
+    "status": "ok",
+    "normal": 100656,
+    "singular": 49726
+  },
+  {
+    "symbol": "WOOUSDT",
+    "status": "ok",
+    "normal": 419696,
+    "singular": 200333
+  },
+  {
+    "symbol": "WUSDT",
+    "status": "ok",
+    "normal": 243276,
+    "singular": 118065
+  },
+  {
+    "symbol": "XAIUSDT",
+    "status": "ok",
+    "normal": 257591,
+    "singular": 122576
+  },
+  {
+    "symbol": "XANUSDT",
+    "status": "ok",
+    "normal": 96591,
+    "singular": 49770
   },
   {
     "symbol": "XAUTUSDT",
@@ -336,6 +2982,18 @@
     "singular": 299104
   },
   {
+    "symbol": "XNYUSDT",
+    "status": "ok",
+    "normal": 109562,
+    "singular": 55478
+  },
+  {
+    "symbol": "XPINUSDT",
+    "status": "ok",
+    "normal": 98825,
+    "singular": 47452
+  },
+  {
     "symbol": "XPLUSDT",
     "status": "ok",
     "normal": 110337,
@@ -348,6 +3006,54 @@
     "singular": 282627
   },
   {
+    "symbol": "XTZUSDT",
+    "status": "ok",
+    "normal": 607460,
+    "singular": 281186
+  },
+  {
+    "symbol": "XVGUSDT",
+    "status": "ok",
+    "normal": 302984,
+    "singular": 145652
+  },
+  {
+    "symbol": "XVSUSDT",
+    "status": "ok",
+    "normal": 327925,
+    "singular": 159520
+  },
+  {
+    "symbol": "YBUSDT",
+    "status": "ok",
+    "normal": 92385,
+    "singular": 49562
+  },
+  {
+    "symbol": "YFIUSDT",
+    "status": "ok",
+    "normal": 553833,
+    "singular": 252140
+  },
+  {
+    "symbol": "YGGUSDT",
+    "status": "ok",
+    "normal": 295580,
+    "singular": 135779
+  },
+  {
+    "symbol": "ZAMAUSDT",
+    "status": "ok",
+    "normal": 76579,
+    "singular": 43215
+  },
+  {
+    "symbol": "ZBTUSDT",
+    "status": "ok",
+    "normal": 93050,
+    "singular": 49047
+  },
+  {
     "symbol": "ZECUSDT",
     "status": "ok",
     "normal": 609073,
@@ -358,5 +3064,95 @@
     "status": "ok",
     "normal": 539297,
     "singular": 253301
+  },
+  {
+    "symbol": "ZEREBROUSDT",
+    "status": "ok",
+    "normal": 161999,
+    "singular": 78868
+  },
+  {
+    "symbol": "ZESTUSDT",
+    "status": "ok",
+    "normal": 36708,
+    "singular": 19631
+  },
+  {
+    "symbol": "ZETAUSDT",
+    "status": "ok",
+    "normal": 255303,
+    "singular": 117086
+  },
+  {
+    "symbol": "ZILUSDT",
+    "status": "ok",
+    "normal": 571152,
+    "singular": 262391
+  },
+  {
+    "symbol": "ZKCUSDT",
+    "status": "ok",
+    "normal": 98677,
+    "singular": 50580
+  },
+  {
+    "symbol": "ZKPUSDT",
+    "status": "ok",
+    "normal": 78023,
+    "singular": 42526
+  },
+  {
+    "symbol": "ZKUSDT",
+    "status": "ok",
+    "normal": 221785,
+    "singular": 105973
+  },
+  {
+    "symbol": "ZORAUSDT",
+    "status": "ok",
+    "normal": 117327,
+    "singular": 57436
+  },
+  {
+    "symbol": "ZROUSDT",
+    "status": "ok",
+    "normal": 222786,
+    "singular": 108525
+  },
+  {
+    "symbol": "ZRXUSDT",
+    "status": "ok",
+    "normal": 584393,
+    "singular": 284631
+  },
+  {
+    "symbol": "哈基米USDT",
+    "status": "ok",
+    "normal": 15341,
+    "singular": 8496
+  },
+  {
+    "symbol": "币安人生USDT",
+    "status": "ok",
+    "normal": 89495,
+    "singular": 46239
+  },
+  {
+    "symbol": "我踏马来了USDT",
+    "status": "ok",
+    "normal": 67928,
+    "singular": 36751
+  },
+  {
+    "symbol": "牛来USDT",
+    "status": "ok",
+    "normal": 18660,
+    "singular": 10836
+  },
+  {
+    "symbol": "龙虾USDT",
+    "status": "ok",
+    "normal": 55641,
+    "singular": 29815
   }
 ]

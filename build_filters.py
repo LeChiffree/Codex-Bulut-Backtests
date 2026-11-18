@@ -3,6 +3,7 @@ from pathlib import Path
 import json, os, requests, duckdb, pandas as pd, numpy as np
 
 ROOT=Path(__file__).resolve().parent; OUT=ROOT/'results'; DATA=ROOT/'data/1h'; TRADES_GLOB=os.environ.get('FILTER_TRADES_GLOB',f'{OUT}/by_symbol/*_trades.parquet')
+OUT.mkdir(parents=True,exist_ok=True)
 def ema(s,n): return s.ewm(span=n,adjust=False,min_periods=n).mean()
 def rsi(s,n=14):
  d=s.diff();u=d.clip(lower=0).ewm(alpha=1/n,adjust=False,min_periods=n).mean();v=(-d.clip(upper=0)).ewm(alpha=1/n,adjust=False,min_periods=n).mean();return 100-100/(1+u/v)
@@ -42,6 +43,8 @@ daily=pd.DataFrame({'date':idx.floor('D')},index=idx).merge(fg[['date','value']]
 for op,val in [('ge',25),('ge',40),('ge',50),('ge',60),('ge',75),('le',25)]:
  k=f'fng_{op}_{val}';state[k]=(daily>=val if op=='ge' else daily<=val).fillna(False);defs[k]=f'Korku-Açgözlülük {">=" if op=="ge" else "<="} {val}'
 state.insert(0,'entry_time',idx);state.to_parquet(OUT/'filter_states.parquet',index=False,compression='zstd');(OUT/'filter_definitions.json').write_text(json.dumps(defs,ensure_ascii=False,indent=2))
+if os.environ.get('FILTER_STATES_ONLY') == '1':
+ print('filter states',len(defs),'rows',len(state));raise SystemExit(0)
 filters=list(defs); cols=[]
 for k in filters:
  cond='TRUE' if k=='baseline' else f's."{k}"'

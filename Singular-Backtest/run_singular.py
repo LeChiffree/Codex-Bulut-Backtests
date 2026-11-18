@@ -255,8 +255,137 @@ def _cast_counts(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def _aggregate_duckdb(out_dir: Path, scope: str, cfg: dict,
+                      scenarios: list[tuple[int, str]]) -> dict:
+    """Aggregate large universes without materializing all trades in RAM."""
+    import duckdb
+
+    names = {int(sid): title for sid, title in scenarios}
+    con = duckdb.connect(str(out_dir / "aggregate.duckdb"))
+    con.execute("PRAGMA threads=6")
+    con.execute("PRAGMA memory_limit='8GB'")
+    for view, folder in (("n", "normal_trades"), ("s", "singular_trades")):
+        pattern = (out_dir / folder / "*.parquet").as_posix().replace("'", "''")
+        con.execute(f"CREATE OR REPLACE VIEW {view} AS SELECT * FROM read_parquet('{pattern}')")
+
+    metric_names = ["trades", "wins", "losses", "win_rate", "avg_ret",
+                    "ret2026", "avg_r", "win_hold_h", "profit_days",
+                    "loss_days", "symbols", "compounded", "max_loss_r"]
+
+    def metrics(view: str, keys: list[str], prefix: str) -> pd.DataFrame:
+        select_keys = ",".join(keys)
+        group = f" GROUP BY {select_keys}" if keys else ""
+        comma = f"{select_keys}," if keys else ""
+        join = " AND ".join(f"b.{k}=x.{k}" for k in keys) or "TRUE"
+        base = con.execute(f"""
+            SELECT {comma}
+              count(*)::BIGINT trades,
+              sum((r_multiple>0)::INT)::BIGINT wins,
+              sum((r_multiple<=0)::INT)::BIGINT losses,
+              avg((r_multiple>0)::INT) win_rate,
+              avg(return)*100 avg_ret,
+              avg(return) FILTER (WHERE year(exit_time)=2026)*100 ret2026,
+              avg(r_multiple) avg_r,
+              avg(date_diff('second',entry_time,exit_time)/3600.0)
+                FILTER (WHERE r_multiple>0) win_hold_h,
+              count(DISTINCT symbol)::BIGINT symbols,
+              min(r_multiple) max_loss_r
+            FROM {view}{group}
+        """).df()
+        comp = con.execute(f"""
+            WITH per_symbol AS (
+              SELECT {comma} symbol,
+                exp(sum(ln(greatest(1+return,1e-12))))-1 value
+              FROM {view} GROUP BY {comma} symbol
+            )
+            SELECT {comma} avg(value)*100 compounded FROM per_symbol{group}
+        """).df()
+        daily = con.execute(f"""
+            WITH d AS (
+              SELECT {comma} date_trunc('day',exit_time) exit_day, sum(return) value
+              FROM {view} GROUP BY {comma} exit_day
+            )
+            SELECT {comma} sum((value>0)::INT)::BIGINT profit_days,
+              sum((value<0)::INT)::BIGINT loss_days FROM d{group}
+        """).df()
+        result = base
+        for extra in (comp, daily):
+            result = (result.merge(extra, on=keys, how="left") if keys
+                      else pd.concat([result.reset_index(drop=True),
+                                      extra.reset_index(drop=True)], axis=1))
+        for name in metric_names:
+            if name not in result:
+                result[name] = 0
+        result = result.fillna(0)
+        return result.rename(columns={n: f"{prefix}{n}" for n in metric_names})
+
+    nm = metrics("n", ["scenario_id", "timeframe"], "n_")
+    sm = metrics("s", ["scenario_id", "timeframe"], "s_")
+    merged = _cast_counts(nm.merge(sm, on=["scenario_id", "timeframe"], how="left").fillna(0))
+    rows = []
+    for r in merged.itertuples(index=False):
+        d = r._asdict(); sid = int(d.pop("scenario_id")); tf = str(d.pop("timeframe"))
+        blocked = int(d["n_trades"] - d["s_trades"])
+        rows.append({"sid": sid, "name": names.get(sid, ""), "tf": tf,
+                     "blocked": blocked,
+                     "blocked_pct": blocked / d["n_trades"] * 100 if d["n_trades"] else 0,
+                     **d})
+
+    coin_sql = lambda view, p: con.execute(f"""
+        SELECT scenario_id,timeframe,symbol,count(*)::BIGINT {p}trades,
+          avg(return)*100 {p}avg_ret,avg((r_multiple>0)::INT) {p}win_rate,
+          avg(r_multiple) {p}avg_r,
+          (exp(sum(ln(greatest(1+return,1e-12))))-1)*100 {p}compounded
+        FROM {view} GROUP BY scenario_id,timeframe,symbol
+    """).df()
+    cm = coin_sql("n", "n_").merge(coin_sql("s", "s_"),
+        on=["scenario_id", "timeframe", "symbol"], how="left").fillna(0)
+    coins = [{"sid": int(r.scenario_id), "tf": str(r.timeframe),
+              "symbol": str(r.symbol), "blocked": int(r.n_trades-r.s_trades),
+              "n_trades": int(r.n_trades), "n_avg_ret": float(r.n_avg_ret),
+              "n_win_rate": float(r.n_win_rate), "n_compounded": float(r.n_compounded),
+              "s_trades": int(r.s_trades), "s_avg_ret": float(r.s_avg_ret),
+              "s_win_rate": float(r.s_win_rate), "s_compounded": float(r.s_compounded)}
+             for r in cm.itertuples(index=False)]
+
+    nsc = metrics("n", ["scenario_id"], "n_")
+    ssc = metrics("s", ["scenario_id"], "s_")
+    scenario_rows = []
+    for r in _cast_counts(nsc.merge(ssc, on="scenario_id", how="left").fillna(0)).itertuples(index=False):
+        d = r._asdict(); sid = int(d.pop("scenario_id"))
+        scenario_rows.append({"sid": sid, "name": names.get(sid, ""),
+                              "blocked": int(d["n_trades"]-d["s_trades"]), **d})
+
+    def total(view: str) -> dict:
+        d = metrics(view, [], "").iloc[0].to_dict()
+        d["combinations"] = int(con.execute(
+            f"SELECT count(*) FROM (SELECT DISTINCT scenario_id,timeframe FROM {view})"
+        ).fetchone()[0])
+        return {k: (int(v) if k in {"trades","wins","losses","profit_days","loss_days","symbols","combinations"} else float(v)) for k,v in d.items()}
+
+    normal_total, singular_total = total("n"), total("s")
+    bounds = con.execute("SELECT min(entry_time),max(exit_time),count(DISTINCT symbol) FROM n").fetchone()
+    payload = {"repo": "Codex-Bulut-Backtests",
+      "generated_at": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
+      "rule": "Aynı stratejide (senaryoda) aynı coin için aynı anda en fazla bir açık işlem. Sinyal, işlem açıkken gelirse bloke edilir.",
+      "scope": scope,
+      "data": {"symbols": int(bounds[2]), "start": str(bounds[0]), "end": str(bounds[1]),
+               "timeframes": list(cfg["timeframes"]),
+               "source": "D:/1mdatabinance (monthly 1h CSV history merged with daily 1m parquet, resampled to UTC 1h)"},
+      "totals": {"normal": normal_total, "singular": singular_total,
+                 "blocked": int(normal_total["trades"]-singular_total["trades"])},
+      "strategies": rows, "scenarios": scenario_rows, "coins": coins}
+    (out_dir / "singular_results.json").write_text(json.dumps(_round_floats(payload), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    pd.DataFrame(rows).to_csv(out_dir / "singular_summary.csv", index=False)
+    pd.DataFrame(coins).to_csv(out_dir / "singular_coins.csv", index=False)
+    con.close()
+    return payload
+
+
 def aggregate(out_dir: Path, scope: str, cfg: dict,
               scenarios: list[tuple[int, str]]) -> dict:
+    if len(list((out_dir / "normal_trades").glob("*.parquet"))) > 150:
+        return _aggregate_duckdb(out_dir, scope, cfg, scenarios)
     names = {int(sid): title for sid, title in scenarios}
     cols = ["symbol", "timeframe", "scenario_id", "side", "signal_time",
             "entry_time", "exit_time", "r_multiple", "return", "exit_reason"]
@@ -382,6 +511,8 @@ def aggregate(out_dir: Path, scope: str, cfg: dict,
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", type=Path, default=ROOT)
     ap.add_argument("--data-dir", type=Path, default=ROOT / "data" / "1h")
@@ -396,6 +527,8 @@ def main() -> None:
     ap.add_argument("--from-cache", action="store_true",
                     help="reuse normal_trades parquet and only rebuild singular")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--aggregate-only", action="store_true",
+                    help="skip symbol processing and rebuild summaries from existing parquet files")
     args = ap.parse_args()
 
     cfg = json.loads((args.root / "config.json").read_text(encoding="utf-8"))
@@ -416,20 +549,21 @@ def main() -> None:
           f"scope={args.scope} | workers={args.workers}", flush=True)
     jobs = [(p.stem, str(p), str(args.out), cfg, scenarios, args.scope,
              args.force, args.from_cache) for p in files]
-    manifest = []
-    with cf.ProcessPoolExecutor(max_workers=args.workers) as ex:
-        for i, res in enumerate(ex.map(process_symbol, jobs), 1):
-            manifest.append(res)
-            if res.get("status") == "error":
-                print(f"[{i}/{len(jobs)}] {res['symbol']}: ERROR {res['error']}",
-                      flush=True)
-                print(res.get("trace", ""), flush=True)
-            else:
-                print(f"[{i}/{len(jobs)}] {res['symbol']}: {res['status']} "
-                      f"normal={res.get('normal', '-')} "
-                      f"singular={res.get('singular', '-')}", flush=True)
-    (args.out / "run_manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    if not args.aggregate_only:
+        manifest = []
+        with cf.ProcessPoolExecutor(max_workers=args.workers) as ex:
+            for i, res in enumerate(ex.map(process_symbol, jobs), 1):
+                manifest.append(res)
+                if res.get("status") == "error":
+                    print(f"[{i}/{len(jobs)}] {res['symbol']}: ERROR {res['error']}",
+                          flush=True)
+                    print(res.get("trace", ""), flush=True)
+                else:
+                    print(f"[{i}/{len(jobs)}] {res['symbol']}: {res['status']} "
+                          f"normal={res.get('normal', '-')} "
+                          f"singular={res.get('singular', '-')}", flush=True)
+        (args.out / "run_manifest.json").write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     payload = aggregate(args.out, args.scope, cfg, scenarios)
     print(f"strategies={len(payload['strategies'])} "
