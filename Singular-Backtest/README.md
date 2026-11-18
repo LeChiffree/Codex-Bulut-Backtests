@@ -126,3 +126,23 @@ Yorum:
 - Bloke oranı, aynı senaryoda aynı coinde aynı anda birden fazla sinyalin
   biriktiği durumlarda doğal olarak yüksektir; bu, kuralın çalıştığının
   göstergesidir.
+
+## Filtre düzeyi tekil sonuçlar
+
+Normal laboratuvar 56 filtreyi işlem sonrası uygular. `run_filters_singular.py`,
+aynı filtre durumlarını kullanarak **her filtre için ayrı** tekil tarama yapar ve
+`results/filter_singular.json` üretir:
+
+```powershell
+python build_filters.py                       # results/filter_states.parquet (ağ gerekir)
+python Singular-Backtest/run_filters_singular.py
+```
+
+Çıktı anahtarı `scenario_id|timeframe|filter_id`; değerler `trades`, `wins`,
+`losses`, `retAll`, `ret2026`, `winRatio`, `winHoldH`, `profitDays`, `lossDays`.
+All-in dashboard, bu dosyayı senaryo adı + TF + filtre etiketiyle eşleştirip
+Allinone tablosundaki `(S)` sütunlarını doldurur.
+
+`filter_normal.json` aynı aday işlem ve filtre durumlarından **normal** (tekil
+olmayan) metrikleri üretir; dashboard Codex normal sütunlarını bu dosyayla
+hizalayıp kaynak tablodaki şişmiş işlem sayılarını düzeltir.
