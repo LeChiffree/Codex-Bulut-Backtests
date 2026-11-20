@@ -140,13 +140,16 @@ aynı filtre durumlarını kullanarak **her filtre için ayrı** tekil tarama ya
 
 ```powershell
 $env:FILTER_STATES_ONLY='1'; python build_filters.py  # filtre durumları (ağ gerekir)
-python Singular-Backtest/run_filters_singular.py
+python Singular-Backtest/run_filters_singular.py --workers 10
 ```
 
 Çıktı anahtarı `scenario_id|timeframe|filter_id`; değerler `trades`, `wins`,
-`losses`, `retAll`, `ret2026`, `winRatio`, `winHoldH`, `profitDays`, `lossDays`.
-All-in dashboard, bu dosyayı senaryo adı + TF + filtre etiketiyle eşleştirip
-Allinone tablosundaki `(S)` sütunlarını doldurur.
+`losses`, `retAll`, `ret2026`, `winRatio`, `winHoldH`, `profitDays`, `lossDays`,
+`profitWeeks`, `lossWeeks`, `profitMonths`, `lossMonths`.
+Gün/hafta/ay sayıları tek tek sembollerde değil, **tüm sembollerin günlük
+P/L'si toplandıktan sonra portföy düzeyinde** hesaplanır. All-in dashboard, bu
+dosyayı senaryo adı + TF + filtre etiketiyle eşleştirip Allinone tablosundaki
+`(S)` sütunlarını doldurur.
 
 Teorik katalog kapsamı `220 strateji x 56 filtre x 4 TF = 49.280` ayrı
 senaryodur. 526 coinle coin bazlı teorik kapsam 25.921.280 kombinasyondur;

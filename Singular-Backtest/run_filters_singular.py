@@ -59,6 +59,20 @@ def month_key_of_days(days):
     return out
 
 
+# Günlük P/L serisi, semboller arasında toplandıktan sonra gün/hafta/ay
+# sayılarına çevrilir. Dizi aralığı veri kümesini rahatça kapsar; aralık
+# dışındaki işlemler sessizce atlanır.
+TIMEFRAMES = ("1h", "4h", "1d", "1w")
+DAY0 = int(np.datetime64("2019-01-01").astype("datetime64[D]").astype(np.int64))
+N_DAYS = int((np.datetime64("2027-01-01") - np.datetime64("2019-01-01"))
+             .astype("timedelta64[D]").astype(np.int64))
+_ABS_DAYS = np.arange(DAY0, DAY0 + N_DAYS, dtype=np.int64)
+_WEEK_INDEX = ((_ABS_DAYS + 3) // 7).astype(np.int64)
+_MONTH_INDEX = month_key_of_days(_ABS_DAYS).astype(np.int64)
+_WEEK_INDEX -= _WEEK_INDEX.min()
+_MONTH_INDEX -= _MONTH_INDEX.min()
+
+
 @njit(cache=True)
 def greedy(entry, exit_, mask, scen_idx, n_scen):
     last = np.full(n_scen, -1, np.int64)
@@ -81,9 +95,15 @@ def load_defs():
 
 
 def agg_groups(g):
-    """(scenario_id, timeframe) bazında tekil/normal metrikler (vektörel)."""
+    """(scenario_id, timeframe) bazında metrikler ve günlük P/L serisi.
+
+    Gün/hafta/ay sayıları burada hesaplanmaz: tek bir sembolün günlük
+    serisinden sayım yapmak, semboller arası aynı günün kâr/zararını
+    birbirinden koparır. Günlük seri döndürülür, tüm semboller toplandıktan
+    sonra `finalize_periods` sayımları üretir.
+    """
     if len(g) == 0:
-        return None
+        return None, None
     g = g.copy()
     r = g["return"].to_numpy(np.float64)
     xt = g["exit_time"].to_numpy("datetime64[ns]").astype(np.int64)
@@ -95,28 +115,14 @@ def agg_groups(g):
     g["_n26"] = y26.astype(np.int64)
     g["_durwin"] = np.where(r > 0, dur_h, 0.0)
     g["_dur"] = dur_h
-    day = xt // 86_400_000_000_000
-    g["_day"] = day
+    g["_day"] = xt // 86_400_000_000_000
     grp = g.groupby(["scenario_id", "timeframe"], sort=False)
     out = grp.agg(n=("return", "size"), wins=("_win", "sum"), sumret=("return", "sum"),
                   sum26=("_r26", "sum"), n26=("_n26", "sum"),
                   durwin=("_durwin", "sum"), dursum=("_dur", "sum"))
     d = (g.groupby(["scenario_id", "timeframe", "_day"], sort=False)["return"]
          .sum().reset_index(name="sumret"))
-    d["_week"] = (d["_day"].to_numpy(np.int64) + 3) // 7
-    d["_month"] = month_key_of_days(d["_day"].to_numpy(np.int64))
-
-    def period_counts(key, prefix):
-        x = (d.groupby(["scenario_id", "timeframe", key], sort=False)["sumret"]
-             .sum().reset_index())
-        x["pos"] = (x["sumret"] > 0).astype(np.int64)
-        x["neg"] = (x["sumret"] < 0).astype(np.int64)
-        c = x.groupby(["scenario_id", "timeframe"], sort=False)[["pos", "neg"]].sum()
-        return c.rename(columns={"pos": prefix + "pos", "neg": prefix + "neg"})
-
-    return (out.join(period_counts("_day", ""))
-               .join(period_counts("_week", "w"))
-               .join(period_counts("_month", "m")))
+    return out, d
 
 
 def metrics_from_row(row):
@@ -131,46 +137,78 @@ def metrics_from_row(row):
         ret2026=float(row["sum26"] / row["n26"]) if row["n26"] else 0.0,
         winRatio=(wins / losses) if losses else None,
         winHoldH=float(row["durwin"] / wins) if wins else None,
-        profitDays=int(row["pos"]),
-        lossDays=int(row["neg"]),
-        profitWeeks=int(row["wpos"]),
-        lossWeeks=int(row["wneg"]),
-        profitMonths=int(row["mpos"]),
-        lossMonths=int(row["mneg"]),
     )
 
 
 def accumulate(store, fid, frame):
-    """Sembol bazlı toplamları anahtar bazında biriktir."""
+    """Sembol bazlı metrik toplamlarını anahtar bazında biriktir."""
     if frame is None:
         return
     for (sid, tf), row in frame.iterrows():
         key = (fid, int(sid), tf)
         a = store.get(key)
         if a is None:
-            a = store[key] = np.zeros(12, np.float64)
+            a = store[key] = np.zeros(7, np.float64)
         a[0] += row["n"]
         a[1] += row["wins"]
         a[2] += row["sumret"]
         a[3] += row["sum26"]
         a[4] += row["n26"]
         a[5] += row["durwin"]
-        a[6] += row["pos"]
-        a[7] += row["neg"]
-        a[8] += row["wpos"]
-        a[9] += row["wneg"]
-        a[10] += row["mpos"]
-        a[11] += row["mneg"]
 
 
-def finalize(store):
+def accumulate_daily(store, fid, daily, key_idx):
+    """Bir sembolün günlük P/L serisini (filtre, senaryo, TF) matrisine ekle.
+
+    Matris satırı (senaryo, TF), sütunu UTC günüdür. Aynı matrise tüm
+    semboller eklendiği için gün/hafta/ay kâr-zararı portföy düzeyinde
+    hesaplanır.
+    """
+    if daily is None or daily.empty:
+        return
+    a = store.get(fid)
+    if a is None:
+        a = store[fid] = np.zeros((len(key_idx), N_DAYS), np.float64)
+    for (sid, tf), g in daily.groupby(["scenario_id", "timeframe"], sort=False):
+        row = key_idx.get((int(sid), tf))
+        if row is None:
+            continue
+        days = g["_day"].to_numpy(np.int64) - DAY0
+        vals = g["sumret"].to_numpy(np.float64)
+        valid = (days >= 0) & (days < N_DAYS)
+        if not valid.all():
+            days, vals = days[valid], vals[valid]
+        if len(days):
+            a[row, days] += vals
+
+
+def finalize_periods(store, key_idx):
+    """Dolu günlük matrislerden portföy düzeyinde dönem sayılarını üret."""
+    out = {}
+    for fid, a in store.items():
+        for (sid, tf), row in key_idx.items():
+            v = a[row]
+            w = np.bincount(_WEEK_INDEX, weights=v)
+            m = np.bincount(_MONTH_INDEX, weights=v)
+            out[(fid, sid, tf)] = (
+                int(np.count_nonzero(v > 0)), int(np.count_nonzero(v < 0)),
+                int(np.count_nonzero(w > 0)), int(np.count_nonzero(w < 0)),
+                int(np.count_nonzero(m > 0)), int(np.count_nonzero(m < 0)),
+            )
+    return out
+
+
+def finalize(store, periods):
     out = {}
     for (fid, sid, tf), a in store.items():
-        out[(fid, sid, tf)] = metrics_from_row({
+        row = metrics_from_row({
             "n": a[0], "wins": a[1], "sumret": a[2], "sum26": a[3],
-            "n26": a[4], "durwin": a[5], "pos": a[6], "neg": a[7],
-            "wpos": a[8], "wneg": a[9], "mpos": a[10], "mneg": a[11],
+            "n26": a[4], "durwin": a[5],
         })
+        (row["profitDays"], row["lossDays"], row["profitWeeks"],
+         row["lossWeeks"], row["profitMonths"], row["lossMonths"]) = periods.get(
+            (fid, sid, tf), (0, 0, 0, 0, 0, 0))
+        out[(fid, sid, tf)] = row
     return out
 
 
@@ -186,14 +224,31 @@ _TRADE_COLS = ["symbol", "timeframe", "scenario_id", "scenario",
                "signal_time", "entry_time", "exit_time", "return", "side"]
 
 
-def process_files(file_paths, states, filters):
-    """Bir sembol dilimindeki tüm işlemleri tarar; (acc, norm, names, total_n) döner."""
+def process_files(file_paths, states, filters, sids):
+    """Sembol dosyalarını verilen senaryo dilimi için tarar.
+
+    İşçiler sembol yerine senaryo bazında bölündüğü için her (senaryo, TF)
+    anahtarının tüm sembolleri aynı işçide toplanır; gün/hafta/ay sayımları
+    eksiksiz portföy serisinden üretilir.
+    """
+    sids = [int(x) for x in sids]
+    sid_set = set(sids)
+    key_idx = {}
+    for sid in sids:
+        for tf in TIMEFRAMES:
+            key_idx[(sid, tf)] = len(key_idx)
     acc = {}
     norm = {}
     names = {}
+    period_acc = {}
+    period_norm = {}
     total_n = 0
     for path in file_paths:
-        df = pd.read_parquet(path, columns=_TRADE_COLS)
+        df = pd.read_parquet(path, columns=_TRADE_COLS,
+                             filters=[("scenario_id", "in", sids)])
+        if df.empty:
+            continue
+        df = df[df["scenario_id"].isin(sid_set)]
         if df.empty:
             continue
         for sid, nm in df[["scenario_id", "scenario"]].drop_duplicates().itertuples(index=False):
@@ -216,18 +271,21 @@ def process_files(file_paths, states, filters):
             mask = np.ones(len(df), np.bool_) if fid == "baseline" else st[fid].fillna(False).to_numpy(np.bool_)
             if not mask.any():
                 continue
-            gn = agg_groups(df[mask])
+            gn, dn = agg_groups(df[mask])
             accumulate(norm, fid, gn)
+            accumulate_daily(period_norm, fid, dn, key_idx)
             a = greedy(signal, exit_, mask, scen_idx, len(uniq))
-            ga = agg_groups(df[a])
+            ga, da = agg_groups(df[a])
             accumulate(acc, fid, ga)
-    return acc, norm, names, total_n
+            accumulate_daily(period_acc, fid, da, key_idx)
+    return (acc, norm, names, total_n,
+            finalize_periods(period_acc, key_idx), finalize_periods(period_norm, key_idx))
 
 
 def _process_chunk(args):
-    chunk, states_path, filters = args
+    chunk, states_path, filters, sids = args
     states = pd.read_parquet(states_path).set_index("entry_time").sort_index()
-    return process_files(chunk, states, filters)
+    return process_files(chunk, states, filters, sids)
 
 
 def main():
@@ -255,26 +313,36 @@ def main():
     norm = {}
     total_n = 0
     names = {}
+    periods_acc = {}
+    periods_norm = {}
 
+    # İş bölümü sembol değil senaryo bazında: böylece bir senaryonun tüm
+    # sembolleri aynı işçide işlenir ve günlük P/L portföy düzeyinde doğru
+    # toplanır.
+    all_sids = list(range(1, 221))
     nworkers = args.workers or 1
-    if nworkers > 1 and len(files) > 1:
-        nworkers = min(nworkers, len(files), os.cpu_count() or 1)
-        chunks = [files[i::nworkers] for i in range(nworkers)]
+    if nworkers > 1:
+        nworkers = min(nworkers, len(all_sids), os.cpu_count() or 1)
+        scenario_chunks = [list(c) for c in np.array_split(all_sids, nworkers)]
         ctx = multiprocessing.get_context("spawn")
-        print(f"[filters] {nworkers} işçi ile paralel tarama")
+        print(f"[filters] {nworkers} işçi ile senaryo bazlı paralel tarama")
         with ctx.Pool(nworkers) as pool:
-            results = pool.map(_process_chunk, [(c, args.states, filters) for c in chunks])
-        for acc_i, norm_i, names_i, tn in results:
+            results = pool.map(_process_chunk,
+                               [(files, args.states, filters, c) for c in scenario_chunks])
+        for acc_i, norm_i, names_i, tn, pa, pn in results:
             merge_store(acc, acc_i)
             merge_store(norm, norm_i)
             names.update(names_i)
             total_n += tn
+            periods_acc.update(pa)
+            periods_norm.update(pn)
     else:
-        acc, norm, names, total_n = process_files(files, states, filters)
+        acc, norm, names, total_n, periods_acc, periods_norm = \
+            process_files(files, states, filters, all_sids)
 
     print(f"[filters] toplam {total_n:,} aday işlem tarandı")
-    acc = finalize(acc)
-    norm = finalize(norm)
+    acc = finalize(acc, periods_acc)
+    norm = finalize(norm, periods_norm)
 
     out = {}
     for (fid, sid, tf), m in acc.items():
@@ -316,7 +384,7 @@ def main():
             if not r:
                 continue
             checked += 1
-            if int(r["trades"]) != m["trades"] or abs((r["retAll"] or 0) - m["retAll"]) > 1e-4:
+            if int(r["trades"]) != m["trades"] or abs(float(r["retAll"] or 0) - m["retAll"] * 100.0) > 1e-4:
                 mism += 1
         print(f"[filters] normal doğrulama: {checked:,} satır, {mism:,} uyuşmazlık")
         if checked == 0:
